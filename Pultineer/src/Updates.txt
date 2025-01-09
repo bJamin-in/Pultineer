@@ -1,0 +1,19 @@
+TO DO'S:
+
+{
+Integrate rankups in combative conflicts
+Work on the Trials location
+}
+
+
+
+Add a Functionality description at the beginning of each function
+
+LAST WORKED ON:
+
+Create Goblin Horde Quest
+Create Goblin Horde battle in the forest
+
+BUG FIXES:
+
+Battle enemy faster loop
