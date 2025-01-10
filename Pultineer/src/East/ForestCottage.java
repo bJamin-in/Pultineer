@@ -85,7 +85,7 @@ public class ForestCottage {
             System.out.println(
                     "\nYou knock at the door. From inside, you hear Gherald speak out, \n\nGherald: \"One moment, please.\" \n\nA few seconds later, the door opens and, as Gherald sees you, he sparks up");
 
-            delay(1500);
+            delay(2000);
             System.out.println(
                     "\nGherald: \"Ah! Welcome back my friend, I'm glad to have you. What might I be able to assist you with?\n");
         } else if (user.getHasMetGherald() == false) {
@@ -93,7 +93,7 @@ public class ForestCottage {
             System.out.println(
                     "\nYou knock at the door of the cottage. Inside you hear a voice speak out,\n\n???: \"Yes, yes, I'll be right there.\" \n\nA moment later, the door swings open to reveal an old man with a long pointed white beard.");
 
-            delay(1500);
+            delay(4000);
             System.out.println(
                     "\nGherald: Ah! You must be the one that's making all the rustle and bustle eh? My name is Gherald. Tell me, what \nbrings you here? Might you need some help in your adventure? I can supply one with potions, for a price of \ncourse.\n");
             user.setHasMetGherald(true);

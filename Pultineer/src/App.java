@@ -140,6 +140,11 @@ public class App {
         }
     }// End of get3Direction
 
+    // Turn in Quest items
+    public static void returnQuestItems(Player user){
+        user.setHasQuestItem(false);
+        user.setQuestAccepted(false);
+    }
     // #region ArrayMethods
     // ^ getDirections: ARRAY METHODS
     // Move player in one of four different directions: 1 Array
@@ -230,6 +235,7 @@ public class App {
     // #endregion Funcs and Methods
 
     // #region Main
+    @SuppressWarnings("unused")
     public static void main(String[] args) throws Exception {
 
         // #region Starting Info
@@ -312,6 +318,7 @@ public class App {
                 }
                 if (playerInput.toLowerCase().equals("cottage")) {
                     user.setPlayerX(2);
+                    user.setPlayerY(0);
                 }
                 
                 // #endregion
@@ -362,6 +369,7 @@ public class App {
 
                     System.out.println(darkForest.getMessage());
 
+                    Functions.delay(2000);
                     // Battle
                     battleState = true;
                     gameState = Battle.battle(playerInput, battleState, gameState, goblin, user, keys, rnd, 10, 3);
@@ -496,6 +504,7 @@ public class App {
             while (user.getPlayerX() == 3 && user.getPlayerY() == 0) {
                 DarkerForest darkerForest = new DarkerForest();
 
+                //Wolf Battle
                 // ! If user is not a disciple and hasnt accepted a quest
                 if (!(user.getRank().toLowerCase().contains("disciple")) && (user.getQuestAccepted() == false)) {
                     if (wolfDead == false) {
@@ -519,16 +528,17 @@ public class App {
                         break;
                     } // End of if(wolfDead == false)
                 }
+                //Goblin Horde battle
                 // ! If user is a disciple and has accepted the quest
                 else if ((user.getRank().toLowerCase().contains("disciple")) && (user.getQuestAccepted() == true)) {
                     System.out.println(
                             "\nYou walk about the forest and hear a goblin rustling in a bush. When you approach the goblin to attack, four more jump \nout at you!");
                     // #region Enemy Horde
-                    Enemy goblin1 = new Enemy(20, 5, 2, 4, 6, 3, "Goblin");
-                    Enemy goblin2 = new Enemy(20, 5, 2, 4, 6, 3, "Goblin");
-                    Enemy goblin3 = new Enemy(20, 5, 2, 4, 6, 3, "Goblin");
-                    Enemy goblin4 = new Enemy(20, 5, 2, 4, 6, 3, "Goblin");
-                    Enemy goblin5 = new Enemy(20, 5, 2, 4, 6, 3, "Goblin");
+                    Enemy goblin1 = new Enemy(25, 10, 5, 4, 6, 3, "Goblin");
+                    Enemy goblin2 = new Enemy(25, 10, 5, 4, 6, 3, "Goblin");
+                    Enemy goblin3 = new Enemy(25, 10, 5, 4, 6, 3, "Goblin");
+                    Enemy goblin4 = new Enemy(25, 10, 5, 4, 6, 3, "Goblin");
+                    Enemy goblin5 = new Enemy(25, 10, 5, 4, 6, 3, "Goblin");
                     Enemy[] enemies = new Enemy[5];
                     enemies[0] = goblin1;
                     enemies[1] = goblin2;
@@ -710,7 +720,7 @@ public class App {
                     switch (get3Direction(playerInput, "pray", "talk", "leave")) {
                         // Pray
                         case 0:
-                            //^ Wanderer Quest
+                            //^ Wanderer Rankup
                             if (user.getRank().toLowerCase().contains("wanderer")) {
                                 System.out.println(
                                         "\nYou kneel at the alter and pray for a few minutes before standing up to leave. As you turn around you see the priest \nstanding before you. He says to you\n\nPriest: \"I see that you have substantial talent. Follow me inside.\"\n");
@@ -771,7 +781,7 @@ public class App {
                                         user.setBoardUnlocked(true);
                                         Functions.delay(3000);
                             }
-                            //^ Follower QUest
+                            //^ Follower Quest
                             // ! If the player is the follower rank and hasnt accepted the quest yet
                             else if (user.getRank().toLowerCase().contains("follower")
                                     && user.getQuestAccepted() == false) {
@@ -799,13 +809,14 @@ public class App {
                                     }
                                 } // End of while playerinput != yes or no
                             } // ! End of if (userRank is follower and user hasnt accepted quest)
-                              // ! If the player is the follower rank and has the quest item
+                            //^ Follower Rankup
+                            // ! If the player is the follower rank and has the quest item
                             else if (user.getRank().toLowerCase().contains("follower")
                                     && user.getQuestAccepted() == true && user.getHasQuestItem() == true) {
                                 System.out.println(
                                         "\nPriest: \"Ah! You have my potion. Much thanks for you.\nThe Priest takes the potion from you\"\n");
-                                user.setHasQuestItem(false);
-                                user.setQuestAccepted(false);
+                                        Functions.delay(1500);
+                                returnQuestItems(user);
                                 rankUp(2, user);
                             }
                             break;

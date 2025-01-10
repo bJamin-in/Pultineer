@@ -271,6 +271,25 @@ public class Battle extends Player {
                         System.out.println("\nYou attack the " + enemies[attackedEnemy].getName() + "!");
                         enemies[attackedEnemy].setHealth(enemies[attackedEnemy].getHealth()
                                 - (user.getAttack() - enemies[attackedEnemy].getDefense()));
+
+                        // Ends the battle if enemy dies
+                        for (int x = 0; x < enemies.length; x++) {
+                            if (enemies[attackedEnemy].getHealth() <= 0) {
+                                System.out.println(
+                                        "\nYou defeated the " + enemies[attackedEnemy].getName() + "! You got "
+                                                + enemies[x].getXpValue()
+                                                + " XP and " + enemies[attackedEnemy].getGoldValue() + " gold.");
+                                user.setXp(user.getXp() + enemies[attackedEnemy].getXpValue());
+                                user.setGold(user.getGold() + enemies[attackedEnemy].getGoldValue());
+                                deadEnemies++;
+                                if (deadEnemies == enemies.length) {
+                                    System.out.println("\nYou defeated all the " + enemies[0].getName()
+                                            + "s! You revel in your victory for a moment before moving onward.");
+                                    battleState = false;
+                                }
+                                break;
+                            }
+                        }
                     }
                     playerTurn = false;
                     break;
@@ -318,23 +337,6 @@ public class Battle extends Player {
                 break;
             }
 
-            // Ends the battle if enemy dies
-            for (int x = 0; x < enemies.length; x++) {
-                if (enemies[x].getHealth() <= 0) {
-                    System.out.println(
-                            "\nYou defeated the " + enemies[x].getName() + "! You got " + enemies[x].getXpValue()
-                                    + " XP and " + enemies[x].getGoldValue() + " gold.");
-                    user.setXp(user.getXp() + enemies[x].getXpValue());
-                    user.setGold(user.getGold() + enemies[x].getGoldValue());
-                    deadEnemies++;
-                    if (deadEnemies == enemies.length) {
-                        System.out.println("\nYou defeated all the " + enemies[0].getName()
-                                + "s! You revel in your victory for a moment before moving onward.");
-                        battleState = false;
-                    }
-                    break;
-                }
-            }
             // Delay
             Functions.delay(2000);
 

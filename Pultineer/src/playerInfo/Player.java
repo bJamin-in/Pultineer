@@ -12,7 +12,7 @@ public class Player {
     protected boolean hasMetGherald = false, hasSnuckAround = false, goneThroughHole = false,
      questAccepted = false, hasQuestItem = false, boardUnlocked = false;
     
-    //Getters
+    //#region Getters
     //Stats
     public String getName() {
         return name;
@@ -80,7 +80,8 @@ public class Player {
     public boolean getHasQuestItem() {
         return hasQuestItem;
     }
-
+    //#endregion Getters
+    //#region Setters
     //Setters
     //Player stats
     public void setName(String name) {
@@ -149,7 +150,9 @@ public class Player {
     public void setHasQuestItem(boolean hasQuestItem) {
         this.hasQuestItem = hasQuestItem;
     }
-
+    //#endregionSetters
+    
+    //#region Constructors
     //Constructors
     //Parameterized
     public Player(String name, String rank, int health, int totalHealth, int attack, int defense, int agility, int level, int xp, int gold, int xpLimit, int playerX, int playerY) {
