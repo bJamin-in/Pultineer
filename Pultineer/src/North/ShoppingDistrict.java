@@ -1,12 +1,14 @@
 package North;
 
 import java.util.*;
+
+import Funcs.Functions;
 import playerInfo.*;
 
 public class ShoppingDistrict {
     private String message;
     public String[][] shopGoods = { { "Wooden Sword", "10", "5" }, { "Leather Armor", "15", "5" },
-            { "Health Potion", "5", "10" } };
+            { "Health Potion", "10", "5" } };
 
     public void printGoods() {
 
@@ -42,7 +44,7 @@ public class ShoppingDistrict {
                 // Merchant
                 if (playerInput.toLowerCase().contains("merchant")) {
                     System.out.println(
-                            "\nYou walk up to the merchant. The merchant greets you with a smile. \nMerchant: \"Ahh helloo there! Care to buy some goods?\" You look at what his shop has to offer.\n");
+                            "\nYou walk up to the merchant. The merchant greets you with a smile. \nMerchant: \"Ahh helloo there! Care to buy some goods? The potion thouh, I only have the one! Limited stock, yes!\" You look at what his shop has to offer.\n");
                     printGoods();
 
                     System.out.println("\n You have " + user.getGold() + " gold.");
@@ -56,6 +58,7 @@ public class ShoppingDistrict {
                     System.out.println("\nYou continue traveling through the town.");
                     user.setPlayerY(user.getPlayerY() + 1);
                     merchant = false;
+                    Functions.delay(1500);
                     break;
                 }
 
@@ -87,10 +90,11 @@ public class ShoppingDistrict {
                 // Invalid Selection
                 else {
                     if (user.getGoneThroughHole() == true) {
-                        System.out.println("Improper input. Please try again.(Merchant/Continue/Hole/Back)");
+                        System.out.println("\nImproper input. Please try again.(Merchant/Continue/Hole/Back)");
                     } else {
-                        System.out.println("Improper Input. Please try again.(Merchant/Continue/Back)");
+                        System.out.println("\nImproper Input. Please try again.(Merchant/Continue/Back)");
                     }
+                    Functions.delay(1500);
                     System.out.println(this.getMessage());
                     playerInput = keys.nextLine();
                 }

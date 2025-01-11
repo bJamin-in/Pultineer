@@ -151,7 +151,6 @@ public class Player {
         this.hasQuestItem = hasQuestItem;
     }
     //#endregionSetters
-    
     //#region Constructors
     //Constructors
     //Parameterized
@@ -193,6 +192,8 @@ public class Player {
     //^ FOR BATTLE CLASS DO NOT MODIFIY
     public Player(){}
 
+    //#endregion Constructors
+    
     @Override
     public String toString() {
         return name + " the " + rank + "\nHealth: " + health + "\nAttack: " + attack + "\nDefense: " + defense + "\nAgility: " + agility + "\nXP: " + xp + "\nLevel: " + level + "\nGold: " + gold;
@@ -216,7 +217,7 @@ public class Player {
         //Fuctionality: Gives a short description for each rank the player can achieve
         //Follower
         if(user.getRank().equals("Follower")){
-            System.out.println("You have become a follower. Knowing little of Eryndros, the god of craftsmanship, but showing the strive to learn, your efforts have been \nacknowledged.");
+            System.out.println("You have become a follower. Knowing little of Eryndros, the god of craftsmanship, but showing the strive to learn, \nyour efforts have been acknowledged.");
         }
 
         //Disciple

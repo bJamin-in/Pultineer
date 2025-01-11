@@ -45,7 +45,7 @@ public class Town {
                 break;
 
             default:
-                System.out.println("\nGuard: \"I don't know what you're talking about! Get out of here!\" He spits towards you\n");
+                System.out.println("\nGuard: \"I don't know what you're talking about! Get out of here!\" He spits towards you and kicks you back to town\n");
                 user.setPlayerY(user.getPlayerY() - 1);
                 break;
         }//End of switch

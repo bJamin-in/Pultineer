@@ -10,8 +10,11 @@ public class ForestCottage {
     private String message;
     private Scanner keys = new Scanner(System.in);
     private String input = "";
+    private String[][] originalShop = { { "Health Potion", "15", "10" }, { "Strength Potion", "20", "5" },
+            { "Speed Potion", "10", "3" }, { "Hardiness Potion", "20", "3" } };
     private String[][] shop = { { "Health Potion", "15", "10" }, { "Strength Potion", "20", "5" },
             { "Speed Potion", "10", "3" }, { "Hardiness Potion", "20", "3" } };
+
     private boolean keepShopping = true;
 
     // Gets
@@ -26,10 +29,16 @@ public class ForestCottage {
     public String[][] getShop() {
         return shop;
     }
+    public String[][] getOriginalShop() {
+        return originalShop;
+    }
 
     // Sets
     public void setMessage(String message) {
         this.message = message;
+    }
+    public void setShop(String[][] shop) {
+        this.shop = shop;
     }
 
     private void printGoods() {
@@ -59,18 +68,18 @@ public class ForestCottage {
         // Player has already snuck around previously
         if (user.getHasSnuckAround() == true) {
             System.out.println(
-                    "\nYou sneak around the cottage just as you have before, except this time there is silence. You are once again met with the path that leads to the Dire Wolf.");
+                    "\nYou sneak around the cottage just as you have before, except this time there is silence. You are once again met with the path that leads to the darker parts of the forest.");
         }
         // Player has not snuck around previously
         else if (user.getHasSnuckAround() == false && user.getHasMetGherald() == false) {
-            user.setHasSnuckAround(true);
+            
             System.out.println(
                     "\nYou sneak around the edge of the cottage. Reaching the back, you see an open window where an old man is talking to someone.\n\n ???: Hef, bring me the mugwort. I need to finish this potion. I cannot risk anyone getting deeper into the forest.\n\nYou hear a small squawk and a small creature flies to the old man with a small plant in its beak. You decide to turn around and go back to the front of the cottage, but you see a small beaten down path going deeper into the forest. Do you tread this path or go back to the front of the cottage?\n");
         }
         // Player has not snuck around previously(Changed from above to show Gheralds
         // name)
         else if (user.getHasSnuckAround() == false && user.getHasMetGherald() == true) {
-            user.setHasSnuckAround(true);
+            
             System.out.println(
                     "\nYou sneak around the edge of the cottage. Reaching the back, you see an open window where an old man is talking to someone.\n\n Gherald: \"Hef, bring me the mugwort. I need to finish this potion. I cannot risk anyone getting deeper into the forest.\"\n\nYou hear a small squawk and a small creature flies to the old man with a small plant in its beak. You decide to turn around and go back to the front of the cottage, but you see a small beaten down path going deeper into the forest. Do you tread this path or go back to the front of the cottage?\n");
         }
@@ -80,6 +89,7 @@ public class ForestCottage {
         // Functionality: Print out the following lines of text to depict the player
         // knocking on the cottage door
 
+        //If user has seen Gherald before
         if (user.getHasMetGherald() == true) {
             // Prints this set of text if the player has met Gherald before
             System.out.println(
@@ -88,7 +98,9 @@ public class ForestCottage {
             delay(2000);
             System.out.println(
                     "\nGherald: \"Ah! Welcome back my friend, I'm glad to have you. What might I be able to assist you with?\n");
-        } else if (user.getHasMetGherald() == false) {
+        } 
+        //If user hasnt met Gherald
+        else if (user.getHasMetGherald() == false) {
             // Prints this set of text if the player has not met Gherald
             System.out.println(
                     "\nYou knock at the door of the cottage. Inside you hear a voice speak out,\n\n???: \"Yes, yes, I'll be right there.\" \n\nA moment later, the door swings open to reveal an old man with a long pointed white beard.");
@@ -117,7 +129,7 @@ public class ForestCottage {
             // ! if (input.toLower contains "shop", or "continue")
             if (input.toLowerCase().contains("shop") || input.toLowerCase().contains("continue")) {
                 System.out.println(
-                        "\nGherald: Ah, you're interested in my wares. I have a few potions that could help you on your journey. Here is what I have:\n");
+                        "\nGherald: Ah, you're interested in my wares. I have a few potions that could help you on your journey. Here is what I have currently:\n");
 
                 printGoods();
 
@@ -140,6 +152,9 @@ public class ForestCottage {
                             System.out.println(
                                     "\nYou drink the potion and feel a surge of energy. Your health has increased by "
                                             + shop[0][2] + " points.");
+                            
+                            //Remove the potion
+                            setShop(Functions.removeArrayElement(getShop(), 0));
                         } else {
                             System.out.println("\nYou do not have enough gold to purchase this item.");
                         }
@@ -157,6 +172,9 @@ public class ForestCottage {
                             System.out.println(
                                     "\nYou drink the potion and feel a surge of energy. Your strength has increased by "
                                             + shop[1][2] + " points.");
+
+                            //Remove the potion
+                            setShop(Functions.removeArrayElement(getShop(), 1));
                         } else {
                             System.out.println("\nYou do not have enough gold to purchase this item.");
                         }
@@ -174,6 +192,9 @@ public class ForestCottage {
                             System.out.println(
                                     "\nYou drink the potion and feel a surge of energy. Your speed has increased by "
                                             + shop[2][2] + " points.");
+
+                            //Remove the potion
+                            setShop(Functions.removeArrayElement(getShop(), 2));
                         } else {
                             System.out.println("\nYou do not have enough gold to purchase this item.");
                         }
@@ -191,6 +212,9 @@ public class ForestCottage {
                             System.out.println(
                                     "\nYou drink the potion and feel a surge of energy. Your defense has increased by "
                                             + shop[3][2] + " points.");
+
+                            //Remove the potion
+                            setShop(Functions.removeArrayElement(getShop(), 3));
                         } else {
                             System.out.println("\nYou do not have enough gold to purchase this item.");
                         }
@@ -258,7 +282,7 @@ public class ForestCottage {
                 System.out.println(
                         "\nGherald: \"Oh? You're picking up a potion for the Priest in town? Let me go get that potion for him.\"");
                         delay(1500);
-                        System.out.println("\nHe walks towards his cabinets as he shoves bottles to the side, Gherald eventually brings out a teal \ncolored bottle and hands it to you.");
+                        System.out.println("\nHe walks towards his cabinets as he shoves bottles to the side, Gherald eventually brings out a teal \ncolored bottle and hands it to you.\n\nGherald: \"Make sure to tell the Priest to be careful with this, it's quite dangerous.\"\nGherald leads you to the door of his cottage as you exit, he closes the door behind you.");
                 user.setHasQuestItem(true);
                 break;
             } // End of if(input contains talk, user rank is follower, and user has accepted quest)

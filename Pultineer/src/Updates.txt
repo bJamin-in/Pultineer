@@ -9,8 +9,7 @@ Add a Functionality description at the beginning of each function
 
 LAST WORKED ON:
 
-Pumped up Goblin Horde stats
-Increased thread delays in specific areas
+A lot
 
 BUG FIXES:
 

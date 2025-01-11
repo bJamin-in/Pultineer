@@ -242,9 +242,9 @@ public class Battle extends Player {
                         System.out.println(enemies[x].getName() + " " + (x + 1) + "\nHP:"
                                 + enemies[x].getHealth() + "\nATK:" + enemies[x].getAttack() + " AGI:"
                                 + enemies[x].getAgility());
+                        // Delay
+                        Functions.delay(2000);
                     }
-                    // Delay
-                    Functions.delay(2000);
 
                 }
                 // Prints player info
@@ -286,6 +286,7 @@ public class Battle extends Player {
                                     System.out.println("\nYou defeated all the " + enemies[0].getName()
                                             + "s! You revel in your victory for a moment before moving onward.");
                                     battleState = false;
+                                    break;
                                 }
                                 break;
                             }
@@ -318,7 +319,8 @@ public class Battle extends Player {
                         System.out.println("\nYou're unable to run away!");
                         playerTurn = false;
                     } else {
-                        System.out.println("\nYou successfully run away!");
+                        System.out.println("\nYou successfully run away back to the cottgae!");
+                        Functions.movePlayer(-1, 0, user);
                         battleState = false;
                         break;
                     }
@@ -367,6 +369,9 @@ public class Battle extends Player {
                         // Enemy Attacks
                         if (rnd.nextInt(2) + 1 == 1) {
 
+                            if(enemies[x].getAttack() < user.getDefense()){
+                                System.out.println("\nThe " + enemies[x] + " " + (x + 1) + "'s attack bounces off your armor!");
+                            }
                             System.out.println("\n" + enemies[x].getName() + " " + (x + 1) + " attacks you!\n");
                             user.setHealth(user.getHealth() - (enemies[x].getAttack() - user.getDefense()));
 
