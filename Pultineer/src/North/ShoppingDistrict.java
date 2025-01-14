@@ -44,7 +44,7 @@ public class ShoppingDistrict {
                 // Merchant
                 if (playerInput.toLowerCase().contains("merchant")) {
                     System.out.println(
-                            "\nYou walk up to the merchant. The merchant greets you with a smile. \nMerchant: \"Ahh helloo there! Care to buy some goods? The potion thouh, I only have the one! Limited stock, yes!\" You look at what his shop has to offer.\n");
+                            "\nYou walk up to the merchant. The merchant greets you with a smile. \nMerchant: \"Ahh helloo there! Care to buy some goods? The potion though, I only have the one! Limited stock, yes!\" You look at what his shop has to offer.\n");
                     printGoods();
 
                     System.out.println("\n You have " + user.getGold() + " gold.");

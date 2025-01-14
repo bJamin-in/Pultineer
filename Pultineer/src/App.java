@@ -18,7 +18,7 @@ import Funcs.*;
  * This is a text based Java game created and developed by Benjamin James
  * This game was started in December of 2023, with the goal
  * of creating a fully working, challenging and fun, text based adventure game.
- * This game was last updated in January 11th, 2025
+ * This game was last updated in January 13th, 2025
  * 
  * NOTE:
  * All Pseudocode is written in red comments that follows the indications of VSC extension:   
@@ -347,6 +347,11 @@ public class App {
                     user.setPlayerX(2);
                     user.setPlayerY(0);
                 }
+                //? LVL 8
+                else if(playerInput.toLowerCase().equals("wiseman")){
+                    user.setXp(311);
+                    Battle.levelUp(user, playerInput, keys);
+                }
 
                 // #endregion
 
@@ -513,10 +518,10 @@ public class App {
                 // Turn Back
                 else if (Functions.checkArray(backAnswers, playerInput)) {
                     System.out.println("\nYou turn back and head to a smoke stack in the distance.");
-                    user.setPlayerY(0);
+                    Functions.movePlayer(0, -1, user);
                 }
                 //Invalid input
-                else if (Functions.checkArray(backAnswers, playerInput)
+                else if (!(Functions.checkArray(backAnswers, playerInput))
                         && !(playerInput.toLowerCase().contains("squeeze"))) {
                     System.out.println("\nInvalid input. Please try again.(Squeeze/Back)");
                 }
@@ -649,8 +654,14 @@ public class App {
                 // Buying items from the merchant
                 do {
 
+                    // Leave
+                    if (playerInput.toLowerCase().contains("exit")) {
+                        keepShopping = false;
+                        break;
+                    }
+
                     // Wooden Sword
-                    if (playerInput.toLowerCase()
+                    else if (playerInput.toLowerCase()
                             .contains(townShopGoods[0][0].toLowerCase())) {
                         storeCost = Integer.parseInt(townShopGoods[0][1]);
                         //If user already has wooden sword
@@ -718,11 +729,6 @@ public class App {
                         }
                     } // End of Health Potion
 
-                    // Leave
-                    else if (playerInput.toLowerCase().contains("exit")) {
-                        keepShopping = false;
-                        break;
-                    }
                     // Invalid Selection
                     else {
                         System.out.println("Item not found.");

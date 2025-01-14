@@ -128,8 +128,18 @@ public class ForestCottage {
             // Shop
             // ! if (input.toLower contains "shop", or "continue")
             if (input.toLowerCase().contains("shop") || input.toLowerCase().contains("continue")) {
+                try{
+                if(getShop()[0][0].isEmpty()){
+                    System.out.println("\nGherald: \"I am sorry, but you have bought all of my available potions!\n");
+                        break;
+                }
+            }
+            catch(ArrayIndexOutOfBoundsException e){
+                System.out.println("\nGherald: \"I am sorry, but you have bought all of my available potions!\n");
+                break;
+            }
                 System.out.println(
-                        "\nGherald: Ah, you're interested in my wares. I have a few potions that could help you on your journey. Here is what I have currently:\n");
+                        "\nGherald: Ah, you're interested in my wares. I have a few potions that could help you on your journey. Here is \nwhat I have currently:\n");
 
                 printGoods();
 
@@ -140,69 +150,139 @@ public class ForestCottage {
 
                 do {
 
+                    boolean repeat = true;
+                    do {
+                    // Leave
+                    if (input.toLowerCase().contains("exit")) {
+                        keepShopping = false;
+                        break;
+                    }
                     // Health Potion
-                    if (input.toLowerCase()
-                            .contains(getShop()[0][0].toLowerCase())) {
+                    else if (getShop()[0][0].isEmpty() == false) {
+                                if(input.toLowerCase()
+                                .contains(getShop()[0][0].toLowerCase())){
                         int storeCost = Integer.parseInt(getShop()[0][1]);
                         if (user.getGold() >= storeCost) {
                             user.setGold(user.getGold() - storeCost);
 
                             // Drink potion and add buff to player
+                            if(getShop()[0][0].toLowerCase().contains("health")){
                             user.setTotalHealth(user.getTotalHealth() + Integer.parseInt(shop[0][2]));
                             System.out.println(
                                     "\nYou drink the potion and feel a surge of energy. Your health has increased by "
                                             + shop[0][2] + " points.");
+                            }
+                            //Strength potion
+                            else if(getShop()[0][0].toLowerCase().contains("strength")){
+                                // Drink potion and add buff to player
+                            user.setAttack(user.getAttack() + Integer.parseInt(shop[0][2]));
+                            System.out.println(
+                                    "\nYou drink the potion and feel a surge of energy. Your strength has increased by "
+                                            + shop[0][2] + " points.");
+                            }
+                            //Speed
+                            else if(getShop()[0][0].toLowerCase().contains("speed")){
+                                // Drink potion and add buff to player
+                            user.setAgility(user.getAgility() + Integer.parseInt(shop[0][2]));
+                            System.out.println(
+                                    "\nYou drink the potion and feel a surge of energy. Your speed has increased by "
+                                            + shop[0][2] + " points.");
+                            }
+                            //Hardiness
+                            else if(getShop()[0][0].toLowerCase().contains("Hardiness")){
+                                // Drink potion and add buff to player
+                            user.setDefense(user.getDefense() + Integer.parseInt(shop[3][2]));
+                            System.out.println(
+                                    "\nYou drink the potion and feel a surge of energy. Your defense has increased by "
+                                            + shop[0][2] + " points.");
+                            }
                             
                             //Remove the potion
                             setShop(Functions.removeArrayElement(getShop(), 0));
                         } else {
                             System.out.println("\nYou do not have enough gold to purchase this item.");
                         }
+                    }
                     } // End of Health Potion
 
                     // Strength Potion
-                    else if (input.toLowerCase()
-                            .contains(getShop()[1][0].toLowerCase())) {
+                    else if (getShop()[1][0].isEmpty() == false) {
+                                if(input.toLowerCase()
+                                .contains(getShop()[1][0].toLowerCase())){
                         int storeCost = Integer.parseInt(getShop()[1][1]);
                         if (user.getGold() >= storeCost) {
                             user.setGold(user.getGold() - storeCost);
 
                             // Drink potion and add buff to player
+                            if(getShop()[1][0].toLowerCase().contains("strength")){
                             user.setAttack(user.getAttack() + Integer.parseInt(shop[1][2]));
                             System.out.println(
                                     "\nYou drink the potion and feel a surge of energy. Your strength has increased by "
                                             + shop[1][2] + " points.");
-
+                            }
+                            //Speed
+                            else if(getShop()[1][0].toLowerCase().contains("speed")){
+                                // Drink potion and add buff to player
+                            user.setAgility(user.getAgility() + Integer.parseInt(shop[0][2]));
+                            System.out.println(
+                                    "\nYou drink the potion and feel a surge of energy. Your speed has increased by "
+                                            + shop[1][2] + " points.");
+                            }
+                            //Hardiness
+                            else if(getShop()[1][0].toLowerCase().contains("Hardiness")){
+                                // Drink potion and add buff to player
+                            user.setDefense(user.getDefense() + Integer.parseInt(shop[3][2]));
+                            System.out.println(
+                                    "\nYou drink the potion and feel a surge of energy. Your defense has increased by "
+                                            + shop[1][2] + " points.");
+                            }
                             //Remove the potion
                             setShop(Functions.removeArrayElement(getShop(), 1));
                         } else {
                             System.out.println("\nYou do not have enough gold to purchase this item.");
                         }
+                    }
                     } // End of Strength Potion
 
                     // Speed Potion
-                    else if (input.toLowerCase()
-                            .contains(getShop()[2][0].toLowerCase())) {
+                    else if (getShop()[2][0].isEmpty() == false) {
+                                if(input.toLowerCase()
+                                .contains(getShop()[2][0].toLowerCase())){
                         int storeCost = Integer.parseInt(getShop()[2][1]);
                         if (user.getGold() >= storeCost) {
                             user.setGold(user.getGold() - storeCost);
 
-                            // Drink potion and add buff to player
-                            user.setAgility(user.getAgility() + Integer.parseInt(shop[2][2]));
+                            //Speed
+                            if(getShop()[2][0].toLowerCase().contains("speed")){
+                                // Drink potion and add buff to player
+                            user.setAgility(user.getAgility() + Integer.parseInt(shop[0][2]));
                             System.out.println(
                                     "\nYou drink the potion and feel a surge of energy. Your speed has increased by "
                                             + shop[2][2] + " points.");
+                            }
+                            //Hardiness
+                            else if(getShop()[2][0].toLowerCase().contains("Hardiness")){
+                                // Drink potion and add buff to player
+                            user.setDefense(user.getDefense() + Integer.parseInt(shop[3][2]));
+                            System.out.println(
+                                    "\nYou drink the potion and feel a surge of energy. Your defense has increased by "
+                                            + shop[2][2] + " points.");
+                            }
 
                             //Remove the potion
                             setShop(Functions.removeArrayElement(getShop(), 2));
                         } else {
                             System.out.println("\nYou do not have enough gold to purchase this item.");
                         }
+                                }
                     } // End of Speed Potion
 
                     // Hardiness Potion
-                    else if (input.toLowerCase()
-                            .contains(getShop()[3][0].toLowerCase())) {
+                    else if (getShop()[3][0].isEmpty() == false) {
+                                if(input.toLowerCase()
+                                .contains(getShop()[3][0].toLowerCase())){
+
+                                
                         int storeCost = Integer.parseInt(getShop()[3][1]);
                         if (user.getGold() >= storeCost) {
                             user.setGold(user.getGold() - storeCost);
@@ -218,21 +298,24 @@ public class ForestCottage {
                         } else {
                             System.out.println("\nYou do not have enough gold to purchase this item.");
                         }
+                    }
                     } // End of Hardiness Potion
 
-                    // Leave
-                    else if (input.toLowerCase().contains("exit")) {
-                        keepShopping = false;
-                        break;
-                    }
                     // Invalid Selection
                     else {
                         System.out.println("\nGherald: \"I'm sorry, I don't seem to have that item in stock.\"");
                     }
-
-                    boolean repeat = true;
-                    do {
-
+                    try{
+                    if(getShop()[0][0].isEmpty()){
+                        System.out.println("\nGherald: \"I am sorry, but you have bought all of my available potions!\n");
+                        break;
+                    }
+                }
+                catch(ArrayIndexOutOfBoundsException e){
+                    System.out.println("\nGherald: \"I am sorry, but you have bought all of my available potions!\n");
+                    input = "exit";
+                    break;
+                }
                         System.out.println("\n\nGherald: Would you like to buy something else?\n");
                         input = keys.nextLine();
 
@@ -246,6 +329,7 @@ public class ForestCottage {
                         // Continue shopping
                         else if (input.toLowerCase().contains("yes")) {
                             repeat = true;
+                            System.out.println();
                             printGoods();
                             System.out.println("(EXIT to leave)");
                             System.out.println("\n You have " + user.getGold() + " gold.");

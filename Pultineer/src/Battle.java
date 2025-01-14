@@ -256,9 +256,12 @@ public class Battle extends Player {
 
                 // Attack
                 if (getActions(playerInput) == 1) {
+                    do{
+                    try{
                     System.out.println("\nWhich enemy would you like to attack?");
                     playerInput = keys.nextLine();
                     int attackedEnemy = Integer.parseInt(playerInput) - 1;
+                    
                     if (attackedEnemy >= enemies.length) {
                         System.out.println("\nChoose a valid enemy.");
                         break;
@@ -295,6 +298,12 @@ public class Battle extends Player {
                     playerTurn = false;
                     break;
                 }
+                catch(NumberFormatException e){
+                    System.out.println("Please choose a valid number.(Ex: 1, 2, 3)");
+                }
+            }while(true);
+                }
+                
                 // Dodge
                 else if (getActions(playerInput) == 2) {
                     System.out.println("\nThere are too many enemies, you can't dodge them!");
