@@ -5,13 +5,14 @@ Integrate rankups in combative conflicts
 Work on the Trials location
 }
 
-Add a Functionality description at the beginning of each function
-
-
 LAST WORKED ON:
 
 Potion shop skipping
+Rank up wordings
+Goblin Horde kickout
+Disciple -> Squire rank up
 
 BUG FIXES:
 
 Potion shop selections
+Hardiness potion not being bought properly

@@ -18,7 +18,7 @@ import Funcs.*;
  * This is a text based Java game created and developed by Benjamin James
  * This game was started in December of 2023, with the goal
  * of creating a fully working, challenging and fun, text based adventure game.
- * This game was last updated in February 19th, 2025
+ * This game was last updated in February 20th, 2025
  * 
  * NOTE:
  * All Pseudocode is written in red comments that follows the indications of VSC extension:   
@@ -565,6 +565,9 @@ public class App {
                     else{
                         goblinsDead = true;
                         user.setHasQuestItem(true);
+
+                        System.out.println("You turn back towards the cottage, having 5 goblin ears in hand as proof of completion of the quest.");
+                        Functions.movePlayer(-1, 0, user);
                     }
                 }//End of Horde Battle
                 // Wolf Battle
@@ -776,12 +779,12 @@ public class App {
                             // ^ Wanderer Rankup
                             if (user.getRank().toLowerCase().contains("wanderer")) {
                                 System.out.println(
-                                        "\nYou kneel at the alter and pray for a few minutes before standing up to leave. As you turn around you see the priest \nstanding before you. He says to you\n\nPriest: \"I see that you have substantial talent. Follow me inside.\"\n");
+                                        "\nYou kneel at the alter and pray for a few minutes before standing up to leave. As you turn around you see the Priest \nstanding before you. He says to you\n\nPriest: \"I see that you have substantial talent. Follow me inside.\"\n");
 
                                 Functions.delay(5000);
 
                                 System.out.println(
-                                        "You follow the priest into the church as he begins to speak to you\n");
+                                        "You follow the Priest into the church as he begins to speak to you\n");
 
                                 Functions.delay(2500);
 
@@ -832,7 +835,7 @@ public class App {
                             // ! If player is the disciple rank and hasnt accepted the quest
                             else if ((user.getRank().toLowerCase().contains("disciple"))
                                     && (user.getQuestAccepted() == false)) {
-                                System.out.println("\nThe priest speaks to you:\n\nPriest: \"Ah! " + user.getName()
+                                System.out.println("\nThe Priest speaks to you:\n\nPriest: \"Ah! " + user.getName()
                                         + ", I'm glad to see that you're back. There are many things that I need done, and I recently had this \nboard installed to post church events. Instead, I think I will be using it as a local job board for the things \nthat I need done. When you want, feel free to check it out and help us here at the church!\"");
                                 user.setBoardUnlocked(true);
                                 Functions.delay(3000);
@@ -852,7 +855,7 @@ public class App {
                                         // Yes
                                         case 0:
                                             System.out.println(
-                                                    "\nPriest: \"Great! I'm glad to hear it. When you have the potion, just bring it back to me\"\n\nThe priest then turns around and leaves.");
+                                                    "\nPriest: \"Great! I'm glad to hear it. When you have the potion, just bring it back to me\"\n\nThe Priest then turns around and leaves.");
                                             user.setQuestAccepted(true);
                                             break;
 
@@ -906,7 +909,9 @@ public class App {
                         // Talk
                         case 1:
                             if(user.getRank().toLowerCase().contains("disciple") && (user.getHasQuestItem())){
-                                System.out.println("\nYou go to talk to the Priest to tell him of your recent conquest. The Priest notices you walking towards him.\n\nPriest: \"Ah! " + user.getName() + ", I'm glad you're alive.");
+                                System.out.println("\nYou go to talk to the Priest to tell him of your recent conquest. The Priest notices you walking towards him.\n\nPriest: \"Ah! " + user.getName() + ", I'm glad you're alive. I can see you took care of the Goblins in the Dark Forest, I am thankful.\nThe Priest gives a slight bow to you as he finishes speaking\n\nPriest: \"Let me go fetch your reward.\"");
+                                Functions.delay(4500);
+                                System.out.println("The Priest walks into the church and comes out a minute later carrying a small pouch and a scroll of paper");
                             }
                             else{
                             System.out.println("\nCurrently, the Priest is too busy with church matters to talk");

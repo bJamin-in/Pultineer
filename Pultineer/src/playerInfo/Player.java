@@ -227,12 +227,12 @@ public class Player {
 
         //Squire
         if(user.getRank().equals("Squire")){
-            System.out.println("You have become a Squire. You have shown great dedication and knowledge to the Church, and have been given the task of serving the Church's conquerers.");
+            System.out.println("You have become a Squire. You have shown great dedication and knowledge to the Church, and have been given the honor of serving the Church's conquerers.");
         }
 
         //Knight
         if(user.getRank().equals("Knight")){
-            System.out.println("You have become a Knight. You have shown your servitute to the Church of Eryndros, and have been given the task of serving as one of the Church's conquerers.");
+            System.out.println("You have become a Knight. You have shown your servitute to the Church of Eryndros, and have been given the privilge of serving as one of the Church's conquerers.");
         }
 
         //Paladin

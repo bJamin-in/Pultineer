@@ -204,7 +204,7 @@ public class ForestCottage {
                                 // Hardiness
                                 else if (getShop()[0][0].toLowerCase().contains("Hardiness")) {
                                     // Drink potion and add buff to player
-                                    user.setDefense(user.getDefense() + Integer.parseInt(shop[3][2]));
+                                    user.setDefense(user.getDefense() + Integer.parseInt(shop[0][2]));
                                     System.out.println(
                                             "\nYou drink the potion and feel a surge of energy. Your defense has increased by "
                                                     + shop[0][2] + " points.");
@@ -239,7 +239,7 @@ public class ForestCottage {
                                 // Speed
                                 else if (getShop()[1][0].toLowerCase().contains("speed")) {
                                     // Drink potion and add buff to player
-                                    user.setAgility(user.getAgility() + Integer.parseInt(shop[0][2]));
+                                    user.setAgility(user.getAgility() + Integer.parseInt(shop[1][2]));
                                     System.out.println(
                                             "\nYou drink the potion and feel a surge of energy. Your speed has increased by "
                                                     + shop[1][2] + " points.");
@@ -247,7 +247,7 @@ public class ForestCottage {
                                 // Hardiness
                                 else if (getShop()[1][0].toLowerCase().contains("Hardiness")) {
                                     // Drink potion and add buff to player
-                                    user.setDefense(user.getDefense() + Integer.parseInt(shop[3][2]));
+                                    user.setDefense(user.getDefense() + Integer.parseInt(shop[1][2]));
                                     System.out.println(
                                             "\nYou drink the potion and feel a surge of energy. Your defense has increased by "
                                                     + shop[1][2] + " points.");
@@ -283,7 +283,7 @@ public class ForestCottage {
                                 // Hardiness
                                 else if (getShop()[2][0].toLowerCase().contains("Hardiness")) {
                                     // Drink potion and add buff to player
-                                    user.setDefense(user.getDefense() + Integer.parseInt(shop[3][2]));
+                                    user.setDefense(user.getDefense() + Integer.parseInt(shop[2][2]));
                                     System.out.println(
                                             "\nYou drink the potion and feel a surge of energy. Your defense has increased by "
                                                     + shop[2][2] + " points.");
