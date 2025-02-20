@@ -7,10 +7,11 @@ Work on the Trials location
 
 Add a Functionality description at the beginning of each function
 
+
 LAST WORKED ON:
 
-A lot
+Potion shop skipping
 
 BUG FIXES:
 
-Battle enemy faster loop
+Potion shop selections

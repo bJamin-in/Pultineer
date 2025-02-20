@@ -18,7 +18,7 @@ import Funcs.*;
  * This is a text based Java game created and developed by Benjamin James
  * This game was started in December of 2023, with the goal
  * of creating a fully working, challenging and fun, text based adventure game.
- * This game was last updated in January 13th, 2025
+ * This game was last updated in February 19th, 2025
  * 
  * NOTE:
  * All Pseudocode is written in red comments that follows the indications of VSC extension:   
@@ -450,6 +450,7 @@ public class App {
 
                     // Sneak around
                     case 1:
+                    outer:
                         while (true) {
                             // Sneak around dialog
                             forestCottage.sneakAround(user);
@@ -458,7 +459,7 @@ public class App {
                             // Back
                             for (int x = 0; x < backAnswers.length; x++) {
                                 if (playerInput.toLowerCase().contains(backAnswers[x])) {
-                                    break;
+                                    break outer;
                                 }
                             }
                             // Continue to Dire Wolf
