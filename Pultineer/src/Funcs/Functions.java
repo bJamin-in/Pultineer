@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import playerInfo.Player;
 
+@SuppressWarnings("unused")
 public class Functions {
 
     //Function Variables

@@ -5,12 +5,12 @@ Integrate rankups in combative conflicts
 Work on the Trials location
 }
 
+Church shop location
+
 LAST WORKED ON:
 
-Potion shop skipping
-Rank up wordings
-Goblin Horde kickout
-Disciple -> Squire rank up
+Disciple -> Squire rank up & Squire quest
+Started work on Church Shop
 
 BUG FIXES:
 

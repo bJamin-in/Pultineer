@@ -18,7 +18,7 @@ import Funcs.*;
  * This is a text based Java game created and developed by Benjamin James
  * This game was started in December of 2023, with the goal
  * of creating a fully working, challenging and fun, text based adventure game.
- * This game was last updated in February 20th, 2025
+ * This game was last updated in February 22nd, 2025
  * 
  * NOTE:
  * All Pseudocode is written in red comments that follows the indications of VSC extension:   
@@ -908,11 +908,10 @@ public class App {
 
                         // Talk
                         case 1:
+                            //Disciple -> Squire rank up and quest reward
                             if(user.getRank().toLowerCase().contains("disciple") && (user.getHasQuestItem())){
-                                System.out.println("\nYou go to talk to the Priest to tell him of your recent conquest. The Priest notices you walking towards him.\n\nPriest: \"Ah! " + user.getName() + ", I'm glad you're alive. I can see you took care of the Goblins in the Dark Forest, I am thankful.\nThe Priest gives a slight bow to you as he finishes speaking\n\nPriest: \"Let me go fetch your reward.\"");
-                                Functions.delay(4500);
-                                System.out.println("The Priest walks into the church and comes out a minute later carrying a small pouch and a scroll of paper");
-                            }
+                                churchDistrict.squireRankup(user);
+                            }//^ End of if(userRank equals disciple && user has quest item)
                             else{
                             System.out.println("\nCurrently, the Priest is too busy with church matters to talk");
                             }
