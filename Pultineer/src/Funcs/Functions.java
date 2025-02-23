@@ -37,27 +37,29 @@ public class Functions {
 
     // #region ArrayMethods
     // ^ getDirections: ARRAY METHODS
+
+    //Four Directions
     // Move player in one of four different directions: 1 array
-    public static int get4Direction(String playerInput, Player user, String keyword1, String keyword2, String keyword3,
-            String[] keywords) {
+    public static int get4Direction(String playerInput, String kw1, String kw2, String kw3,
+            String[] kws) {
         // Functionality: Recieve input from the player and send them in a specified
         // direction
         // 1
-        if (playerInput.toLowerCase().contains(keyword1)) {
+        if (playerInput.toLowerCase().contains(kw1)) {
             return 1;
         }
         // 2
-        else if (playerInput.toLowerCase().contains(keyword2)) {
+        else if (playerInput.toLowerCase().contains(kw2)) {
             return 2;
         }
         // 3
-        else if (playerInput.toLowerCase().contains(keyword3)) {
+        else if (playerInput.toLowerCase().contains(kw3)) {
             return 3;
         }
 
-        for (int x = 0; x < keywords.length; x++) {
+        for (int x = 0; x < kws.length; x++) {
             // 4
-            if (playerInput.toLowerCase().contains(keywords[x])) {
+            if (playerInput.toLowerCase().contains(kws[x])) {
                 return 4;
             }
         }
@@ -68,29 +70,29 @@ public class Functions {
     }// End of get4Direction
 
     // Move player in one of four different directions: 2 Arrays
-    public static int get4Direction(String playerInput, Player user, String keyword1, String keyword2,
-            String[] keywords3,
-            String[] keywords4) {
+    public static int get4Direction(String playerInput, String kw1, String kw2,
+            String[] kws3,
+            String[] kws4) {
         // Functionality: Recieve input from the player and send them in a specified
         // direction
         // 1
-        if (playerInput.toLowerCase().contains(keyword1)) {
+        if (playerInput.toLowerCase().contains(kw1)) {
             return 1;
         }
         // 2
-        else if (playerInput.toLowerCase().contains(keyword2)) {
+        else if (playerInput.toLowerCase().contains(kw2)) {
             return 2;
         }
         // 3
-        for (int x = 0; x < keywords3.length; x++) {
-            if (playerInput.toLowerCase().contains(keywords3[x])) {
+        for (int x = 0; x < kws3.length; x++) {
+            if (playerInput.toLowerCase().contains(kws3[x])) {
                 return 3;
             }
         }
 
-        for (int x = 0; x < keywords4.length; x++) {
+        for (int x = 0; x < kws4.length; x++) {
             // 4
-            if (playerInput.toLowerCase().contains(keywords4[x])) {
+            if (playerInput.toLowerCase().contains(kws4[x])) {
                 return 4;
             }
         }
@@ -101,31 +103,31 @@ public class Functions {
     }// End of get4Direction
 
     // Move player in one of four different directions: 3 Arrays
-    public static int get4Direction(String playerInput, Player user, String keyword1, String[] keywords2,
-            String[] keywords3,
-            String[] keywords4) {
+    public static int get4Direction(String playerInput, String kw1, String[] kws2,
+            String[] kws3,
+            String[] kws4) {
         // Functionality: Recieve input from the player and send them in a specified
         // direction
         // 1
-        if (playerInput.toLowerCase().contains(keyword1)) {
+        if (playerInput.toLowerCase().contains(kw1)) {
             return 1;
         }
         // 2
-        for (int x = 0; x < keywords2.length; x++) {
-            if (playerInput.toLowerCase().contains(keywords2[x])) {
+        for (int x = 0; x < kws2.length; x++) {
+            if (playerInput.toLowerCase().contains(kws2[x])) {
                 return 2;
             }
         }
         // 3
-        for (int x = 0; x < keywords3.length; x++) {
-            if (playerInput.toLowerCase().contains(keywords3[x])) {
+        for (int x = 0; x < kws3.length; x++) {
+            if (playerInput.toLowerCase().contains(kws3[x])) {
                 return 3;
             }
         }
 
-        for (int x = 0; x < keywords4.length; x++) {
+        for (int x = 0; x < kws4.length; x++) {
             // 4
-            if (playerInput.toLowerCase().contains(keywords4[x])) {
+            if (playerInput.toLowerCase().contains(kws4[x])) {
                 return 4;
             }
         }
@@ -136,33 +138,33 @@ public class Functions {
     }// End of get4Direction
 
     // Move player in one of four different directions: 4 Arrays
-    public static int get4Direction(String playerInput, Player user, String keywords1[], String[] keywords2,
-            String[] keywords3,
-            String[] keywords4) {
+    public static int get4Direction(String playerInput, String kws1[], String[] kws2,
+            String[] kws3,
+            String[] kws4) {
         // Functionality: Recieve input from the player and send them in a specified
         // direction
         // 1
-        for (int x = 0; x < keywords1.length; x++) {
-            if (playerInput.toLowerCase().contains(keywords1[x])) {
+        for (int x = 0; x < kws1.length; x++) {
+            if (playerInput.toLowerCase().contains(kws1[x])) {
                 return 0;
             }
         }
         // 2
-        for (int x = 0; x < keywords2.length; x++) {
-            if (playerInput.toLowerCase().contains(keywords2[x])) {
+        for (int x = 0; x < kws2.length; x++) {
+            if (playerInput.toLowerCase().contains(kws2[x])) {
                 return 1;
             }
         }
         // 3
-        for (int x = 0; x < keywords3.length; x++) {
-            if (playerInput.toLowerCase().contains(keywords3[x])) {
+        for (int x = 0; x < kws3.length; x++) {
+            if (playerInput.toLowerCase().contains(kws3[x])) {
                 return 2;
             }
         }
 
-        for (int x = 0; x < keywords4.length; x++) {
+        for (int x = 0; x < kws4.length; x++) {
             // 4
-            if (playerInput.toLowerCase().contains(keywords4[x])) {
+            if (playerInput.toLowerCase().contains(kws4[x])) {
                 return 3;
             }
         }
@@ -172,20 +174,44 @@ public class Functions {
         return 0;
     }// End of get4Direction
 
+    // Three Directions
     // Move player in one of three different directions: 1 Array
-    public static int get3Direction(String playerInput, String keyword1, String keyword2, String[] keywords) {
+    public static int get3Direction(String playerInput, String kw1, String kw2, String[] kws) {
         // Functionality: Recieves input and sends the player in one of three directions
         // 1
-        if (playerInput.toLowerCase().contains(keyword1)) {
+        if (playerInput.toLowerCase().contains(kw1)) {
             return 1;
         }
         // 2
-        else if (playerInput.toLowerCase().contains(keyword2)) {
+        else if (playerInput.toLowerCase().contains(kw2)) {
             return 2;
         }
         // 3
-        for (int x = 0; x < keywords.length; x++) {
-            if (playerInput.toLowerCase().contains(keywords[x])) {
+        for (int x = 0; x < kws.length; x++) {
+            if (playerInput.toLowerCase().contains(kws[x])) {
+                return 3;
+            }
+        }
+        // Invalid Input
+        return 4;
+    }// End of get3Direction
+
+    // Move player in one of three different directions: 2 Array
+    public static int get3Direction(String playerInput, String kw1, String[] kws2, String[] kws) {
+        // Functionality: Recieves input and sends the player in one of three directions
+        // 1
+        if (playerInput.toLowerCase().contains(kw1)) {
+            return 1;
+        }
+        // 2
+        for (int x = 0; x < kws2.length; x++) {
+            if (playerInput.toLowerCase().contains(kws2[x])) {
+                return 3;
+            }
+        }
+        // 3
+        for (int x = 0; x < kws.length; x++) {
+            if (playerInput.toLowerCase().contains(kws[x])) {
                 return 3;
             }
         }
@@ -227,6 +253,35 @@ public class Functions {
     }
     // #endregion ArrayMethods
 
+    //Get direction out of five options
+    public static int get5directions(String input, String kw1, String kw2, String kw3, String kw4, String kw5){
+    //Functionality: Recieves input and returns a number depending on the directions that matches the input
+    //1
+    if(input.toLowerCase().contains(kw1)){
+        return 1;
+    }
+
+    //2
+    else if(input.toLowerCase().contains(kw2)){
+        return 2;
+    }
+
+    //3
+    else if(input.toLowerCase().contains(kw3)){
+        return 3;
+    }
+
+    //4
+    else if(input.toLowerCase().contains(kw4)){
+        return 4;
+    }
+
+    //2
+    else if(input.toLowerCase().contains(kw5)){
+        return 5;
+    }
+    else return 0;
+    }
     //Removes a specified element of an array
     public static String[][] removeArrayElement(String[][] array, int removedIndex){        
         // Create a new array with one less row

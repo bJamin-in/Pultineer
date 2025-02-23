@@ -18,7 +18,7 @@ import Funcs.*;
  * This is a text based Java game created and developed by Benjamin James
  * This game was started in December of 2023, with the goal
  * of creating a fully working, challenging and fun, text based adventure game.
- * This game was last updated in February 22nd, 2025
+ * This game was last updated in February 23rd, 2025
  * 
  * NOTE:
  * All Pseudocode is written in red comments that follows the indications of VSC extension:   
@@ -49,7 +49,7 @@ public class App {
     }
 
     // Move player in one of four different directions
-    public static int get4Direction(String playerInput, Player user, String keyword1, String keyword2, String keyword3,
+    public static int get4Direction(String playerInput, String keyword1, String keyword2, String keyword3,
             String keyword4) {
         // Functionality: Recieve input from the player and send them in a specified
         // direction
@@ -241,9 +241,10 @@ public class App {
                 noAnswers = { "no", "nevermind", "deny" }, backAnswers = { "back", "return", "reverse" };
 
         // Battle and game state variables
-        boolean gameState = true, battleState = false, wolfDead = false, goblinDead = false, goblinsDead = false, firstRun = true;
+        boolean gameState = true, battleState = false, wolfDead = false, goblinDead = false, goblinsDead = false,
+                firstRun = true, wolfOrGoblinQuest = false;
 
-        int storeCost = 0;
+        int storeCost = 0, questEnemiesKilled = 0;
 
         // Class Variables
 
@@ -251,7 +252,7 @@ public class App {
 
         Random rnd = new Random();
 
-        //Location Variables
+        // Location Variables
         ForestCottage forestCottage = new ForestCottage();
 
         ShoppingDistrict shoppingDistrict = new ShoppingDistrict();
@@ -322,7 +323,11 @@ public class App {
                 // & Testing
                 // ? Rank up Testing
                 if (playerInput.toLowerCase().equals("xoc")) {
-                    rankUp(2, user);
+                    int rankNum = 3;
+                    if (rankNum >= 2) {
+                        user.setBoardUnlocked(true);
+                    }
+                    rankUp(3, user);
                     System.out.println("Cheat activate. You are now a " + user.getRank());
                 }
                 // ? Shop Testing
@@ -347,15 +352,15 @@ public class App {
                     user.setPlayerX(2);
                     user.setPlayerY(0);
                 }
-                //? LVL 8
-                else if(playerInput.toLowerCase().equals("wiseman")){
+                // ? LVL 8
+                else if (playerInput.toLowerCase().equals("wiseman")) {
                     user.setXp(311);
                     Battle.levelUp(user, playerInput, keys);
                 }
 
                 // #endregion
 
-                switch (get4Direction(playerInput, user, "north", "south", "east", "west")) {
+                switch (get4Direction(playerInput, "north", "south", "east", "west")) {
                     // North
                     case 0:
                         Functions.movePlayer(0, 1, user);
@@ -412,6 +417,16 @@ public class App {
                     }
                     if (goblin.getHealth() <= 0) {
                         goblinDead = true;
+                        if (user.getSideQuestAccepted()) {
+                            if (wolfOrGoblinQuest) {
+                                questEnemiesKilled++;
+                                if (questEnemiesKilled == 10) {
+                                    System.out.println(
+                                            "\nYou have completed the quest from the Church. Return to the board in the Church district of town to claim your\nreward. ");
+                                            user.setSideQuestItem(true);
+                                }
+                            }
+                        }
                     } else {
                         System.out.println("\nYou ran away from the goblin. You return to Krymn to rest.");
                         Functions.movePlayer(-1, 0, user);
@@ -442,7 +457,7 @@ public class App {
             // Forest Cottage
             // ! While(player is at Forest Cottage)
             while (user.getPlayerX() == 2 && user.getPlayerY() == 0) {
-                
+
                 System.out.println(forestCottage.getMessage());
                 playerInput = keys.nextLine();
 
@@ -450,8 +465,7 @@ public class App {
 
                     // Sneak around
                     case 1:
-                    outer:
-                        while (true) {
+                        outer: while (true) {
                             // Sneak around dialog
                             forestCottage.sneakAround(user);
                             playerInput = keys.nextLine();
@@ -521,7 +535,7 @@ public class App {
                     System.out.println("\nYou turn back and head to a smoke stack in the distance.");
                     Functions.movePlayer(0, -1, user);
                 }
-                //Invalid input
+                // Invalid input
                 else if (!(Functions.checkArray(backAnswers, playerInput))
                         && !(playerInput.toLowerCase().contains("squeeze"))) {
                     System.out.println("\nInvalid input. Please try again.(Squeeze/Back)");
@@ -561,16 +575,16 @@ public class App {
                     gameState = Battle.multiBattle(playerInput, battleState, gameState, enemies, user, keys, rnd, 5);
                     if (gameState == false) {
                         break;
-                    }
-                    else{
+                    } else {
                         goblinsDead = true;
                         user.setHasQuestItem(true);
 
-                        System.out.println("You turn back towards the cottage, having 5 goblin ears in hand as proof of completion of the quest.");
+                        System.out.println(
+                                "You turn back towards the cottage, having 5 goblin ears in hand as proof of completion of the quest.");
                         Functions.movePlayer(-1, 0, user);
                     }
-                }//End of Horde Battle
-                // Wolf Battle
+                } // End of Horde Battle
+                  // Wolf Battle
                 else if (wolfDead == false) {
 
                     System.out.println(darkerForest.getMessage());
@@ -589,6 +603,16 @@ public class App {
                         System.out.println(
                                 "\nYou defeated the Dire Wolf! There doesn't seem like any other path forward, so you \nare forced to turn back.\n");
                         wolfDead = true;
+                        if (user.getSideQuestAccepted()) {
+                            if (wolfOrGoblinQuest == false) {
+                                questEnemiesKilled++;
+                                if (questEnemiesKilled >= 5) {
+                                    System.out.println(
+                                            "\nYou have completed the quest from the Church. Return to the board in the Church district of town to claim your\nreward. ");
+                                            user.setSideQuestItem(true);
+                                }
+                            }
+                        }
                     } else {
                         System.out.println("Despite the wolf's speed, you manage to get away from it.");
                     }
@@ -668,12 +692,11 @@ public class App {
                     else if (playerInput.toLowerCase()
                             .contains(townShopGoods[0][0].toLowerCase())) {
                         storeCost = Integer.parseInt(townShopGoods[0][1]);
-                        //If user already has wooden sword
-                        if(inventory.getEquipedWeapon().toLowerCase().contains("wooden sword")){
+                        // If user already has wooden sword
+                        if (inventory.getEquipedWeapon().toLowerCase().contains("wooden sword")) {
                             System.out.println("\nYou already have the Wooden Sword equipped.");
                             break;
-                        }
-                        else if (user.getGold() >= storeCost) {
+                        } else if (user.getGold() >= storeCost) {
                             user.setGold(user.getGold() - storeCost);
 
                             // Equips armor and adds the defense buff to player
@@ -693,12 +716,11 @@ public class App {
                     else if (playerInput.toLowerCase()
                             .equals(townShopGoods[1][0].toLowerCase())) {
                         storeCost = Integer.parseInt(townShopGoods[1][1]);
-                        //If user already has Leather Armor
-                        if(inventory.getEquipedArmor().toLowerCase().contains("leather armor")){
+                        // If user already has Leather Armor
+                        if (inventory.getEquipedArmor().toLowerCase().contains("leather armor")) {
                             System.out.println("\nYou already have the Leather Armor equipped");
                             break;
-                        }
-                        else if (user.getGold() >= storeCost) {
+                        } else if (user.getGold() >= storeCost) {
                             user.setGold(user.getGold() - storeCost);
 
                             // Equips armor and adds the defense buff to player
@@ -726,7 +748,7 @@ public class App {
                                     "\nYou drink the potion and feel a surge of energy. Your health has increased by "
                                             + townShopGoods[2][2] + " points.");
 
-                            //Remove the potion from the shop
+                            // Remove the potion from the shop
                             townShopGoods = Functions.removeArrayElement(townShopGoods, 2);
                         } else {
                             System.out.println("You do not have enough gold to purchase this item.");
@@ -877,7 +899,7 @@ public class App {
                                     && user.getQuestAccepted() == true && user.getHasQuestItem() == true) {
                                 System.out.println(
                                         "\nPriest: \"Ah! You have my potion. Much thanks for you.\"\nThe Priest takes the potion from you as he hands you three gold coins\n");
-                                        user.setGold(user.getGold() + 2);
+                                user.setGold(user.getGold() + 2);
                                 Functions.delay(1500);
                                 returnQuestItems(user);
                                 rankUp(2, user);
@@ -896,79 +918,189 @@ public class App {
 
                 // ! If player unlocked job board
                 else if (user.getBoardUnlocked()) {
-                    switch (get4Direction(playerInput, user, "pray", "talk", "board", "leave")) {
-                        // Pray
-                        case 0:
-                            System.out.println(
-                                    "\nThe Priest walks up to you and says:\n\nPriest: \"Oh! I'm glad to see you're back! I Hope you have been well my child. Unfortunately, I cannot talk \nfor long, I hope you have been well!\"\nHe then walks away.");
-                            Functions.delay(3000);
-                            System.out.println(
-                                    "You step up to the alter and kneel. You silently murmur a quick prayer as you feel your devotion to Eryndos grow.");
-                            break;
+                    if (user.getRank().equals("Disciple")) {
+                        switch (Functions.get4Direction(playerInput, "pray", "talk", "board", backAnswers)) {
+                            // Pray
+                            case 0:
+                                System.out.println(
+                                        "\nThe Priest walks up to you and says:\n\nPriest: \"Oh! I'm glad to see you're back! I Hope you have been well my child. Unfortunately, I cannot talk \nfor long, I hope you have been well!\"\nHe then walks away.");
+                                Functions.delay(3000);
+                                System.out.println(
+                                        "You step up to the alter and kneel. You silently murmur a quick prayer as you feel your devotion to Eryndos grow.");
+                                break;
 
-                        // Talk
-                        case 1:
-                            //Disciple -> Squire rank up and quest reward
-                            if(user.getRank().toLowerCase().contains("disciple") && (user.getHasQuestItem())){
-                                churchDistrict.squireRankup(user);
-                            }//^ End of if(userRank equals disciple && user has quest item)
-                            else{
-                            System.out.println("\nCurrently, the Priest is too busy with church matters to talk");
-                            }
-                            break;
+                            // Talk
+                            case 1:
+                                // Disciple -> Squire rank up and quest reward
+                                if (user.getRank().toLowerCase().contains("disciple") && (user.getHasQuestItem())) {
+                                    churchDistrict.squireRankup(user);
+                                } // ^ End of if(userRank equals disciple && user has quest item)
+                                else {
+                                    System.out
+                                            .println("\nCurrently, the Priest is too busy with church matters to talk");
+                                }
+                                break;
 
-                        // Board
-                        case 2:
-                            String rank = user.getRank().toLowerCase();
-                            // ^ Disciple Quest
-                            if ((rank.contains("disciple") && (user.getQuestAccepted() == false))) {
-                                boolean leaveBoard = false;
-                                // ! While playerInput isnt yes and isnt no
-                                while (leaveBoard == false) {
+                            // Board
+                            case 2:
+                                String rank = user.getRank().toLowerCase();
+                                // ^ Disciple Quest
+                                if ((rank.contains("disciple") && (user.getQuestAccepted() == false))) {
+                                    boolean leaveBoard = false;
+                                    // ! While playerInput isnt yes and isnt no
+                                    while (leaveBoard == false) {
+                                        System.out.println(
+                                                "\nYou approach the new job board to see some of the tasks. One in particular catches your eye. A horde of \ngoblins has been reported in the Dark Forest. When you read it, you hope Gherald is okay.\nAccept the quest?(yes/no)");
+                                        playerInput = keys.nextLine();
+
+                                        switch (Functions.yesOrNo(playerInput)) {
+                                            // ! Yes
+                                            case 0:
+                                                System.out.println(
+                                                        "\nYou accept the quest as you tear the posting off the board.");
+                                                user.setQuestAccepted(true);
+                                                leaveBoard = true;
+                                                break;
+
+                                            // ! No
+                                            case 1:
+                                                System.out.println(
+                                                        "\nYou stare at the paper for a few extra seconds before walking away from the board.");
+                                                leaveBoard = true;
+                                                break;
+                                            // ! Invalid
+                                            default:
+                                                System.out.println("\nInvalid input. Please try again.(yes/no)");
+                                                break;
+                                        }
+                                    } // End of while(playerInput isnt yes or no)
+                                }
+                                // If a quest is already accepted
+                                else {
+                                    System.out.println("\nYou already accepted the quest about");
+                                    if (rank.contains("disciple")) {
+                                        System.out.print(" the Goblin Horde in the Dark Forest.\n");
+                                    } // End of if(rank == disciple)
+                                }
+                                break;
+
+                            // Leave
+                            case 3:
+                                System.out.println("\nYou turn back around and head to the shopping district.");
+                                Functions.movePlayer(0, -1, user);
+                                break;
+                            default:
+                                System.out.println("\nInvalid Direction, please try again.(Pray/Talk/Board/Leave)");
+                                break;
+                        }// End of switch(get4Directions)
+                    } 
+                    //If user != Disciple
+                    else if (!user.getRank().equals("Disciple")) {
+                        switch (Functions.get5directions(playerInput, "pray", "talk", "board", "church", "leave")) {
+                            // Invalid
+                            case 0:
+                                System.out.println("Invalid answer, try again. (pray/talk/board/church/leave)");
+                                Functions.delay(1000);
+                                break;
+                            // Pray
+                            case 1:
+                                System.out.println(
+                                        "\nThe Priest walks up to you and says:\n\nPriest: \"Oh! I'm glad to see you're back! I Hope you have been well my child. Unfortunately, I cannot talk \nfor long, I hope you have been well!\"\nHe then walks away.");
+                                Functions.delay(3000);
+                                System.out.println(
+                                        "You step up to the alter and kneel. You silently murmur a quick prayer as you feel your devotion to Eryndos\ngrow.");
+                                break;
+                            // Talk
+                            case 2:
+                                System.out.println(
+                                        "\nYou find a chance to talk with the Priest as he just finished a sermon. You both spend a few minutes catching\nup.");
+                                Functions.delay(1750);
+                                break;
+                            // Board
+                            case 3:
+                                if (user.getSideQuestAccepted() == false) {
                                     System.out.println(
-                                            "\nYou approach the new job board to see some of the tasks. One in particular catches your eye. A horde of \ngoblins has been reported in the Dark Forest. When you read it, you hope Gherald is okay.\nAccept the quest?(yes/no)");
+                                            "\nYou look at the board and see nothing that stands out to you. Just a few common goblin and wolf hunting\nquests.");
+                                    Functions.delay(1000);
+                                    System.out.println(
+                                            "\n\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\     \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"
+                                                    +
+                                                    "\n\\\\     |_|      _  _|_     \\\\     \\\\     |_|      _  _|_     \\\\"
+                                                    +
+                                                    "\n\\\\     | | |_| | |  |      \\\\     \\\\     | | |_| | |  |      \\\\"
+                                                    +
+                                                    "\n\\\\                         \\\\     \\\\                         \\\\"
+                                                    +
+                                                    "\n\\\\QUEST:    KILL 10 GOBLINS\\\\     \\\\QUEST: KILL 5 DIRE WOLVES\\\\"
+                                                    +
+                                                    "\n\\\\                         \\\\     \\\\                         \\\\"
+                                                    +
+                                                    "\n\\\\                         \\\\     \\\\                         \\\\"
+                                                    +
+                                                    "\n\\\\REWARD:           25 GOLD\\\\     \\\\REWARD:           35 GOLD\\\\"
+                                                    +
+                                                    "\n\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\     \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
+
+                                    System.out.println("Do you want to take one of the quests?(yes/no)");
                                     playerInput = keys.nextLine();
 
                                     switch (Functions.yesOrNo(playerInput)) {
-                                        // ! Yes
+                                        //Yes
                                         case 0:
-                                            System.out.println(
-                                                    "\nYou accept the quest as you tear the posting off the board.");
-                                            user.setQuestAccepted(true);
-                                            leaveBoard = true;
+                                            while (true) {
+                                                System.out.println(
+                                                        "\nWhich would you like to select? Wolf or goblin hunting");
+                                                // Wolf
+                                                if (playerInput.toLowerCase().contains("wolf")) {
+                                                    System.out.println("\nYou have accepted the wolf hunting quest");
+                                                    user.setSideQuestAccepted(true);
+                                                    break;
+                                                }
+                                                // Goblin
+                                                else if (playerInput.toLowerCase().contains("goblin")) {
+                                                    System.out.println("You have taken the goblin hunting quest");
+                                                    user.setSideQuestAccepted(true);
+                                                    break;
+                                                }
+                                                // Invalid
+                                                else {
+                                                    System.out
+                                                            .println("\nInvalid Input, please try again.(wolf/goblin)");
+                                                }
+                                            }
                                             break;
-
-                                        // ! No
+                                        //No
                                         case 1:
                                             System.out.println(
-                                                    "\nYou stare at the paper for a few extra seconds before walking away from the board.");
-                                            leaveBoard = true;
+                                                    "\nYou decide not to take one of the postings and step away from the board.");
                                             break;
-                                        // ! Invalid
-                                        default:
-                                            System.out.println("\nInvalid input. Please try again.(yes/no)");
-                                            break;
+                                    }//End of switch(Func.yesOrNo())
+                                }
+                                else if(user.getSideQuestItem()){
+                                    //Goblin reward
+                                    if(wolfOrGoblinQuest){
+                                        System.out.println("You turn in your quest and you get your reward of 25 gold.");
+                                        user.setGold(user.getGold() + 25);
                                     }
-                                } // End of while(playerInput isnt yes or no)
-                            }
-                            // If a quest is already accepted
-                            else {
-                                System.out.println("\nYou already accepted the quest about");
-                                if (rank.contains("disciple")) {
-                                    System.out.print(" the Goblin Horde in the Dark Forest.\n");
-                                } // End of if(rank == disciple)
-                            }
-                            break;
-
-                        // Leave
-                        case 3:
-                            System.out.println("\nYou turn back around and head to the shopping district.");
-                            Functions.movePlayer(0, -1, user);
-                            break;
-                        default:
-                            System.out.println("\nInvalid Direction, please try again.(Pray/Talk/Board/Leave)");
-                            break;
-                    }// End of switch(get4Directions)
+                                    //Wold reward
+                                    else{
+                                    System.out.println("You turn in your quest and you get your reward of 35 gold.");
+                                    user.setGold(user.getGold() + 35);
+                                    }
+                                    //Reset quests
+                                    user.setSideQuestAccepted(false);
+                                    user.setSideQuestItem(false);
+                                }
+                                break;
+                            //Church shop
+                            case 4:
+                                System.out.println("You walk into the church to find the shop.");
+                                Functions.movePlayer(1, 0, user);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                 }
             }
             // #endregion North

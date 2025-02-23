@@ -1,3 +1,4 @@
+Last update: 0.1.06
 TO DO'S:
 
 {
@@ -5,11 +6,14 @@ Integrate rankups in combative conflicts
 Work on the Trials location
 }
 
+Church shop
+
 Church shop location
 
 LAST WORKED ON:
 
-Disciple -> Squire rank up & Squire quest
+New interaction split to go to the church shop
+Side quests: Hunting
 Started work on Church Shop
 
 BUG FIXES:

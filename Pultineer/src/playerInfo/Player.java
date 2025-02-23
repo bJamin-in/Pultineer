@@ -10,7 +10,7 @@ public class Player {
 
     //NPC, Quest, and Location Related variables
     protected boolean hasMetGherald = false, hasSnuckAround = false, goneThroughHole = false,
-     questAccepted = false, hasQuestItem = false, boardUnlocked = false;
+     questAccepted = false, sideQuestAccepted = false, sideQuestItem = false, hasQuestItem = false, boardUnlocked = false;
     
     //#region Getters
     //Stats
@@ -79,6 +79,14 @@ public class Player {
     }
     public boolean getHasQuestItem() {
         return hasQuestItem;
+    }
+
+    public boolean getSideQuestAccepted(){
+        return sideQuestAccepted;
+    }
+
+    public boolean getSideQuestItem(){
+        return sideQuestItem;
     }
     //#endregion Getters
     //#region Setters
@@ -149,6 +157,13 @@ public class Player {
     }
     public void setHasQuestItem(boolean hasQuestItem) {
         this.hasQuestItem = hasQuestItem;
+    }
+
+    public void setSideQuestAccepted(boolean sideQuestAccepted){
+        this.sideQuestAccepted = sideQuestAccepted;
+    }
+    public void setSideQuestItem(boolean sideQuestItem){
+        this.sideQuestItem = sideQuestItem;
     }
     //#endregionSetters
     //#region Constructors
@@ -256,5 +271,4 @@ public class Player {
         }
     }
 
-    
-}
+}//End of class
