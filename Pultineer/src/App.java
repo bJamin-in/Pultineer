@@ -323,7 +323,7 @@ public class App {
                 // & Testing
                 // ? Rank up Testing
                 if (playerInput.toLowerCase().equals("xoc")) {
-                    int rankNum = 3;
+                    int rankNum = 4;
                     if (rankNum >= 2) {
                         user.setBoardUnlocked(true);
                     }
@@ -423,7 +423,7 @@ public class App {
                                 if (questEnemiesKilled == 10) {
                                     System.out.println(
                                             "\nYou have completed the quest from the Church. Return to the board in the Church district of town to claim your\nreward. ");
-                                            user.setSideQuestItem(true);
+                                    user.setSideQuestItem(true);
                                 }
                             }
                         }
@@ -609,7 +609,7 @@ public class App {
                                 if (questEnemiesKilled >= 5) {
                                     System.out.println(
                                             "\nYou have completed the quest from the Church. Return to the board in the Church district of town to claim your\nreward. ");
-                                            user.setSideQuestItem(true);
+                                    user.setSideQuestItem(true);
                                 }
                             }
                         }
@@ -700,11 +700,10 @@ public class App {
                             user.setGold(user.getGold() - storeCost);
 
                             // Equips armor and adds the defense buff to player
-                            inventory.setEquipedWeapon("Wooden Sword");
-                            inventory.setWeaponValue(5);
+                            inventory.setWeapon(Integer.parseInt(townShopGoods[0][2]), townShopGoods[0][0]);
                             user.equipWeapon(inventory, user);
                             System.out.println(
-                                    "\n\nYou equipd the Wooden Sword. Swinging it around, you feel you can take on stronger monsters.(Attack increased by "
+                                    "\n\nYou equip the Wooden Sword. Swinging it around, you feel you can take on stronger monsters.(Attack increased by "
                                             + inventory.getWeaponValue() + ")");
 
                         } else {
@@ -726,9 +725,9 @@ public class App {
                             // Equips armor and adds the defense buff to player
                             inventory.setEquipedArmor(townShopGoods[1][0]);
                             inventory.setArmorValue(Integer.parseInt(townShopGoods[1][2]));
-                            user.equipArmor(inventory, user);
+                            user.donnArmor(inventory, user, townShopGoods[1][0], Integer.parseInt(townShopGoods[1][2]));
                             System.out.println(
-                                    "\nYou equipd the leather armor. You feel better protected.(Defense increased by "
+                                    "\nYou equip the leather armor. You feel better protected.(Defense increased by "
                                             + inventory.getArmorValue() + ")");
 
                         } else {
@@ -759,16 +758,9 @@ public class App {
                     else {
                         System.out.println("Item not found.");
                     }
-                    if (keepShopping) {
-                        System.out.println("\n\nMerchant: Would you like to buy something else?(yes/no)");
-                        playerInput = keys.nextLine();
-                        if (playerInput.toLowerCase().contains("no")) {
-                            keepShopping = false;
-                            break;
-                        }
-                    }
-
-                    shoppingDistrict.printGoods();
+                    Functions.delay(3000);
+                    System.out.println("\n\nMerchant: Would you like to buy something else?");
+                    shoppingDistrict.printGoods(user);
                     System.out.println("(EXIT to leave)");
 
                     System.out.println("\n You have " + user.getGold() + " gold.");
@@ -993,8 +985,8 @@ public class App {
                                 System.out.println("\nInvalid Direction, please try again.(Pray/Talk/Board/Leave)");
                                 break;
                         }// End of switch(get4Directions)
-                    } 
-                    //If user != Disciple
+                    }
+                    // If user != Disciple
                     else if (!user.getRank().equals("Disciple")) {
                         switch (Functions.get5directions(playerInput, "pray", "talk", "board", "church", "leave")) {
                             // Invalid
@@ -1045,7 +1037,7 @@ public class App {
                                     playerInput = keys.nextLine();
 
                                     switch (Functions.yesOrNo(playerInput)) {
-                                        //Yes
+                                        // Yes
                                         case 0:
                                             while (true) {
                                                 System.out.println(
@@ -1069,40 +1061,73 @@ public class App {
                                                 }
                                             }
                                             break;
-                                        //No
+                                        // No
                                         case 1:
                                             System.out.println(
                                                     "\nYou decide not to take one of the postings and step away from the board.");
                                             break;
-                                    }//End of switch(Func.yesOrNo())
-                                }
-                                else if(user.getSideQuestItem()){
-                                    //Goblin reward
-                                    if(wolfOrGoblinQuest){
-                                        System.out.println("You turn in your quest and you get your reward of 25 gold.");
+                                    }// End of switch(Func.yesOrNo())
+                                } else if (user.getSideQuestItem()) {
+                                    // Goblin reward
+                                    if (wolfOrGoblinQuest) {
+                                        System.out
+                                                .println("You turn in your quest and you get your reward of 25 gold.");
                                         user.setGold(user.getGold() + 25);
                                     }
-                                    //Wold reward
-                                    else{
-                                    System.out.println("You turn in your quest and you get your reward of 35 gold.");
-                                    user.setGold(user.getGold() + 35);
+                                    // Wold reward
+                                    else {
+                                        System.out
+                                                .println("You turn in your quest and you get your reward of 35 gold.");
+                                        user.setGold(user.getGold() + 35);
                                     }
-                                    //Reset quests
+                                    // Reset quests
                                     user.setSideQuestAccepted(false);
                                     user.setSideQuestItem(false);
                                 }
                                 break;
-                            //Church shop
+                            // Church shop
                             case 4:
                                 System.out.println("You walk into the church to find the shop.");
                                 Functions.movePlayer(1, 0, user);
                                 break;
                             default:
                                 break;
-                        }
+                        }// End of switch
                     }
                 }
-            }
+            } // End of Church District
+
+            // Church Shop
+            // ! While user.X is 1 and user.Y is 3
+            while (user.getPlayerX() == 1 && user.getPlayerY() == 3) {
+                ChurchShop cs = new ChurchShop();
+                System.out.println("\n" + cs.getMessage());
+                Functions.delay(2500);
+                
+                System.out.println("\nArmorer: \"Ah what can I do ye for?\"");
+                playerInput = keys.nextLine();
+                if (playerInput.toLowerCase().contains("shop")) {
+                    System.out.println(
+                            "\nArmorer: \"Ah! So yer interested in the Church's undesireables! Well, lemme show ya our stock.");
+                    cs.printGoods(user);
+                    playerInput = keys.nextLine();
+                    //Steel Sword
+                    if(playerInput.toLowerCase().contains(cs.getShopItem(0, 0).split(" ")[0])){
+                        int storeTotal = Integer.parseInt(cs.getShopItem(0, 1));
+                        if(user.getGold() >= storeTotal){
+                            user.setGold(user.getGold() - storeTotal);
+                        }
+
+                    }//End of Steel Sword
+
+                    else if (playerInput.toLowerCase().contains(cs.getShopItem(1, 0).split(" ")[0])){
+
+                    }
+
+                }//End of shoppingn sequence
+
+            } // End of Church Shop
+
             // #endregion North
 
             checkGameState(keys, gameState);

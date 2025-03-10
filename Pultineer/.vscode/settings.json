@@ -7,5 +7,6 @@
     "terminal.integrated.cursorStyle": "line",
     "C_Cpp.default.customConfigurationVariables": {
         
-    }
+    },
+    "CodeGPT.apiKey": "CodeGPT Plus Beta"
 }

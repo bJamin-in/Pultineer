@@ -5,7 +5,7 @@ public class PlayerInventory {
     //Variables
     private int emptySpaces = 9, armorValue, weaponValue;
     private String[] inventory = new String[emptySpaces];
-    private String equipedArmor, equipedWeapon;
+    private String equippedArmor, equippedWeapon;
 
     //Getters
     public int getEmptySpaces() {
@@ -15,10 +15,10 @@ public class PlayerInventory {
         return inventory;
     }
     public String getEquipedArmor() {
-        return equipedArmor;
+        return equippedArmor;
     }
     public String getEquipedWeapon() {
-        return equipedWeapon;
+        return equippedWeapon;
     }
     public int getArmorValue() {
         return armorValue;
@@ -34,11 +34,11 @@ public class PlayerInventory {
     public void setInventory(String[] inventory) {
         this.inventory = inventory;
     }
-    public void setEquipedArmor(String equipedArmor) {
-        this.equipedArmor = equipedArmor;
+    public void setEquipedArmor(String equippedArmor) {
+        this.equippedArmor = equippedArmor;
     }
-    public void setEquipedWeapon(String equipedWeapon) {
-        this.equipedWeapon = equipedWeapon;
+    public void setEquipedWeapon(String equippedWeapon) {
+        this.equippedWeapon = equippedWeapon;
     }
     public void setArmorValue(int armorValue) {
         this.armorValue = armorValue;
@@ -46,13 +46,17 @@ public class PlayerInventory {
     public void setWeaponValue(int weaponValue) {
         this.weaponValue = weaponValue;
     }
+    public void setWeapon(int weaponValue, String equippedWeapon){
+        this.weaponValue = weaponValue;
+        this.equippedWeapon = equippedWeapon;
+    }
 
     //Constructors
-    public PlayerInventory(int emptySpaces, String[] inventory, String equipedArmor, String equipedWeapon, int armorValue, int weaponValue) {
+    public PlayerInventory(int emptySpaces, String[] inventory, String equippedArmor, String equippedWeapon, int armorValue, int weaponValue) {
         this.emptySpaces = emptySpaces;
         this.inventory = inventory;
-        this.equipedArmor = equipedArmor;
-        this.equipedWeapon = equipedWeapon;
+        this.equippedArmor = equippedArmor;
+        this.equippedWeapon = equippedWeapon;
         this.armorValue = armorValue;
         this.weaponValue = weaponValue;
     }
@@ -60,8 +64,8 @@ public class PlayerInventory {
     public PlayerInventory() {
         this.emptySpaces = 9;
         this.inventory = new String[emptySpaces];
-        this.equipedArmor = "None";
-        this.equipedWeapon = "None";
+        this.equippedArmor = "None";
+        this.equippedWeapon = "None";
         this.armorValue = 0;
         this.weaponValue = 0;
     }

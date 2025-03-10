@@ -214,18 +214,42 @@ public class Player {
         return name + " the " + rank + "\nHealth: " + health + "\nAttack: " + attack + "\nDefense: " + defense + "\nAgility: " + agility + "\nXP: " + xp + "\nLevel: " + level + "\nGold: " + gold;
     }
 
-    public void equipArmor(PlayerInventory inv, Player user){
+    //Equipment funcs
+    public void donnArmor(PlayerInventory inv, Player user, String armorName, int armorValue){
         //Fuctionality: Equips armor and applies the defensive buff to the player
         if(!inv.getEquipedArmor().equals("None")){
+            inv.setEquipedArmor(armorName);
+            inv.setArmorValue(armorValue);
             user.setDefense(inv.getArmorValue() + user.getDefense());
         }
     }
 
+    public void doffArmor(PlayerInventory inv, Player user){
+        //If equipped armor isn't none
+        if(!inv.getEquipedArmor().equals("None")){
+        user.setDefense(user.getDefense() - inv.getArmorValue());
+        System.out.println("\nAs you pull your " + inv.getEquipedArmor() + " off, you feel yourself become more vulnerable. Defense decreases by " + inv.getArmorValue());
+        inv.setEquipedArmor("None");
+        inv.setArmorValue(0);
+        }
+    }
+
+    public void swapArmor(PlayerInventory inv, Player user, String armorName, int armorValue){
+
+    }
     public void equipWeapon(PlayerInventory inv, Player user){
         //Fuctionality: Equips weapon and applies the attacking buff to the player
-        if(!inv.getEquipedWeapon().equals("None")){
+
+        //If equipped weapon is "none"
+        if(inv.getEquipedWeapon().equals("None")){
             user.setAttack(inv.getWeaponValue() + user.getAttack());
         }
+    }
+
+    public void unEquipWeapon(PlayerInventory inv, Player user){
+        user.setAttack(user.getAttack() - inv.getWeaponValue());
+        System.out.println("\nYou unequip the " + inv.getEquipedWeapon() + " and your attack decreases by " + inv.getWeaponValue());
+        inv.setWeapon(0, "None");
     }
 
     public void rankDescription(Player user){

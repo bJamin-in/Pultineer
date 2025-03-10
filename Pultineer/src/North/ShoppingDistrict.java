@@ -10,7 +10,7 @@ public class ShoppingDistrict {
     public String[][] shopGoods = { { "Wooden Sword", "10", "5" }, { "Leather Armor", "15", "5" },
             { "Health Potion", "10", "5" } };
 
-    public void printGoods() {
+    public void printGoods(Player user) {
 
         // Wooden Sword
         System.out.println(shopGoods[0][0] + " - " + shopGoods[0][1] + " gold - +" + shopGoods[0][2] + " ATK");
@@ -18,6 +18,8 @@ public class ShoppingDistrict {
         System.out.println(shopGoods[1][0] + " - " + shopGoods[1][1] + " gold - +" + shopGoods[1][2] + " DEF");
         // Health Potion
         System.out.println(shopGoods[2][0] + " - " + shopGoods[2][1] + " gold - +" + shopGoods[2][2] + " HP");
+        //Exit message
+        System.out.println("\n You have " + user.getGold() + " gold.(EXIT to leave)");
     }
 
     public String getMessage() {
@@ -45,10 +47,7 @@ public class ShoppingDistrict {
                 if (playerInput.toLowerCase().contains("merchant")) {
                     System.out.println(
                             "\nYou walk up to the merchant. The merchant greets you with a smile. \nMerchant: \"Ahh helloo there! Care to buy some goods? The potion though, I only have the one! Limited stock, yes!\" You look at what his shop has to offer.\n");
-                    printGoods();
-
-                    System.out.println("\n You have " + user.getGold() + " gold.");
-                    System.out.println("\n(EXIT to leave)\n");
+                    printGoods(user);
                     merchant = false;
                     break;
                 }
