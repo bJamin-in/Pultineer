@@ -3,9 +3,9 @@ package playerInfo;
 public class PlayerInventory {
 
     //Variables
-    private int emptySpaces = 9, armorValue, weaponValue;
+    private int emptySpaces = 9, armorValue, weaponValue, shieldValue;
     private String[] inventory = new String[emptySpaces];
-    private String equippedArmor, equippedWeapon;
+    private String equippedArmor, equippedWeapon, equippedShield;
 
     //Getters
     public int getEmptySpaces() {
@@ -25,6 +25,12 @@ public class PlayerInventory {
     }
     public int getWeaponValue() {
         return weaponValue;
+    }
+    public int getShieldValue() {
+        return shieldValue;
+    }
+    public String getEquippedShield() {
+        return equippedShield;
     }
 
     //Setters
@@ -46,6 +52,22 @@ public class PlayerInventory {
     public void setWeaponValue(int weaponValue) {
         this.weaponValue = weaponValue;
     }
+    public void setShieldValue(int shieldValue){
+        this.shieldValue = shieldValue;
+    }
+    public void setEquippedShield(String equippedShield){
+        this.equippedShield = equippedShield;
+    }
+
+    public void setArmor(int armorValue, String equippedArmor){
+        this.armorValue = armorValue;
+        this.equippedArmor = equippedArmor;
+    }
+    public void setShield(int shieldValue, String equippedShield){
+        this.shieldValue = shieldValue;
+        this.equippedShield = equippedShield;
+    }
+
     public void setWeapon(int weaponValue, String equippedWeapon){
         this.weaponValue = weaponValue;
         this.equippedWeapon = equippedWeapon;
@@ -66,8 +88,10 @@ public class PlayerInventory {
         this.inventory = new String[emptySpaces];
         this.equippedArmor = "None";
         this.equippedWeapon = "None";
+        this.equippedShield = "None";
         this.armorValue = 0;
         this.weaponValue = 0;
+        this.shieldValue = 0;
     }
     
     

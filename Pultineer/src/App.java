@@ -18,7 +18,7 @@ import Funcs.*;
  * This is a text based Java game created and developed by Benjamin James
  * This game was started in December of 2023, with the goal
  * of creating a fully working, challenging and fun, text based adventure game.
- * This game was last updated in February 23rd, 2025
+ * This game was last updated in March 10th, 2025
  * 
  * NOTE:
  * All Pseudocode is written in red comments that follows the indications of VSC extension:   
@@ -701,7 +701,7 @@ public class App {
 
                             // Equips armor and adds the defense buff to player
                             inventory.setWeapon(Integer.parseInt(townShopGoods[0][2]), townShopGoods[0][0]);
-                            user.equipWeapon(inventory, user);
+                            user.equipWeapon(inventory, user, townShopGoods[0][0], Integer.parseInt(townShopGoods[0][2]));
                             System.out.println(
                                     "\n\nYou equip the Wooden Sword. Swinging it around, you feel you can take on stronger monsters.(Attack increased by "
                                             + inventory.getWeaponValue() + ")");
@@ -1111,16 +1111,34 @@ public class App {
                             "\nArmorer: \"Ah! So yer interested in the Church's undesireables! Well, lemme show ya our stock.");
                     cs.printGoods(user);
                     playerInput = keys.nextLine();
+
                     //Steel Sword
                     if(playerInput.toLowerCase().contains(cs.getShopItem(0, 0).split(" ")[0])){
                         int storeTotal = Integer.parseInt(cs.getShopItem(0, 1));
                         if(user.getGold() >= storeTotal){
                             user.setGold(user.getGold() - storeTotal);
+                            user.swapWeapons(inventory, user, cs.getShopItem(0, 0), Integer.parseInt(cs.getShopItem(0, 2)));
+                        }
+                        else{
+                            System.out.println("\nArmorer: \"Sorry, yeh don't seem to have enough for it...\"");
                         }
 
                     }//End of Steel Sword
 
+                    //Iron Chestpiece
                     else if (playerInput.toLowerCase().contains(cs.getShopItem(1, 0).split(" ")[0])){
+                        int storeTotal = Integer.parseInt(cs.getShopItem(1, 1));
+                        if(user.getGold() >= storeTotal){
+                            user.setGold(user.getGold() - storeTotal);
+                            user.swapArmor(inventory, user, cs.getShopItem(1, 0), Integer.parseInt(cs.getShopItem(1, 2)));
+                        }
+                        else{
+                            System.out.println("\nArmorer: \"Sorry, yeh don't seem to have enough for it...\"");
+                        }
+                    }//End of Iron Chestpiece
+
+                    //Banded Shield
+                    else if(playerInput.toLowerCase().contains(cs.getShopItem(2, 0).split(" ")[0])){
 
                     }
 

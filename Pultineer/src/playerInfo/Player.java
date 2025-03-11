@@ -215,42 +215,63 @@ public class Player {
     }
 
     //Equipment funcs
+    //Armor
     public void donnArmor(PlayerInventory inv, Player user, String armorName, int armorValue){
         //Fuctionality: Equips armor and applies the defensive buff to the player
         if(!inv.getEquipedArmor().equals("None")){
-            inv.setEquipedArmor(armorName);
-            inv.setArmorValue(armorValue);
+            inv.setArmor(armorValue, armorName);
             user.setDefense(inv.getArmorValue() + user.getDefense());
+            System.out.println("\nYou donn the " + inv.getEquipedArmor() + " and feel yourself become more sturdy.Defense raised by " + inv.getArmorValue() + ".");
         }
-    }
+    }//End of donnArmor
 
     public void doffArmor(PlayerInventory inv, Player user){
         //If equipped armor isn't none
         if(!inv.getEquipedArmor().equals("None")){
         user.setDefense(user.getDefense() - inv.getArmorValue());
-        System.out.println("\nAs you pull your " + inv.getEquipedArmor() + " off, you feel yourself become more vulnerable. Defense decreases by " + inv.getArmorValue());
+        System.out.println("\nAs you pull your " + inv.getEquipedArmor() + " off, you feel yourself become more vulnerable. Defense decreases by " + inv.getArmorValue() + ".");
         inv.setEquipedArmor("None");
         inv.setArmorValue(0);
         }
     }
 
     public void swapArmor(PlayerInventory inv, Player user, String armorName, int armorValue){
-
+        user.doffArmor(inv, user);
+        user.donnArmor(inv, user, armorName, armorValue);
     }
-    public void equipWeapon(PlayerInventory inv, Player user){
+
+    //Weapon
+    public void equipWeapon(PlayerInventory inv, Player user, String weaponName, int weaponValue){
         //Fuctionality: Equips weapon and applies the attacking buff to the player
 
         //If equipped weapon is "none"
         if(inv.getEquipedWeapon().equals("None")){
+            inv.setWeapon(weaponValue, weaponName);
             user.setAttack(inv.getWeaponValue() + user.getAttack());
+            System.out.println("\nYou equip the " + inv.getEquipedWeapon() + " and feel your attacks become more volatile. Attack raised by " + inv.getWeaponValue() + ".");
         }
-    }
+    }//End of equipWeapon
 
     public void unEquipWeapon(PlayerInventory inv, Player user){
         user.setAttack(user.getAttack() - inv.getWeaponValue());
         System.out.println("\nYou unequip the " + inv.getEquipedWeapon() + " and your attack decreases by " + inv.getWeaponValue());
         inv.setWeapon(0, "None");
     }
+
+    public void swapWeapons(PlayerInventory inv, Player user, String weaponName, int weaponValue){
+        user.unEquipWeapon(inv, user);
+        user.equipWeapon(inv, user, weaponName, weaponValue);
+    }
+
+    //Shield
+    public void equipShield(PlayerInventory inv, Player user, String shieldName, int shieldValue){
+        if(inv.getEquippedShield().equals("None")){
+            inv.setShield(shieldValue, shieldName);
+            user.setDefense(user.getDefense() + inv.getShieldValue());
+            System.out.println("\nEquipping the sshield, you feel better defended. Defense raised by " + inv.getShieldValue() + ".");
+        }
+    }//End of equipShield
+
 
     public void rankDescription(Player user){
         //Fuctionality: Gives a short description for each rank the player can achieve
