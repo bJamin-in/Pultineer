@@ -1,0 +1,15 @@
+{
+    "java.project.sourcePaths": ["src"],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar"
+    ],
+    
+    "type": "java",
+    "request": "launch",
+    "mainClass": "src.App.java",
+    "classPaths": [
+        "libs/Game.jar"
+    ]
+    
+}

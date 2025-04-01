@@ -203,7 +203,7 @@ public class ForestCottage {
                                                         + shop[0][2] + " points.");
                                     }
                                     // Hardiness
-                                    else if (getShop()[0][0].toLowerCase().contains("Hardiness")) {
+                                    else if (getShop()[0][0].toLowerCase().contains("hardiness")) {
                                         // Drink potion and add buff to player
                                         user.setDefense(user.getDefense() + Integer.parseInt(shop[0][2]));
                                         System.out.println(
@@ -247,7 +247,7 @@ public class ForestCottage {
                                                         + shop[1][2] + " points.");
                                     }
                                     // Hardiness
-                                    else if (getShop()[1][0].toLowerCase().contains("Hardiness")) {
+                                    else if (getShop()[1][0].toLowerCase().contains("hardiness")) {
                                         // Drink potion and add buff to player
                                         user.setDefense(user.getDefense() + Integer.parseInt(shop[1][2]));
                                         System.out.println(
@@ -284,7 +284,7 @@ public class ForestCottage {
                                                         + shop[2][2] + " points.");
                                     }
                                     // Hardiness
-                                    else if (getShop()[2][0].toLowerCase().contains("Hardiness")) {
+                                    else if (getShop()[2][0].toLowerCase().contains("hardiness")) {
                                         // Drink potion and add buff to player
                                         user.setDefense(user.getDefense() + Integer.parseInt(shop[2][2]));
                                         System.out.println(
@@ -383,6 +383,7 @@ public class ForestCottage {
                 System.out.println(
                         "\nHe walks towards his cabinets as he shoves bottles to the side, Gherald eventually brings out a teal \ncolored bottle and hands it to you.\n\nGherald: \"Make sure to tell the Priest to be careful with this, it's quite dangerous.\"\nGherald leads you to the door of his cottage as you exit, he closes the door behind you.");
                 user.setHasQuestItem(true);
+                Functions.delay(2000);
                 break;
             } // ^ End of if(input contains talk, user rank is follower, and user has accepted
               // quest)

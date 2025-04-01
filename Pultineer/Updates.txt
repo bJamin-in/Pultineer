@@ -1,4 +1,4 @@
-Last update: 0.1.08
+Last update: 0.1.09
 TO DO'S:
 
 {
@@ -21,3 +21,6 @@ BUG FIXES:
 
 Potion shop selections
 Hardiness potion not being bought properly
+
+Jar cmd:
+jar cvfm Game.jar MANIFEST.MF -C bin .

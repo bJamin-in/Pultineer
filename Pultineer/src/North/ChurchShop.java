@@ -11,7 +11,7 @@ public String getMessage() {
     return message;
 }
 
-public String getShopItem(int x, int y){
+public String getShopValue(int x, int y){
     return churchShop[x][y];
 }
 

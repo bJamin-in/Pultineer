@@ -253,6 +253,11 @@ public class Player {
     }//End of equipWeapon
 
     public void unEquipWeapon(PlayerInventory inv, Player user){
+
+        //Breaks out if user doesn't have an equipped weapon
+        if(inv.getEquipedWeapon().toLowerCase().equals("none")){
+            return;
+        }
         user.setAttack(user.getAttack() - inv.getWeaponValue());
         System.out.println("\nYou unequip the " + inv.getEquipedWeapon() + " and your attack decreases by " + inv.getWeaponValue());
         inv.setWeapon(0, "None");
@@ -273,46 +278,47 @@ public class Player {
     }//End of equipShield
 
 
+    //Ranks
     public void rankDescription(Player user){
         //Fuctionality: Gives a short description for each rank the player can achieve
         //Follower
         if(user.getRank().equals("Follower")){
-            System.out.println("You have become a follower. Knowing little of Eryndros, the god of craftsmanship, but showing the strive to learn, \nyour efforts have been acknowledged.");
+            System.out.println("\nYou have become a follower. Knowing little of Eryndros, the god of craftsmanship, but showing the strive to learn, \nyour efforts have been acknowledged.");
         }
 
         //Disciple
         if(user.getRank().equals("Disciple")){
-            System.out.println("You are now a Disciple of the religion. You show great commitment and promise to Eryndros, as you start to preach the \nword of the god to those around you.");
+            System.out.println("\nYou are now a Disciple of the religion. You show great commitment and promise to Eryndros, as you start to preach the \nword of the god to those around you.");
         }
 
         //Squire
         if(user.getRank().equals("Squire")){
-            System.out.println("You have become a Squire. You have shown great dedication and knowledge to the Church, and have been given the honor of serving the Church's conquerers.");
+            System.out.println("\nYou have become a Squire. You have shown great dedication and knowledge to the Church, and have been given the honor of serving the Church's conquerers.");
         }
 
         //Knight
         if(user.getRank().equals("Knight")){
-            System.out.println("You have become a Knight. You have shown your servitute to the Church of Eryndros, and have been given the privilge of serving as one of the Church's conquerers.");
+            System.out.println("\nYou have become a Knight. You have shown your servitute to the Church of Eryndros, and have been given the privilge of serving as one of the Church's conquerers.");
         }
 
         //Paladin
         if(user.getRank().equals("Paladin")){
-            System.out.println("You have become a Paladin. You have proven your skill in combat, and have been given command over a small squadron of Knights and Squires.");
+            System.out.println("\nYou have become a Paladin. You have proven your skill in combat, and have been given command over a small squadron of Knights and Squires.");
         }
 
         //General
         if(user.getRank().equals("General")){
-            System.out.println("You have become a General. You have been proven competent with your leadership capabilities, and have been given command over a battalion of Paladins and Knights.");
+            System.out.println("\nYou have become a General. You have been proven competent with your leadership capabilities, and have been given command over a battalion of Paladins and Knights.");
         }
 
         //Holy Knight
         if(user.getRank().equals("Holy Knight")){
-            System.out.println("You have become a Holy Knight. You have proven your skill with a sword and might with your mind. You are now a part \nof the Eryndros' secret order of Holy Knights.");
+            System.out.println("\nYou have become a Holy Knight. You have proven your skill with a sword and might with your mind. You are now a part \nof the Eryndros' secret order of Holy Knights.");
         }
 
         //Holy Knight Champion
         if(user.getRank().equals("Holy Knight Champion")){
-            System.out.println("You are now the Holy Knight Champion. You have bested Eryndros' Champion, and have now taken his place.");
+            System.out.println("\nYou are now the Holy Knight Champion. You have bested Eryndros' Champion, and have now taken his place.");
         }
     }
 

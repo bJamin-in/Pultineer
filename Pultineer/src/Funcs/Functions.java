@@ -35,6 +35,16 @@ public class Functions {
         }
     }// End of delay(int x)
 
+    // Rank Up
+    public static void rankUp(int rankNum, Player user) {
+        // Functionality: Sets the player's rank and gives a description of the new rank
+        String[] ranks = { "Wanderer", "Follower", "Disciple", "Squire", "Knight", "Paladin", "General", "Holy Knight",
+                "Holy Knight Champion" };
+
+        user.setRank(ranks[rankNum]);
+        user.rankDescription(user);
+    }
+    
     // #region ArrayMethods
     // ^ getDirections: ARRAY METHODS
 
@@ -46,21 +56,21 @@ public class Functions {
         // direction
         // 1
         if (playerInput.toLowerCase().contains(kw1)) {
-            return 1;
+            return 0;
         }
         // 2
         else if (playerInput.toLowerCase().contains(kw2)) {
-            return 2;
+            return 1;
         }
         // 3
         else if (playerInput.toLowerCase().contains(kw3)) {
-            return 3;
+            return 2;
         }
 
         for (int x = 0; x < kws.length; x++) {
             // 4
             if (playerInput.toLowerCase().contains(kws[x])) {
-                return 4;
+                return 3;
             }
         }
         // Invalid input
@@ -276,7 +286,7 @@ public class Functions {
         return 4;
     }
 
-    //2
+    //5
     else if(input.toLowerCase().contains(kw5)){
         return 5;
     }
