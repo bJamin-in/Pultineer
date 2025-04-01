@@ -13,5 +13,5 @@ public class HeraldsHills {
     public HeraldsHills(String[] messages) {
         this.messages = messages;
     }
-
+    
 }

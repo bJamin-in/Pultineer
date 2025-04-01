@@ -1,4 +1,4 @@
-Last update: 0.1.09
+Latest update: 0.1.10
 TO DO'S:
 
 {
@@ -10,17 +10,10 @@ Church shop location
 
 LAST WORKED ON:
 
-New interaction split to go to the church shop
-Side quests: Hunting
-Church Shop{
-    Dialog & shop sequence
-}
-Player equipment
+Minor Fixes(Thread delay after leaving the village, HoleintheWall intro message changed, Health potion remvoes from the merchants shop when bought, Thread delay when incorrect input is given when sneaking behind the cottage, When attacking in Horde Battles a number is now specifically asked for, Running from the goblin horde no longer completes the quest)
 
 BUG FIXES:
 
-Potion shop selections
-Hardiness potion not being bought properly
 
 Jar cmd:
 jar cvfm Game.jar MANIFEST.MF -C bin .

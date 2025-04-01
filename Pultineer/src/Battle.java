@@ -258,7 +258,7 @@ public class Battle extends Player {
                 if (getActions(playerInput) == 1) {
                     do{
                     try{
-                    System.out.println("\nWhich enemy would you like to attack?");
+                    System.out.println("\nWhich enemy would you like to attack?(Input number)");
                     playerInput = keys.nextLine();
                     int attackedEnemy = Integer.parseInt(playerInput) - 1;
                     
@@ -289,6 +289,7 @@ public class Battle extends Player {
                                     System.out.println("\nYou defeated all the " + enemies[0].getName()
                                             + "s! You revel in your victory for a moment before moving onward.");
                                     battleState = false;
+                                    user.setHasQuestItem(true);
                                     break;
                                 }
                                 break;
@@ -328,7 +329,7 @@ public class Battle extends Player {
                         System.out.println("\nYou're unable to run away!");
                         playerTurn = false;
                     } else {
-                        System.out.println("\nYou successfully run away back to the cottgae!");
+                        System.out.println("\nYou successfully run away from the horde!");
                         Functions.movePlayer(-1, 0, user);
                         battleState = false;
                         break;
