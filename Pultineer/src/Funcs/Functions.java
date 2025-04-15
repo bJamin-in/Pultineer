@@ -48,7 +48,7 @@ public class Functions {
     // #region ArrayMethods
     // ^ getDirections: ARRAY METHODS
 
-    //Four Directions
+    //~ Four Directions
     // Move player in one of four different directions: 1 array
     public static int get4Direction(String playerInput, String kw1, String kw2, String kw3,
             String[] kws) {
@@ -184,7 +184,7 @@ public class Functions {
         return 0;
     }// End of get4Direction
 
-    // Three Directions
+    //~ Three Directions
     // Move player in one of three different directions: 1 Array
     public static int get3Direction(String playerInput, String kw1, String kw2, String[] kws) {
         // Functionality: Recieves input and sends the player in one of three directions

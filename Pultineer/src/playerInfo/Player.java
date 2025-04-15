@@ -10,7 +10,7 @@ public class Player {
 
     //NPC, Quest, and Location Related variables
     protected boolean hasMetGherald = false, hasSnuckAround = false, goneThroughHole = false,
-     questAccepted = false, sideQuestAccepted = false, sideQuestItem = false, hasQuestItem = false, boardUnlocked = false;
+     questAccepted = false, sideQuestAccepted = false, sideQuestItem = false, hasQuestItem = false, boardUnlocked = false, comingFromTown = false;
     
     //#region Getters
     //Stats
@@ -71,6 +71,9 @@ public class Player {
     }
     public boolean getBoardUnlocked() {
         return boardUnlocked;
+    }
+    public boolean getComingFromTown() {
+        return comingFromTown;
     }
 
     //Quest
@@ -150,6 +153,9 @@ public class Player {
     public void setBoardUnlocked(boolean boardUnlocked){
         this.boardUnlocked = boardUnlocked;
     }
+    public void setComingFromTown(boolean comingFromTown){
+        this.comingFromTown = comingFromTown;
+    }
 
     //Quests
     public void setQuestAccepted(boolean questAccepted) {
@@ -218,7 +224,7 @@ public class Player {
     //Armor
     public void donnArmor(PlayerInventory inv, Player user, String armorName, int armorValue){
         //Fuctionality: Equips armor and applies the defensive buff to the player
-        if(!inv.getEquipedArmor().equals("None")){
+        if(inv.getEquipedArmor().equals("None")){
             inv.setArmor(armorValue, armorName);
             user.setDefense(inv.getArmorValue() + user.getDefense());
             System.out.println("\nYou donn the " + inv.getEquipedArmor() + " and feel yourself become more sturdy.Defense raised by " + inv.getArmorValue() + ".");

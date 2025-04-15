@@ -188,6 +188,7 @@ public class ShoppingDistrict {
                     if (user.getGoneThroughHole() == false) {
                         System.out.println(
                                 "\nYou navigate through the Shopping District and come upon a wall. Nothing about the wall is notable");
+                                user.setComingFromTown(true);
                         break;
                     } else {
                         System.out.println(

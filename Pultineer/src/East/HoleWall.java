@@ -3,7 +3,7 @@ package East;
 public class HoleWall {
 
     //Variables
-    private String[] messages;
+    private String[] messages = {"", ""};
 
 
     //Getters

@@ -1,19 +1,22 @@
-Latest update: 0.1.10
+Latest update: 0.1.11
 TO DO'S:
 
 {
 Integrate rankups in combative conflicts
-Work on the Trials location
+    Badlands travel
+    Badlands boss fight
+    Work on the Trials location
 }
 
-Church shop location
+Latest Changes:
 
-LAST WORKED ON:
+Minor changes to variables(var names, transformed into a Player class var)
+Ironed out the church shop(Better delays, more choices when walking in, buying a Banded shield takes money, better structured programming)
+flavor text when defeating dire wolves
 
-Minor Fixes(Thread delay after leaving the village, HoleintheWall intro message changed, Health potion remvoes from the merchants shop when bought, Thread delay when incorrect input is given when sneaking behind the cottage, When attacking in Horde Battles a number is now specifically asked for, Running from the goblin horde no longer completes the quest)
+Minor Changes:
+    Bug Fixes:
+        None
 
-BUG FIXES:
-
-
-Jar cmd:
-jar cvfm Game.jar MANIFEST.MF -C bin .
+Known Bugs:
+    None

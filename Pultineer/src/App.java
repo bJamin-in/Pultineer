@@ -18,7 +18,7 @@ import Funcs.*;
  * This is a text based Java game created and developed by Benjamin James
  * This game was started in December of 2023, with the goal
  * of creating a fully working, challenging and fun, text based adventure game.
- * This game was last updated in April 1st, 2025
+ * This game was last updated in April 14th, 2025
  * 
  * NOTE:
  * All Pseudocode is written in different colored comments that follows the indications of VSC extension:   
@@ -227,8 +227,8 @@ public class App {
                 noAnswers = { "no", "nevermind", "deny" }, backAnswers = { "back", "return", "reverse", "leave" };
 
         // Battle and game state variables
-        boolean gameState = true, battleState = false, wolfDead = false, goblinDead = false, goblinsDead = false,
-                firstRun = true, wolfOrGoblinQuest = false, fromForestOrTown = false;
+        boolean gameState = true, battleState = false, wolfDead = false, goblinDead = false, hordeGoblinsKilled = false,
+                firstRun = true, wolfOrGoblinQuest = false, comingFromTown = false;
 
         int storeCost = 0, questEnemiesKilled = 0;
 
@@ -310,7 +310,7 @@ public class App {
                 // & Testing
                 // ? Rank up Testing
                 if (playerInput.toLowerCase().equals("xoc")) {
-                    int rankNum = 2;
+                    int rankNum = 3;
                     if (rankNum >= 2) {
                         user.setBoardUnlocked(true);
                     }
@@ -328,7 +328,7 @@ public class App {
                     System.out.println("Cheat activate. You now have " + user.getAttack() + " strength");
                 }
                 // ? Speed Buff
-                else if(playerInput.toLowerCase().equals("hercules")){
+                else if (playerInput.toLowerCase().equals("hercules")) {
                     user.setAgility(1000);
                     System.out.println("Cheat activate. You now have " + user.getAgility() + " agility");
                 }
@@ -350,7 +350,6 @@ public class App {
                     user.setXp(311);
                     Battle.levelUp(user, playerInput, keys);
                 }
-                
 
                 // #endregion
 
@@ -498,6 +497,7 @@ public class App {
                     case 4:
                         System.out.println("\nYou continue through the forest.");
                         Functions.movePlayer(0, 1, user);
+                        user.setComingFromTown(false);
                         break;
                     default:
                         System.out.println("\nIncorrect Choice. Please choose again.(Sneak, Knock, or Back)");
@@ -516,13 +516,13 @@ public class App {
             while (user.getPlayerX() == 2 && user.getPlayerY() == 1) {
                 String[] messages = {
                         "\nWhile wandering through the forest, you find a brick wall interrupting your path. Near the bottom of the wall, you see a small hole that seems like you might be able to squeeze through it.\n",
-                        "\nAs you finish getting through the hole, you are met with the familliar sight of the forest." };
+                        "\nAs you finish getting through the hole, you are met with the familliar sight of the \nforest." };
                 HoleWall holeInTheWall = new HoleWall();
                 holeInTheWall.setMessages(messages[0], 0);
                 holeInTheWall.setMessages(messages[1], 1);
 
                 // Coming from the forest
-                if (fromForestOrTown == false) {
+                if (user.getComingFromTown() == false) {
                     System.out.println(holeInTheWall.getMessage(0));
                     playerInput = keys.nextLine();
                     // Squeeze through hole
@@ -544,18 +544,19 @@ public class App {
                         System.out.println("\nInvalid input. Please try again.(Squeeze/Back)");
                     }
 
-                //Coming from town
-                } else if (fromForestOrTown) {
+                }
+                // Coming from town
+                else if (user.getComingFromTown()) {
                     System.out.println(holeInTheWall.getMessage(1));
                     playerInput = keys.nextLine();
 
-                    //Continue
+                    // Continue
                     if (playerInput.toLowerCase().contains("continue")) {
                         System.out.println("\nYou head toards the smoke stack in the distance.");
                         Functions.movePlayer(0, -1, user);
                     }
-                    
-                    //Back 
+
+                    // Back
                     else if (playerInput.toLowerCase().contains("squeeze")
                             || playerInput.toLowerCase().contains("back")) {
                         System.out.println(
@@ -604,14 +605,14 @@ public class App {
                     gameState = Battle.multiBattle(playerInput, battleState, gameState, enemies, user, keys, rnd, 5);
                     if (gameState == false) {
                         break;
-                    } else if (user.getHasQuestItem()){
-                        goblinsDead = true;
+                    } else if (user.getHasQuestItem()) {
+                        hordeGoblinsKilled = true;
 
                         System.out.println(
                                 "You turn back towards the cottage, having 5 goblin ears in hand as proof of completion of the quest.");
-                    }
-                    else{
-                        System.out.println("To save yourself, you ran away from the goblins. Luckily, they don't give chase and you make it back to Gherald's cottage");
+                    } else {
+                        System.out.println(
+                                "To save yourself, you ran away from the goblins. Luckily, they don't give chase and you make it back to Gherald's cottage");
                     }
                 } // End of Horde Battle
                   // Wolf Battle
@@ -636,9 +637,10 @@ public class App {
                         if (user.getSideQuestAccepted()) {
                             if (wolfOrGoblinQuest == false) {
                                 questEnemiesKilled++;
+                                System.out.println("Before you leave, you cut the tail off the dire wolf as proof that you have killed it.");
                                 if (questEnemiesKilled >= 5) {
                                     System.out.println(
-                                            "\nYou have completed the quest from the Church. Return to the board in the Church district of town to claim your\nreward. ");
+                                            "\nYou have completed the quest from the Church. Return to the board in the Church district of town with the five \nwolf tails to claim your reward. ");
                                     user.setSideQuestItem(true);
                                 }
                             }
@@ -828,7 +830,7 @@ public class App {
                                     && user.getQuestAccepted() == true && user.getHasQuestItem() == true) {
                                 System.out.println(
                                         "\nPriest: \"Ah! You have my potion. Much thanks for you.\"\nThe Priest takes the potion from you as he hands you three gold coins\n");
-                                        user.setHasQuestItem(false);
+                                user.setHasQuestItem(false);
                                 user.setGold(user.getGold() + 3);
                                 Functions.delay(1500);
                                 returnQuestItems(user);
@@ -848,6 +850,7 @@ public class App {
 
                 // ! If player unlocked job board
                 else if (user.getBoardUnlocked()) {
+                    // ! If player is a disciple
                     if (user.getRank().equals("Disciple")) {
                         switch (Functions.get4Direction(playerInput, "pray", "talk", "board", backAnswers)) {
                             // Pray
@@ -924,9 +927,9 @@ public class App {
                                 break;
                         }// End of switch(get4Directions)
                     }
-                    // If user != Disciple
+                    // ! If player isn't Disciple
                     else if (!user.getRank().equals("Disciple")) {
-                        switch (Functions.get5directions(playerInput, "pray", "talk", "board", "church", "leave")) {
+                        switch (Functions.get5directions(playerInput, "pray", "talk", "board", "shop", "leave")) {
                             // Invalid
                             case 0:
                                 System.out.println("Invalid answer, try again. (pray/talk/board/church/leave)");
@@ -1052,63 +1055,99 @@ public class App {
             while (user.getPlayerX() == 1 && user.getPlayerY() == 3) {
                 ChurchShop cs = new ChurchShop();
 
+                //Introductory Message
                 System.out.println("\n" + cs.getMessage());
+                System.out.println("");
                 Functions.delay(2500);
-
-                System.out.println("\nArmorer: \"Ah what can I do ye for?\"");
+                exit:
+                while(true){
+                System.out.println("Armorer: \"Ah what can I do ye for?\"\n");
                 playerInput = keys.nextLine();
-                if (playerInput.toLowerCase().contains("shop")) {
-                    System.out.println(
-                            "\nArmorer: \"Ah! So yer interested in the Church's undesireables! Well, lemme show ya our stock.");
-                    do {
-                        cs.printGoods(user);
-                        playerInput = keys.nextLine();
 
-                        // Steel Sword
-                        if (playerInput.toLowerCase().contains(cs.getShopValue(0, 0).toLowerCase().split(" ")[0])) {
-                            int storeTotal = Integer.parseInt(cs.getShopValue(0, 1));
-                            if (user.getGold() >= storeTotal) {
-                                user.setGold(user.getGold() - storeTotal);
-                                user.swapWeapons(inventory, user, cs.getShopValue(0, 0),
-                                        Integer.parseInt(cs.getShopValue(0, 2)));
-                            } else {
-                                System.out.println("\nArmorer: \"Sorry, yeh don't seem to have enough for it...\"");
+                switch (Functions.get3Direction(playerInput, "shop", "talk", backAnswers)) {
+                    // Shop Sequence
+                    case 1:
+                        System.out.println(
+                                "\nArmorer: \"Ah! So yer interested in the Church's undesireables! Well, lemme show ya our stock.");
+                        do {
+                            cs.printGoods(user);
+                            System.out.println("");
+                            playerInput = keys.nextLine();
+
+                            // Steel Sword
+                            if (playerInput.toLowerCase().contains(cs.getShopValue(0, 0).toLowerCase().split(" ")[0])) {
+                                int storeTotal = Integer.parseInt(cs.getShopValue(0, 1));
+                                if (user.getGold() >= storeTotal) {
+                                    user.setGold(user.getGold() - storeTotal);
+                                    user.swapWeapons(inventory, user, cs.getShopValue(0, 0),
+                                            Integer.parseInt(cs.getShopValue(0, 2)));
+                                } else {
+                                    System.out.println("\nArmorer: \"Sorry, yeh don't seem to have enough for it...\"");
+                                }
+
+                                Functions.delay(1500);
+                            } // End of Steel Sword
+
+                            // Iron Chestpiece
+                            else if (playerInput.toLowerCase()
+                                    .contains(cs.getShopValue(1, 0).toLowerCase().split(" ")[0])) {
+                                int storeTotal = Integer.parseInt(cs.getShopValue(1, 1));
+                                if (user.getGold() >= storeTotal) {
+                                    user.setGold(user.getGold() - storeTotal);
+                                    user.swapArmor(inventory, user, cs.getShopValue(1, 0),
+                                            Integer.parseInt(cs.getShopValue(1, 2)));
+                                }
+                                // ! Unable to afford
+                                else {
+                                    System.out.println("\nArmorer: \"Sorry, yeh don't seem to have enough for it...\"");
+                                }
+                                Functions.delay(1500);
+                            } // End of Iron Chestpiece
+
+                            // Banded Shield
+                            else if (playerInput.toLowerCase()
+                                    .contains(cs.getShopValue(2, 0).toLowerCase().split(" ")[0])) {
+                                int storeTotal = Integer.parseInt(cs.getShopValue(2, 1));
+                                if (user.getGold() >= storeTotal) {
+                                    user.setGold(user.getGold() - storeTotal);
+                                    user.equipShield(inventory, user, cs.getShopValue(2, 0),
+                                            Integer.parseInt(cs.getShopValue(2, 2)));
+                                }
+                                // ! Unable to purchase
+                                else {
+                                    System.out.println("Armorer: \"Sorry lad, you don't have enough fer it.\"");
+                                }
+                                Functions.delay(1500);
+                            } // End of Banded Shield
+                              // Exit
+                            else if (playerInput.toLowerCase().contains("exit")) {
+                                break;
+                            }
+                            // Invalid input
+                            else {
+                                System.out.println("\nArmorer: \"Sorry, what was that?\"\n");
                             }
 
-                        } // End of Steel Sword
+                            System.out.println("\nArmorer: \"Would ye like to buy somethin else?\"\n");
+                        } while (true);
+                        break;
 
-                        // Iron Chestpiece
-                        else if (playerInput.toLowerCase()
-                                .contains(cs.getShopValue(1, 0).toLowerCase().split(" ")[0])) {
-                            int storeTotal = Integer.parseInt(cs.getShopValue(1, 1));
-                            if (user.getGold() >= storeTotal) {
-                                user.setGold(user.getGold() - storeTotal);
-                                user.swapArmor(inventory, user, cs.getShopValue(1, 0),
-                                        Integer.parseInt(cs.getShopValue(1, 2)));
-                            } else {
-                                System.out.println("\nArmorer: \"Sorry, yeh don't seem to have enough for it...\"");
-                            }
-                        } // End of Iron Chestpiece
+                    // Talk
+                    case 2:
+                        System.out.println("Armorer: \"Sorry lad, too busy to talk right now.\n");
+                        break;
 
-                        // Banded Shield
-                        else if (playerInput.toLowerCase()
-                                .contains(cs.getShopValue(2, 0).toLowerCase().split(" ")[0])) {
-                            user.equipShield(inventory, user, cs.getShopValue(2, 0),
-                                    Integer.parseInt(cs.getShopValue(2, 2)));
-                        }
-                        // Exit
-                        else if (playerInput.toLowerCase().contains("exit")) {
-                            break;
-                        }
-                        // Invalid input
-                        else {
-                            System.out.println("\nArmorer: \"Sorry, what was that?\"");
-                        }
+                    // Back
+                    case 3:
+                        System.out.println("Armorer: \"Thanks fer comin in! See yeh again!\n");
+                        Functions.movePlayer(-1, 0, user);
+                        break exit;
 
-                        System.out.println("\nArmorer: \"Would ye like to buy somethin else?\"");
-                    } while (true);
-                } // End of shopping sequence
-
+                    // Invalid Input
+                    case 4:
+                        System.out.println("Armorer: \"Hwat was that ye said?\"(Talk/Shop/Back)\n");
+                }//End of switch(playerInput)
+            }
             } // End of Church Shop
 
             // #endregion North
