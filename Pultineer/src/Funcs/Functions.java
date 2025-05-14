@@ -1,6 +1,7 @@
 package Funcs;
 
-import java.util.Arrays;
+import java.util.*;
+import javax.sound.sampled.*;
 
 import playerInfo.Player;
 
@@ -308,6 +309,33 @@ public class Functions {
         return updatedShopGoods;
     }//End of removeArrayElement
 
+    //Breaks down Strings
+    public static String stringBreakdown(String input){
+        String output = "";
+        for(int x = 0; x < input.length(); x++){
+            output = output + " " + input.charAt(x);
+        }
+        return output;
+    }
+
+    //Talking Sound
+    public static void createTalkingSound(String input, Clip clip){
+        int charCount = 0;
+        Random rnd = new Random();
+        int rand = rnd.nextInt(clip.getFrameLength());
+        for (int x = 0; x < input.length(); x++){
+            if(charCount > 110){
+                System.out.println();
+                charCount = 0;
+            }
+            charCount++;
+            System.out.print(input.charAt(x));
+            clip.start();
+            Functions.delay(50);
+            clip.stop();
+            clip.setFramePosition(rand);
+        }
+    }
     // Move player
     public static void movePlayer(int dx, int dy, Player user) {
         user.setPlayerX(user.getPlayerX() + dx);

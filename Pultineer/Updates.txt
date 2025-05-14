@@ -10,9 +10,7 @@ Integrate rankups in combative conflicts
 
 Latest Changes:
 
-Minor changes to variables(var names, transformed into a Player class var)
-Ironed out the church shop(Better delays, more choices when walking in, buying a Banded shield takes money, better structured programming)
-flavor text when defeating dire wolves
+Decided to mess with sound! Added two sound files(keyClicl.wav and talkingSound.wav), to be used for a better user experience!
 
 Minor Changes:
     Bug Fixes:

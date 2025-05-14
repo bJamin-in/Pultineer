@@ -1,6 +1,11 @@
 
 //Imports
 import java.util.*;
+import java.io.File;
+
+import javax.sound.sampled.AudioInputStream; 
+import javax.sound.sampled.AudioSystem; 
+import javax.sound.sampled.Clip; 
 
 //Different locations of the game
 import East.*;
@@ -18,7 +23,7 @@ import Funcs.*;
  * This is a text based Java game created and developed by Benjamin James
  * This game was started in December of 2023, with the goal
  * of creating a fully working, challenging and fun, text based adventure game.
- * This game was last updated in April 14th, 2025
+ * This game was last updated in May 3rd, 2025
  * 
  * NOTE:
  * All Pseudocode is written in different colored comments that follows the indications of VSC extension:   
@@ -223,6 +228,18 @@ public class App {
 
         String playerInput;
 
+        String keyPath = "C:\\Users\\benja\\OneDrive\\Documents\\GitHub\\Pultineer\\Pultineer\\src\\Audio\\keyClick.wav";
+        String talkingPath = "C:\\Users\\benja\\OneDrive\\Documents\\GitHub\\Pultineer\\Pultineer\\src\\Audio\\talkingSound.wav";
+
+        AudioInputStream keyClick = AudioSystem.getAudioInputStream(new File(keyPath).getAbsoluteFile());
+        AudioInputStream talkingSounds = AudioSystem.getAudioInputStream(new File(talkingPath).getAbsoluteFile());
+
+        Clip keyClickClip = AudioSystem.getClip();
+        Clip talkingClip = AudioSystem.getClip();
+
+        keyClickClip.open(keyClick);
+        talkingClip.open(talkingSounds);
+
         String[] yesAnswers = { "yes", "okay", "alright", "accept" }, contAnswers = { "continue", "forward" },
                 noAnswers = { "no", "nevermind", "deny" }, backAnswers = { "back", "return", "reverse", "leave" };
 
@@ -249,9 +266,12 @@ public class App {
 
         // Introduction
         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start();
-        Functions.delay(1);
-        System.out.println(
-                "Welcome to Pultineer! The text based adventure game where you have the goal to become the Holy Knight Champion \nof Pultineer. You will travel through the lands of Krynn, facing monsters, and meeting new people. You will \nhave to make choices that will affect your journey. Find your way through and become the Holy Knight Champion! \n\nGood luck, and may the gods smile upon you.\n");
+        Functions.delay(1000);
+        Functions.createTalkingSound("Welcome to Pultineer! The text based adventure game where you have the goal to become the Holy Knight Champion of Pultineer. You will travel through the lands of Krynn, facing monsters, and meeting new people. You will    have to make choices that will affect your journey. Find your way through and become the Holy Knight Champion!", talkingClip);
+        keyClickClip.close();
+        System.out.println();
+        // System.out.println(
+                // "Welcome to Pultineer! The text based adventure game where you have the goal to become the Holy Knight Champion \nof Pultineer. You will travel through the lands of Krynn, facing monsters, and meeting new people. You will \nhave to make choices that will affect your journey. Find your way through and become the Holy Knight Champion! \n\nGood luck, and may the gods smile upon you.\n");
 
         // Player setup
         // Get name
@@ -274,6 +294,16 @@ public class App {
                 wolfDead = false;
 
                 if (firstRun == false) {
+                    if(user.isHasHeatCloak() == false && user.getRank().toLowerCase().contains("squire")){
+                        System.out.println("As you take the usual path back to the Krynn, you see a guard in the center of the village. as you approach, he begins to speak to you.\n");
+                        Functions.delay(2000);
+                        System.out.println("Knight: \"Ah! So you must be my new squire, glad to have you! The name is Sir Branric Hollow.\"");
+                        Functions.delay(1500);
+                        System.out.println("Branric hands you a silvery colored cloak that the other knights and soldiers appear to be wearing. Branric says to you: \n");
+                        Functions.delay(2000);
+                        System.out.println("Branric: \"Here, you'll need this Heat Cloak to be able to travel through the desert. When you're ready, let's get going!\"\n");
+                        user.setHasHeatCloak(true);
+                    }
                     System.out.println(
                             "\nYou are in the village of Krynn. You are able to go in these directions:" +
                                     "\nTravel North, to the nearby town of Pultineer, a bustling town where trade is heavy."

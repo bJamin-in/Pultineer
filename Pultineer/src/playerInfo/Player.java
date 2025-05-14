@@ -10,7 +10,7 @@ public class Player {
 
     //NPC, Quest, and Location Related variables
     protected boolean hasMetGherald = false, hasSnuckAround = false, goneThroughHole = false,
-     questAccepted = false, sideQuestAccepted = false, sideQuestItem = false, hasQuestItem = false, boardUnlocked = false, comingFromTown = false;
+     questAccepted = false, sideQuestAccepted = false, sideQuestItem = false, hasQuestItem = false, boardUnlocked = false, comingFromTown = false, hasHeatCloak = false;
     
     //#region Getters
     //Stats
@@ -91,6 +91,11 @@ public class Player {
     public boolean getSideQuestItem(){
         return sideQuestItem;
     }
+
+    //Items
+    public boolean isHasHeatCloak() {
+        return hasHeatCloak;
+    }
     //#endregion Getters
     //#region Setters
     //Setters
@@ -170,6 +175,11 @@ public class Player {
     }
     public void setSideQuestItem(boolean sideQuestItem){
         this.sideQuestItem = sideQuestItem;
+    }
+
+    //Items
+    public void setHasHeatCloak(boolean hasHeatCloak) {
+        this.hasHeatCloak = hasHeatCloak;
     }
     //#endregionSetters
     //#region Constructors
