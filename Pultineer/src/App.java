@@ -1,11 +1,11 @@
 
 //Imports
-import java.util.*;
 import java.io.File;
+import java.util.*;
 
-import javax.sound.sampled.AudioInputStream; 
-import javax.sound.sampled.AudioSystem; 
-import javax.sound.sampled.Clip; 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 //Different locations of the game
 import East.*;
@@ -228,18 +228,6 @@ public class App {
 
         String playerInput;
 
-        String keyPath = "C:\\Users\\benja\\OneDrive\\Documents\\GitHub\\Pultineer\\Pultineer\\src\\Audio\\keyClick.wav";
-        String talkingPath = "C:\\Users\\benja\\OneDrive\\Documents\\GitHub\\Pultineer\\Pultineer\\src\\Audio\\talkingSound.wav";
-
-        AudioInputStream keyClick = AudioSystem.getAudioInputStream(new File(keyPath).getAbsoluteFile());
-        AudioInputStream talkingSounds = AudioSystem.getAudioInputStream(new File(talkingPath).getAbsoluteFile());
-
-        Clip keyClickClip = AudioSystem.getClip();
-        Clip talkingClip = AudioSystem.getClip();
-
-        keyClickClip.open(keyClick);
-        talkingClip.open(talkingSounds);
-
         String[] yesAnswers = { "yes", "okay", "alright", "accept" }, contAnswers = { "continue", "forward" },
                 noAnswers = { "no", "nevermind", "deny" }, backAnswers = { "back", "return", "reverse", "leave" };
 
@@ -264,18 +252,21 @@ public class App {
 
         // User Startup
 
+        // Method Testing
+
         // Introduction
         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start();
         Functions.delay(1000);
-        Functions.createTalkingSound("Welcome to Pultineer! The text based adventure game where you have the goal to become the Holy Knight Champion of Pultineer. You will travel through the lands of Krynn, facing monsters, and meeting new people. You will    have to make choices that will affect your journey. Find your way through and become the Holy Knight Champion!", talkingClip);
-        keyClickClip.close();
+        Functions.createSound(
+                "Welcome to Pultineer! The text based adventure game where your goal is to become the Holy Knight Champion of ~\nthe city. As you travel through the lands of Krynn, you will face monsters and meet new people. Each choice~\nyou make will affect your journey. Find your way through Krynn and become the Holy Knight Champion of~\nPultineer!",
+                1);
+        Functions.createSound("\nGood luck, and may the gods smile upon you..", 1);
+
         System.out.println();
-        // System.out.println(
-                // "Welcome to Pultineer! The text based adventure game where you have the goal to become the Holy Knight Champion \nof Pultineer. You will travel through the lands of Krynn, facing monsters, and meeting new people. You will \nhave to make choices that will affect your journey. Find your way through and become the Holy Knight Champion! \n\nGood luck, and may the gods smile upon you.\n");
 
         // Player setup
         // Get name
-        System.out.print("Enter your name: ");
+        Functions.createSound("\nEnter your name: ", 1);
         playerInput = keys.nextLine();
 
         Player user = new Player(playerInput, "Wanderer");
@@ -294,43 +285,40 @@ public class App {
                 wolfDead = false;
 
                 if (firstRun == false) {
-                    if(user.isHasHeatCloak() == false && user.getRank().toLowerCase().contains("squire")){
-                        System.out.println("As you take the usual path back to the Krynn, you see a guard in the center of the village. as you approach, he begins to speak to you.\n");
-                        Functions.delay(2000);
-                        System.out.println("Knight: \"Ah! So you must be my new squire, glad to have you! The name is Sir Branric Hollow.\"");
-                        Functions.delay(1500);
-                        System.out.println("Branric hands you a silvery colored cloak that the other knights and soldiers appear to be wearing. Branric says to you: \n");
-                        Functions.delay(2000);
-                        System.out.println("Branric: \"Here, you'll need this Heat Cloak to be able to travel through the desert. When you're ready, let's get going!\"\n");
+                    if (user.isHasHeatCloak() == false && user.getRank().toLowerCase().contains("squire")) {
+                        Functions.createSound(
+                                "As you take the usual path back to the Krynn, you see a guard in the center of the village. as you approach, he begins to speak to you.\n",
+                                1);
+
+                        Functions.createSound(
+                                "Knight: \"Ah! So you must be my new squire, glad to have you! The name is Sir Branric Hollow.\"",
+                                2);
+
+                        Functions.createSound(
+                                "Branric hands you a silvery colored cloak that the other knights and soldiers appear to be wearing. Branric says to you: \n",
+                                1);
+
+                        Functions.createSound(
+                                "Branric: \"Here, you'll need this Heat Cloak to be able to travel through the desert. When you're ready, let's get going!\"\n",
+                                2);
                         user.setHasHeatCloak(true);
                     }
-                    System.out.println(
-                            "\nYou are in the village of Krynn. You are able to go in these directions:" +
-                                    "\nTravel North, to the nearby town of Pultineer, a bustling town where trade is heavy."
-                                    +
-                                    "\n\nTravel East, to the Dark Forest, where monsters roam and mysterious people wander."
-                                    +
-                                    "\n\nTravel South, to the Badlands, with it's intense heat, it is not for the feint of heart."
-                                    +
-                                    "\n\nOr, travel West, to the Heralds Hills, where those who have been deemed worthy by the Church of Pultineer can prove \nthemvselves in this challenge.\n");
+                    Functions.createSound(
+                            "\nYou are in the village of Krynn. You are able to go in these directions:~\nTravel North, to the nearby town of Pultineer, a bustling town where trade is heavy.~\n\nTravel East, to the Dark Forest, where monsters roam and mysterious people wander.~\n\nTravel South, to the Badlands, with it's intense heat, it is not for the feint of heart.~\n\nOr, travel West, to the Heralds Hills, where those who have been deemed worthy by the Church of Pultineer can prove themvselves in this challenge.\n",
+                            1);
 
                     playerInput = keys.nextLine();
                 }
                 while (firstRun) {
-                    System.out.println(
-                            "\nYou are in the village of Krynn. You are able to go in these directions:");
-                    Functions.delay(2500);
-                    System.out.println(
-                            "Travel North, to the nearby town of Pultineer, a bustling town where trade is heavy.");
-                    Functions.delay(2500);
-                    System.out.println(
-                            "\nTravel East, to the Dark Forest, where monsters roam and mysterious people wander.");
-                    Functions.delay(2500);
-                    System.out.println(
-                            "\nTravel South, to the Badlands, with it's intense heat, it is not for the feint of heart.");
-                    Functions.delay(2500);
-                    System.out.println(
-                            "\nOr, travel West, to the Heralds Hills, where those who have been deemed worthy by the Church of Pultineer can prove \nthemvselves in this challenge.\n");
+                    Functions.createSound(
+                            "\nYou are in the village of Krynn. You are able to go in these directions:~\nTravel North, to the nearby town of Pultineer, a bustling town where trade is heavy."
+                                    +
+                                    "~\n\nTravel East, to the Dark Forest, where monsters roam and mysterious people wander."
+                                    +
+                                    "~\n\nTravel South, to the Badlands, with it's intense heat, it is not for the feint of heart."
+                                    +
+                                    "~\n\nOr, travel West, to the Heralds Hills, where those who have been deemed worthy by the Church of Pultineer ~\ncan prove themvselves in this challenge.\n",
+                            1);
 
                     playerInput = keys.nextLine();
                     firstRun = false;
@@ -420,11 +408,18 @@ public class App {
             // Dark Forest
             // ! While (player is at Dark Forest)
             while (user.getPlayerX() == 1 && user.getPlayerY() == 0) {
-
                 DarkForest darkForest = new DarkForest();
 
-                // Create enemy and start battle
-                if (goblinDead == false) {
+                try {
+                    String battleSound = "C:\\Users\\benja\\OneDrive\\Documents\\GitHub\\Pultineer\\Pultineer\\src\\Audio\\battleMusic.wav";
+
+                    AudioInputStream battleMusic = AudioSystem.getAudioInputStream(new File(battleSound).getAbsoluteFile());
+
+                    Clip music = AudioSystem.getClip();
+
+                    music.open(battleMusic);
+                    music.loop(Clip.LOOP_CONTINUOUSLY);
+                    if (goblinDead == false) {
 
                     Enemy goblin = new Enemy(5, 2, 0, 2, 5, 2, "Hungry Goblin");
 
@@ -433,12 +428,16 @@ public class App {
                     Functions.delay(2000);
                     // Battle
                     battleState = true;
+                    
+                    music.start();
                     gameState = Battle.battle(playerInput, battleState, gameState, goblin, user, keys, rnd, 10, 3);
-
+                    music.stop();
+                    
                     if (gameState == false) {
                         break;
                     }
                     if (goblin.getHealth() <= 0) {
+                        music.stop();
                         goblinDead = true;
                         if (user.getSideQuestAccepted()) {
                             if (wolfOrGoblinQuest) {
@@ -453,12 +452,20 @@ public class App {
                             }
                         }
                     } else {
+                        music.stop();
                         System.out.println("\nYou ran away from the goblin. You return to Krymn to rest.");
                         Functions.movePlayer(-1, 0, user);
                         break;
                     }
+                    
+                }
+                music.close();
+                } catch (Exception e) {
+                    // TODO: handle exception
                 }
 
+                // Create enemy and start battle
+                
                 System.out.println(
                         "\nYou defeated the goblin! You can continue going forward through the forest, or go back to the village and \nrest. But the monsters might come back.\n");
                 playerInput = keys.nextLine();
@@ -474,7 +481,6 @@ public class App {
                 if (!(user.getPlayerX() == 1)) {
                     break;
                 }
-
             } // End of while(at Dark Forest)
 
             checkGameState(keys, gameState);
@@ -667,7 +673,8 @@ public class App {
                         if (user.getSideQuestAccepted()) {
                             if (wolfOrGoblinQuest == false) {
                                 questEnemiesKilled++;
-                                System.out.println("Before you leave, you cut the tail off the dire wolf as proof that you have killed it.");
+                                System.out.println(
+                                        "Before you leave, you cut the tail off the dire wolf as proof that you have killed it.");
                                 if (questEnemiesKilled >= 5) {
                                     System.out.println(
                                             "\nYou have completed the quest from the Church. Return to the board in the Church district of town with the five \nwolf tails to claim your reward. ");
@@ -1085,99 +1092,101 @@ public class App {
             while (user.getPlayerX() == 1 && user.getPlayerY() == 3) {
                 ChurchShop cs = new ChurchShop();
 
-                //Introductory Message
+                // Introductory Message
                 System.out.println("\n" + cs.getMessage());
                 System.out.println("");
                 Functions.delay(2500);
-                exit:
-                while(true){
-                System.out.println("Armorer: \"Ah what can I do ye for?\"\n");
-                playerInput = keys.nextLine();
+                exit: while (true) {
+                    System.out.println("Armorer: \"Ah what can I do ye for?\"\n");
+                    playerInput = keys.nextLine();
 
-                switch (Functions.get3Direction(playerInput, "shop", "talk", backAnswers)) {
-                    // Shop Sequence
-                    case 1:
-                        System.out.println(
-                                "\nArmorer: \"Ah! So yer interested in the Church's undesireables! Well, lemme show ya our stock.");
-                        do {
-                            cs.printGoods(user);
-                            System.out.println("");
-                            playerInput = keys.nextLine();
+                    switch (Functions.get3Direction(playerInput, "shop", "talk", backAnswers)) {
+                        // Shop Sequence
+                        case 1:
+                            System.out.println(
+                                    "\nArmorer: \"Ah! So yer interested in the Church's undesireables! Well, lemme show ya our stock.");
+                            do {
+                                cs.printGoods(user);
+                                System.out.println("");
+                                playerInput = keys.nextLine();
 
-                            // Steel Sword
-                            if (playerInput.toLowerCase().contains(cs.getShopValue(0, 0).toLowerCase().split(" ")[0])) {
-                                int storeTotal = Integer.parseInt(cs.getShopValue(0, 1));
-                                if (user.getGold() >= storeTotal) {
-                                    user.setGold(user.getGold() - storeTotal);
-                                    user.swapWeapons(inventory, user, cs.getShopValue(0, 0),
-                                            Integer.parseInt(cs.getShopValue(0, 2)));
-                                } else {
-                                    System.out.println("\nArmorer: \"Sorry, yeh don't seem to have enough for it...\"");
+                                // Steel Sword
+                                if (playerInput.toLowerCase()
+                                        .contains(cs.getShopValue(0, 0).toLowerCase().split(" ")[0])) {
+                                    int storeTotal = Integer.parseInt(cs.getShopValue(0, 1));
+                                    if (user.getGold() >= storeTotal) {
+                                        user.setGold(user.getGold() - storeTotal);
+                                        user.swapWeapons(inventory, user, cs.getShopValue(0, 0),
+                                                Integer.parseInt(cs.getShopValue(0, 2)));
+                                    } else {
+                                        System.out.println(
+                                                "\nArmorer: \"Sorry, yeh don't seem to have enough for it...\"");
+                                    }
+
+                                    Functions.delay(1500);
+                                } // End of Steel Sword
+
+                                // Iron Chestpiece
+                                else if (playerInput.toLowerCase()
+                                        .contains(cs.getShopValue(1, 0).toLowerCase().split(" ")[0])) {
+                                    int storeTotal = Integer.parseInt(cs.getShopValue(1, 1));
+                                    if (user.getGold() >= storeTotal) {
+                                        user.setGold(user.getGold() - storeTotal);
+                                        user.swapArmor(inventory, user, cs.getShopValue(1, 0),
+                                                Integer.parseInt(cs.getShopValue(1, 2)));
+                                    }
+                                    // ! Unable to afford
+                                    else {
+                                        System.out.println(
+                                                "\nArmorer: \"Sorry, yeh don't seem to have enough for it...\"");
+                                    }
+                                    Functions.delay(1500);
+                                } // End of Iron Chestpiece
+
+                                // Banded Shield
+                                else if (playerInput.toLowerCase()
+                                        .contains(cs.getShopValue(2, 0).toLowerCase().split(" ")[0])) {
+                                    int storeTotal = Integer.parseInt(cs.getShopValue(2, 1));
+                                    if (user.getGold() >= storeTotal) {
+                                        user.setGold(user.getGold() - storeTotal);
+                                        user.equipShield(inventory, user, cs.getShopValue(2, 0),
+                                                Integer.parseInt(cs.getShopValue(2, 2)));
+                                    }
+                                    // ! Unable to purchase
+                                    else {
+                                        System.out.println("Armorer: \"Sorry lad, you don't have enough fer it.\"");
+                                    }
+                                    Functions.delay(1500);
+                                } // End of Banded Shield
+                                  // Exit
+                                else if (playerInput.toLowerCase().contains("exit")) {
+                                    break;
                                 }
-
-                                Functions.delay(1500);
-                            } // End of Steel Sword
-
-                            // Iron Chestpiece
-                            else if (playerInput.toLowerCase()
-                                    .contains(cs.getShopValue(1, 0).toLowerCase().split(" ")[0])) {
-                                int storeTotal = Integer.parseInt(cs.getShopValue(1, 1));
-                                if (user.getGold() >= storeTotal) {
-                                    user.setGold(user.getGold() - storeTotal);
-                                    user.swapArmor(inventory, user, cs.getShopValue(1, 0),
-                                            Integer.parseInt(cs.getShopValue(1, 2)));
-                                }
-                                // ! Unable to afford
+                                // Invalid input
                                 else {
-                                    System.out.println("\nArmorer: \"Sorry, yeh don't seem to have enough for it...\"");
+                                    System.out.println("\nArmorer: \"Sorry, what was that?\"\n");
                                 }
-                                Functions.delay(1500);
-                            } // End of Iron Chestpiece
 
-                            // Banded Shield
-                            else if (playerInput.toLowerCase()
-                                    .contains(cs.getShopValue(2, 0).toLowerCase().split(" ")[0])) {
-                                int storeTotal = Integer.parseInt(cs.getShopValue(2, 1));
-                                if (user.getGold() >= storeTotal) {
-                                    user.setGold(user.getGold() - storeTotal);
-                                    user.equipShield(inventory, user, cs.getShopValue(2, 0),
-                                            Integer.parseInt(cs.getShopValue(2, 2)));
-                                }
-                                // ! Unable to purchase
-                                else {
-                                    System.out.println("Armorer: \"Sorry lad, you don't have enough fer it.\"");
-                                }
-                                Functions.delay(1500);
-                            } // End of Banded Shield
-                              // Exit
-                            else if (playerInput.toLowerCase().contains("exit")) {
-                                break;
-                            }
-                            // Invalid input
-                            else {
-                                System.out.println("\nArmorer: \"Sorry, what was that?\"\n");
-                            }
+                                System.out.println("\nArmorer: \"Would ye like to buy somethin else?\"\n");
+                            } while (true);
+                            break;
 
-                            System.out.println("\nArmorer: \"Would ye like to buy somethin else?\"\n");
-                        } while (true);
-                        break;
+                        // Talk
+                        case 2:
+                            System.out.println("Armorer: \"Sorry lad, too busy to talk right now.\n");
+                            break;
 
-                    // Talk
-                    case 2:
-                        System.out.println("Armorer: \"Sorry lad, too busy to talk right now.\n");
-                        break;
+                        // Back
+                        case 3:
+                            System.out.println("Armorer: \"Thanks fer comin in! See yeh again!\n");
+                            Functions.movePlayer(-1, 0, user);
+                            break exit;
 
-                    // Back
-                    case 3:
-                        System.out.println("Armorer: \"Thanks fer comin in! See yeh again!\n");
-                        Functions.movePlayer(-1, 0, user);
-                        break exit;
-
-                    // Invalid Input
-                    case 4:
-                        System.out.println("Armorer: \"Hwat was that ye said?\"(Talk/Shop/Back)\n");
-                }//End of switch(playerInput)
-            }
+                        // Invalid Input
+                        case 4:
+                            System.out.println("Armorer: \"Hwat was that ye said?\"(Talk/Shop/Back)\n");
+                    }// End of switch(playerInput)
+                }
             } // End of Church Shop
 
             // #endregion North

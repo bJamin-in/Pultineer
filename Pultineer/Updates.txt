@@ -10,7 +10,7 @@ Integrate rankups in combative conflicts
 
 Latest Changes:
 
-Decided to mess with sound! Added two sound files(keyClicl.wav and talkingSound.wav), to be used for a better user experience!
+Added a new sound file(battleMusic.wav) and flushed out the beginning text sounds
 
 Minor Changes:
     Bug Fixes:
