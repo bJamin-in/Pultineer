@@ -275,7 +275,7 @@ public class Battle extends Player {
                         enemies[attackedEnemy].setHealth(enemies[attackedEnemy].getHealth()
                                 - (user.getAttack() - enemies[attackedEnemy].getDefense()));
 
-                        // Ends the battle if enemy dies
+                        // Ends the battle if all enemies dies
                         for (int x = 0; x < enemies.length; x++) {
                             if (enemies[attackedEnemy].getHealth() <= 0) {
                                 System.out.println(
@@ -380,7 +380,7 @@ public class Battle extends Player {
                         if (rnd.nextInt(2) + 1 == 1) {
 
                             if(enemies[x].getAttack() < user.getDefense()){
-                                System.out.println("\nThe " + enemies[x] + " " + (x + 1) + "'s attack bounces off your armor!");
+                                System.out.println("\nThe " + enemies[x].getName() + " " + (x + 1) + "'s attack bounces off your armor!");
                             }
                             System.out.println("\n" + enemies[x].getName() + " " + (x + 1) + " attacks you!\n");
                             user.setHealth(user.getHealth() - (enemies[x].getAttack() - user.getDefense()));

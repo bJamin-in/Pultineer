@@ -23,7 +23,7 @@ import Funcs.*;
  * This is a text based Java game created and developed by Benjamin James
  * This game was started in December of 2023, with the goal
  * of creating a fully working, challenging and fun, text based adventure game.
- * This game was last updated in May 3rd, 2025
+ * This game was last updated in August 3rd, 2025
  * 
  * NOTE:
  * All Pseudocode is written in different colored comments that follows the indications of VSC extension:   
@@ -235,7 +235,7 @@ public class App {
         boolean gameState = true, battleState = false, wolfDead = false, goblinDead = false, hordeGoblinsKilled = false,
                 firstRun = true, wolfOrGoblinQuest = false, comingFromTown = false;
 
-        int storeCost = 0, questEnemiesKilled = 0;
+        int storeCost = 0, questEnemiesKilled = 0, shopReset = 0;
 
         // Class Variables
 
@@ -286,39 +286,34 @@ public class App {
 
                 if (firstRun == false) {
                     if (user.isHasHeatCloak() == false && user.getRank().toLowerCase().contains("squire")) {
-                        Functions.createSound(
-                                "As you take the usual path back to the Krynn, you see a guard in the center of the village. as you approach, he begins to speak to you.\n",
-                                1);
+                        Functions.delayText("As you take the usual path back to Krynn, you see a knight in the center of the village. as you approach, he ~\nbegins to speak to you.\n", 25);
 
-                        Functions.createSound(
-                                "Knight: \"Ah! So you must be my new squire, glad to have you! The name is Sir Branric Hollow.\"",
-                                2);
+                        Functions.delayText(
+                                "\nKnight: \"Ah! So you must be my new squire, glad to have you! The name is Sir Branric Hollow.\"\n",
+                                25);
 
-                        Functions.createSound(
-                                "Branric hands you a silvery colored cloak that the other knights and soldiers appear to be wearing. Branric says to you: \n",
-                                1);
+                        Functions.delayText(
+                                "\nSir Branric hands you a silvery colored cloak that the other knights and soldiers appear to be wearing. He ~\nsays to you: \n",
+                                25);
 
-                        Functions.createSound(
-                                "Branric: \"Here, you'll need this Heat Cloak to be able to travel through the desert. When you're ready, let's get going!\"\n",
-                                2);
+                        Functions.delayText(
+                                "\nSir Branric: \"Here, you'll need this Heat Cloak to be able to travel through the desert. When you're ready, ~\nmeet us there and we'll fight this demon beast!\"\n",
+                                25);
                         user.setHasHeatCloak(true);
                     }
-                    Functions.createSound(
-                            "\nYou are in the village of Krynn. You are able to go in these directions:~\nTravel North, to the nearby town of Pultineer, a bustling town where trade is heavy.~\n\nTravel East, to the Dark Forest, where monsters roam and mysterious people wander.~\n\nTravel South, to the Badlands, with it's intense heat, it is not for the feint of heart.~\n\nOr, travel West, to the Heralds Hills, where those who have been deemed worthy by the Church of Pultineer can prove themvselves in this challenge.\n",
-                            1);
+                    System.out.println("\nYou are in the village of Krynn. You are able to go in these directions:" + 
+                    "\nTravel North, to the nearby town of Pultineer, a bustling town where trade is heavy." + "\n\nTravel East, to the Dark Forest, where monsters roam and mysterious people wander." + "\n\nTravel South, to the Badlands, with it's intense heat, it is not for the feint of heart." + "\n\nOr, travel West, to the Heralds Hills, where those who have been deemed worthy by the Church of Pultineer can \nprove themvselves in this challenge.\n");
 
                     playerInput = keys.nextLine();
                 }
                 while (firstRun) {
-                    Functions.createSound(
-                            "\nYou are in the village of Krynn. You are able to go in these directions:~\nTravel North, to the nearby town of Pultineer, a bustling town where trade is heavy."
+                    System.out.println("\nYou are in the village of Krynn. You are able to go in these directions:\nTravel North, to the nearby town of Pultineer, a bustling town where trade is heavy."
                                     +
-                                    "~\n\nTravel East, to the Dark Forest, where monsters roam and mysterious people wander."
+                                    "\n\nTravel East, to the Dark Forest, where monsters roam and mysterious people wander."
                                     +
-                                    "~\n\nTravel South, to the Badlands, with it's intense heat, it is not for the feint of heart."
+                                    "\n\nTravel South, to the Badlands, with it's intense heat, it is not for the feint of heart."
                                     +
-                                    "~\n\nOr, travel West, to the Heralds Hills, where those who have been deemed worthy by the Church of Pultineer ~\ncan prove themvselves in this challenge.\n",
-                            1);
+                                    "\n\nOr, travel West, to the Heralds Hills, where those who have been deemed worthy by the Church of Pultineer \ncan prove themvselves in this challenge.\n");
 
                     playerInput = keys.nextLine();
                     firstRun = false;
@@ -328,7 +323,7 @@ public class App {
                 // & Testing
                 // ? Rank up Testing
                 if (playerInput.toLowerCase().equals("xoc")) {
-                    int rankNum = 3;
+                    int rankNum = 2;
                     if (rankNum >= 2) {
                         user.setBoardUnlocked(true);
                     }
@@ -461,7 +456,6 @@ public class App {
                 }
                 music.close();
                 } catch (Exception e) {
-                    // TODO: handle exception
                 }
 
                 // Create enemy and start battle
@@ -521,6 +515,10 @@ public class App {
                         break;
                     // Knock at the door
                     case 2:
+                    if(shopReset == 1){
+                        forestCottage.setShop(forestCottage.getOriginalShop());
+                        shopReset = 0;
+                    }
                         forestCottage.knockAtDoor(user);
                         forestCottage.wizardConversation(user);
                         break;
@@ -646,6 +644,7 @@ public class App {
 
                         System.out.println(
                                 "You turn back towards the cottage, having 5 goblin ears in hand as proof of completion of the quest.");
+                                Functions.movePlayer(-1, 0, user);
                     } else {
                         System.out.println(
                                 "To save yourself, you ran away from the goblins. Luckily, they don't give chase and you make it back to Gherald's cottage");
@@ -705,11 +704,49 @@ public class App {
             // ! While(player is at Badlands)
             while (user.getPlayerX() == 0 && user.getPlayerY() == -1) {
                 Badlands badlands = new Badlands();
+                badlands.changeMessage(user);
                 System.out.println(badlands.getMessage());
+
+                //Move the player back to town if they don't have the heat cloak
+                if(user.isHasHeatCloak() == false){
                 Functions.movePlayer(0, 1, user);
+                break;
+                }
+
+                System.out.println("\nSir Branric: \"Ah! Good to have you join us! From here on out, it's just us. We have with us a total of seven \nsoldiers, not quite up to my skill, but they're good people. Follow us through the Badlands and we'll make it \nto this demon beast as fast as lightning!\"\nBranric finishes speaking with a hearty chuckle of laughter and walks towards the rest of the soldiers.");
+
+                System.out.println("\nYou're not quite sure what this \'Demon Beast\' is that Sir Branric is refering to, but if you adventure out \ninto the Badlands, you'll probably find out what he means. \nWill you follow Sir Branric, Or will you go back to the village?\n");
+
+                playerInput = keys.nextLine();
+
+                while(true){
+                if(playerInput.toLowerCase().contains("follow")){
+                    System.out.println("\nYou follow Sir Branric and the soldiers deeper into the Badlands.");
+                    Functions.movePlayer(0, -1, user);
+                    break;
+                }
+                else if(playerInput.toLowerCase().contains("back")){
+                    System.out.println("You follow the road back to the village. Returning to the familiar houses and farms you rest for a bit.");
+                    Functions.movePlayer(0, 1, user);
+                    break;
+                }
+                else{
+                    System.out.println("\nInavlid input. Please try again.(Follow/Back)");
+                    System.out.println("\nYou're not quite sure what this \'Demon Beast\' is that Sir Branric is refering to, but if you adventure out \ninto the Badlands, you'll probably find out what he means. \nWill you follow Sir Branric, Or will you go back to the village?\n");
+                    playerInput = keys.nextLine();
+                }
+            }
+
                 break;
             } // End of while(player is at Badlands)
               // #endregion South
+
+            checkGameState(keys, gameState);
+
+
+            while(user.getPlayerX() == 0 && user.getPlayerY() == -2){
+                break;
+            }
 
             checkGameState(keys, gameState);
 
@@ -721,6 +758,7 @@ public class App {
                 Town town = new Town();
                 System.out.println(town.getMessage());
                 Functions.delay(2000);
+
                 town.guardConversation(playerInput, keys, user);
                 Functions.delay(2500);
 
@@ -766,7 +804,7 @@ public class App {
                     switch (get3Direction(playerInput, "pray", "talk", "leave")) {
                         // Pray
                         case 0:
-                            // ^ Wanderer Rankup
+                            // ^ Wanderer Rankup -> Follower
                             if (user.getRank().toLowerCase().contains("wanderer")) {
                                 System.out.println(
                                         "\nYou kneel at the alter and pray for a few minutes before standing up to leave. As you turn around you see the Priest \nstanding before you. He says to you\n\nPriest: \"I see that you have substantial talent. Follow me inside.\"\n");
@@ -861,7 +899,7 @@ public class App {
                                     }// End of switch(Functions.yesOrNo)
                                 } // End of while playerinput != yes or no
                             } // ! End of if (userRank is follower and user hasnt accepted quest)
-                              // ^ Follower Rankup
+                              // ^ Follower Rankup -> Disciple
                               // ! If the player is the follower rank and has the quest item
                             else if (user.getRank().toLowerCase().contains("follower")
                                     && user.getQuestAccepted() == true && user.getHasQuestItem() == true) {
@@ -872,6 +910,7 @@ public class App {
                                 Functions.delay(1500);
                                 returnQuestItems(user);
                                 Functions.rankUp(2, user);
+                                shopReset = 1;
                             }
                             break;
                         // Leave
@@ -901,10 +940,11 @@ public class App {
 
                             // Talk
                             case 1:
-                                // Disciple -> Squire rank up and quest reward
+                                //^ Disciple -> Squire rank up and quest reward
                                 if (user.getRank().toLowerCase().contains("disciple") && (user.getHasQuestItem())) {
                                     churchDistrict.squireRankup(user);
-                                } // ^ End of if(userRank equals disciple && user has quest item)
+                                    shopReset = 1;
+                                } // End of if(userRank equals disciple && user has quest item)
                                 else {
                                     System.out
                                             .println("\nCurrently, the Priest is too busy with church matters to talk");

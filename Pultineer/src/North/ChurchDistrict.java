@@ -54,15 +54,15 @@ public class ChurchDistrict {
 
         // Squire Quest
         System.out.println(
-                "\nPriest: \"Now there is one more subject that is now pertinent for you to know, if you'll follow me inside.\n\nYou follow the Priest inside the church, and after a bit of walking you reach the Priest's office. The Priest\nwalks into the room and invites you in.");
+                "\nPriest: \"Now there is one more subject that is now pertinent for you to know, if you'll follow me inside.\"\n\nYou follow the Priest inside the church, and after a bit of walking you reach the Priest's office. The Priest\nwalks into the room and invites you in.");
         Functions.delay(65000);
         System.out.println(
                 "\nYou walk into the room to see a well decorated office space, with a large mahogany desk cluttered with papers\nand a few pictures of who you assume is the Priest's family. You look up to see a wall lined with many\ndifferent books, with none that stand out in particular. And finally, and two simple chairs facing the desk.");
         Functions.delay(7500);
         System.out.println(
-                "\nThe Priest walks around and sits at his desk chair and invites you to sit in one of the chairs facing him. As you do, the Priest begins to explain.\n\nPriest: \"Because of your recent promotion, you will be tending to one of our knights into battle. Polishing\nhis armor, sharpening his sword, whatever he requires you to do, you must do. When you are ready, go South, to\nthe Badlands. There will be your first assignment.");
+                "\nThe Priest walks around and sits at his desk chair and invites you to sit in one of the chairs facing him. As you do, the Priest begins to explain.\n\nPriest: \"Because of your recent promotion, you will be tending to one of our knights into battle. Polishing\nhis armor, sharpening his sword, whatever he requires you to do, you must do. When you are ready, go South, to\nthe Badlands. There will be your first assignment.\"");
         Functions.delay(10000);
-        System.out.print(
-                " Since you will be following a knight around, you will find yourself on the field of combat\nmuch more often. To assist in your survival chances, the Church is willing to help offer you better gear. We\nhave some gear you might be interested in that we picked up from conquests and allying with other national\npowers. Feel free to come in and inquire more at the desk.");
+        System.out.println(
+                "Priest: \"Since you will be following a knight around, you will find yourself on the field of combat much more \noften. To assist in your survival chances, the Church is willing to help offer you better gear. We have some \ngear you might be interested in that we picked up from conquests and allying with other national powers. Feel \nfree to walk in and inquire more at the desk.\n");
     }
 }// End of Class

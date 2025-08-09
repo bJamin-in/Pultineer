@@ -330,6 +330,7 @@ public class Functions {
         return output;
     }
 
+    //Variable Speed
     public static void createSound(String input, int clipNum, int speed) {
     //* Functionality:
     //*     Adds a specified sound effect to text while delaying the output of the text
@@ -396,9 +397,9 @@ public class Functions {
         talking.close();
         } catch (Exception e) {
             System.exit(404);
-        }
+        }//End of try/catch
         
-    }
+    }//End of createSound
 
     public static String replaceChar(String input, int charNum, Character replacement){
         /* Functionality:  
@@ -474,6 +475,31 @@ public class Functions {
         }
         
     }
+
+     public static void delayText(String input, int speed) {
+    //* Functionality:
+    //*     Delays the output of text
+        
+        int charCount = 0;
+
+            for (int x = 0; x < input.length(); x++) {
+                if(input.charAt(x) == '~'){
+                    // System.out.println();
+                    input = replaceChar(input, x, ' ');
+                    charCount = 0;
+                }
+
+                else if (charCount > 110) {
+                    System.out.println();
+                    charCount = 0;
+                }
+
+                charCount++;
+                System.out.print(input.charAt(x));
+                Functions.delay(speed);
+            }
+        
+    }//End of createSound
 
     // Move player
     public static void movePlayer(int dx, int dy, Player user) {

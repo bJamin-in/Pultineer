@@ -74,20 +74,20 @@ public class ForestCottage {
         // Player has already snuck around previously
         if (user.getHasSnuckAround() == true) {
             System.out.println(
-                    "\nYou sneak around the cottage just as you have before, except this time there is silence. You are once again met with the path that leads to the darker parts of the forest.");
+                    "\nYou sneak around the cottage just as you have before, except this time there is silence. You are once again met with the \npath that leads to the darker parts of the forest.");
         }
         // Player has not snuck around previously
         else if (user.getHasSnuckAround() == false && user.getHasMetGherald() == false) {
 
             System.out.println(
-                    "\nYou sneak around the edge of the cottage. Reaching the back, you see an open window where an old man is talking to someone.\n\n ???: Hef, bring me the mugwort. I need to finish this potion. I cannot risk anyone getting deeper into the forest.\n\nYou hear a small squawk and a small creature flies to the old man with a small plant in its beak. You decide to turn around and go back to the front of the cottage, but you see a small beaten down path going deeper into the forest. Do you tread this path or go back to the front of the cottage?\n");
+                    "\nYou sneak around the edge of the cottage. Reaching the back, you see an open window where an old man is talking to someone.\n\n ???: Hef, bring me the mugwort. I need to finish this potion. I cannot risk anyone getting deeper into the forest.\n\nYou hear a small squawk and a small creature flies to the old man with a small plant in its beak. You decide \nto turn around and go back to the front of the cottage, but you see a small beaten down path going deeper \ninto the forest. Do you tread this path or go back to the front of the cottage?\n");
         }
         // Player has not snuck around previously(Changed from above to show Gheralds
         // name)
         else if (user.getHasSnuckAround() == false && user.getHasMetGherald() == true) {
 
             System.out.println(
-                    "\nYou sneak around the edge of the cottage. Reaching the back, you see an open window where an old man is talking to someone.\n\n Gherald: \"Hef, bring me the mugwort. I need to finish this potion. I cannot risk anyone getting deeper into the forest.\"\n\nYou hear a small squawk and a small creature flies to the old man with a small plant in its beak. You decide to turn around and go back to the front of the cottage, but you see a small beaten down path going deeper into the forest. Do you tread this path or go back to the front of the cottage?\n");
+                    "\nYou sneak around the edge of the cottage. Reaching the back, you see an open window where an old man is talking to someone.\n\n Gherald: \"Hef, bring me the mugwort. I need to finish this potion. I cannot risk anyone getting deeper into the forest.\"\n\nYou hear a small squawk and a small creature flies to the old man with a small plant in its beak. You decide \nto turn around and go back to the front of the cottage, but you see a small beaten down path going deeper \ninto the forest. Do you tread this path or go back to the front of the cottage?\n");
         }
     }// End of sneakAround()
 
@@ -167,7 +167,7 @@ public class ForestCottage {
                             break;
                         }
 
-                        // Health Potion
+                        // Shop space 0
                         try {
                             if (getShopItem(0, 0).isEmpty()) {
 
@@ -220,7 +220,7 @@ public class ForestCottage {
                         } catch (ArrayIndexOutOfBoundsException e) {
                         }
 
-                        // Strength Potion
+                        // Shop space 1
                         try {
                             if (getShopItem(1, 0).isEmpty()) {
 
@@ -264,7 +264,7 @@ public class ForestCottage {
                         } catch (ArrayIndexOutOfBoundsException e) {
                         }
 
-                        // Speed Potion
+                        // Shop space 2
                         try {
                             if (getShopItem(2, 0).isEmpty()) {
 
@@ -278,7 +278,7 @@ public class ForestCottage {
                                     // Speed
                                     if (getShop()[2][0].toLowerCase().contains("speed")) {
                                         // Drink potion and add buff to player
-                                        user.setAgility(user.getAgility() + Integer.parseInt(shop[0][2]));
+                                        user.setAgility(user.getAgility() + Integer.parseInt(shop[2][2]));
                                         System.out.println(
                                                 "\nYou drink the potion and feel a surge of energy. Your speed has increased by "
                                                         + shop[2][2] + " points.");
@@ -302,7 +302,7 @@ public class ForestCottage {
                         } catch (ArrayIndexOutOfBoundsException e) {
                         }
 
-                        // Hardiness Potion
+                        // Shop space 3
                         try {
                             if (getShopItem(3, 0).isEmpty()) {
 

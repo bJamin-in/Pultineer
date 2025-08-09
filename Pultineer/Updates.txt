@@ -8,9 +8,11 @@ Integrate rankups in combative conflicts
     Work on the Trials location
 }
 
+Create second location in the south
+
 Latest Changes:
 
-Added a new sound file(battleMusic.wav) and flushed out the beginning text sounds
+The player is now moved to the forest cottage after the goblin horde battle
 
 Minor Changes:
     Bug Fixes:

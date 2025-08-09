@@ -237,7 +237,7 @@ public class Player {
         if(inv.getEquipedArmor().equals("None")){
             inv.setArmor(armorValue, armorName);
             user.setDefense(inv.getArmorValue() + user.getDefense());
-            System.out.println("\nYou donn the " + inv.getEquipedArmor() + " and feel yourself become more sturdy.Defense raised by " + inv.getArmorValue() + ".");
+            System.out.println("\nYou donn the " + inv.getEquipedArmor() + " and feel yourself become more sturdy. Defense raised by " + inv.getArmorValue() + ".");
         }
     }//End of donnArmor
 
@@ -249,12 +249,12 @@ public class Player {
         inv.setEquipedArmor("None");
         inv.setArmorValue(0);
         }
-    }
+    }//End of doffArmor
 
     public void swapArmor(PlayerInventory inv, Player user, String armorName, int armorValue){
         user.doffArmor(inv, user);
         user.donnArmor(inv, user, armorName, armorValue);
-    }
+    }//end of swapArmor
 
     //Weapon
     public void equipWeapon(PlayerInventory inv, Player user, String weaponName, int weaponValue){

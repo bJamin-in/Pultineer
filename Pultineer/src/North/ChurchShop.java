@@ -23,7 +23,7 @@ public void setMessage(String message) {
 
 //Constructors
 public ChurchShop(){
-    message = "You walk inside the church to find the regular elegant decor expected to be found inside a church. Off to the right, you see the \npseudo-armory where the church sells spare gear. You walk up to the counter and talk to the man there.";
+    message = "You walk inside the church to find the regular elegant decor expected to be found inside a church. Off to the \nright, you see the pseudo-armory where the church sells spare gear. You walk up to the counter and talk to the \nman there.";
 }
 
 //Parameterized

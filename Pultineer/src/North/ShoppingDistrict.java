@@ -117,13 +117,9 @@ public class ShoppingDistrict {
                                 user.setGold(user.getGold() - storeCost);
 
                                 // Equips armor and adds the defense buff to player
-                                inv.setEquipedArmor(shopGoods[1][0]);
-                                inv.setArmorValue(Integer.parseInt(shopGoods[1][2]));
-                                user.donnArmor(inv, user, shopGoods[1][0], Integer.parseInt(shopGoods[1][2]));
-                                System.out.println(
-                                        "\nYou equip the leather armor. You feel better protected.(Defense increased by "
-                                                + inv.getArmorValue() + ")");
-
+                                // inv.setEquipedArmor(shopGoods[1][0]);
+                                // inv.setArmorValue(Integer.parseInt(shopGoods[1][2]));
+                                user.swapArmor(inv, user, shopGoods[1][0], Integer.parseInt(shopGoods[1][2]));
                             } else {
                                 System.out.println("You do not have enough gold to purchase this item.");
                             }
@@ -156,7 +152,6 @@ public class ShoppingDistrict {
                         Functions.delay(3000);
                         System.out.println("\n\nMerchant: Would you like to buy something else?");
                         printGoods(user);
-                        System.out.println("(EXIT to leave)");
 
                         System.out.println("\n You have " + user.getGold() + " gold.");
                         playerInput = keys.nextLine();
