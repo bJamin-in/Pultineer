@@ -233,7 +233,7 @@ public class App {
 
         // Battle and game state variables
         boolean gameState = true, battleState = false, wolfDead = false, goblinDead = false, hordeGoblinsKilled = false,
-                firstRun = true, wolfOrGoblinQuest = false, comingFromTown = false;
+                firstRun = true, wolfOrGoblinQuest = false, comingFromTown = false, savedSoldier = true;
 
         int storeCost = 0, questEnemiesKilled = 0, shopReset = 0;
 
@@ -715,7 +715,7 @@ public class App {
 
                 System.out.println("\nSir Branric: \"Ah! Good to have you join us! From here on out, it's just us. We have with us a total of seven \nsoldiers, not quite up to my skill, but they're good people. Follow us through the Badlands and we'll make it \nto this demon beast as fast as lightning!\"\nBranric finishes speaking with a hearty chuckle of laughter and walks towards the rest of the soldiers.");
 
-                System.out.println("\nYou're not quite sure what this \'Demon Beast\' is that Sir Branric is refering to, but if you adventure out \ninto the Badlands, you'll probably find out what he means. \nWill you follow Sir Branric, Or will you go back to the village?\n");
+                System.out.println("\nYou're not quite sure what this \'Demon Beast\' is that Sir Branric is refering to, but if you adventure out \ninto the Badlands, you'll probably find out what he means. \nWill you follow Sir Branric, Or will you go back to the village?(Warning: You will not be able to return!)\n");
 
                 playerInput = keys.nextLine();
 
@@ -732,21 +732,71 @@ public class App {
                 }
                 else{
                     System.out.println("\nInavlid input. Please try again.(Follow/Back)");
-                    System.out.println("\nYou're not quite sure what this \'Demon Beast\' is that Sir Branric is refering to, but if you adventure out \ninto the Badlands, you'll probably find out what he means. \nWill you follow Sir Branric, Or will you go back to the village?\n");
+                    System.out.println("\nYou're not quite sure what this \'Demon Beast\' is that Sir Branric is refering to, but if you adventure out \ninto the Badlands, you'll probably find out what he means. \nWill you follow Sir Branric, Or will you go back to the village?(Warning: You will not be able to return!)\n");
                     playerInput = keys.nextLine();
                 }
             }
 
                 break;
             } // End of while(player is at Badlands)
-              // #endregion South
-
+            
             checkGameState(keys, gameState);
 
-
+            // SandPit
             while(user.getPlayerX() == 0 && user.getPlayerY() == -2){
+                SandPit sandPit = new SandPit();
+                System.out.println(sandPit.getMessage());
+                System.out.println("\nSoldier: \"Help! Help me! Sir Branric!\"\nYou turn to see a soldier waist deep in quicksand. Knowing that you could possibly get there before Sir \nBranric, do you try to save the soldier, knowing you could possibly get stuck yourself?\n");
+
+                playerInput = keys.nextLine();
+
+                while(true){
+                    //Saves the soldier
+                    if(playerInput.toLowerCase().contains("yes")){
+                        int agi = user.getAgility();
+
+                        if(agi < 5){
+                            System.out.println("\nAs you run the the solider, you pull him out before he is devoured by the quicksand. However, as the soldier\nis freed, you fall in yourself! With Sir Branric already on his way to you, you manage to get out faster than\nthe soldier did.(-10 health)");
+                            user.setHealth(user.getHealth() - 10);
+                        }
+
+                        if(agi >= 5){
+                            System.out.println("\nYou rush towards the soldier and quickly pull him out of the quicksand.");
+                        }
+
+                        savedSoldier = true;
+                        break;
+                    }
+                    //Doesnt save the soldier
+                    else if(playerInput.toLowerCase().contains("no")){
+
+                        System.out.println("\nJust like all the other soldiers, you standby and watch as Sir Branric sprints over towards the soldier and\npull him out of the quicksand.");
+
+                        savedSoldier = false;
+                        break;
+
+                    }
+                    //Invalid Input
+                    else{
+                        System.out.println("\nInvalid input. Please try again.(Yes/no)");
+                        System.out.println("Do you run to save the soldier from the quicksand, risking being caught in it yourself?\n");
+                        playerInput = keys.nextLine();
+                    }
+                    
+                }//End of while(true)
+
+                System.out.println("After the soldier is rescued from the quicksand, the whole group takes a moment to rest. Afterwards everyone continues onward.");
+
+                Functions.movePlayer(0, -1, user);
                 break;
-            }
+
+            }//End of SandPit
+
+            //DistractionFight
+            while(user.getPlayerX() == 0 && user.getPlayerY() == -3){
+
+            }//End of distractionFight
+            // #endregion South
 
             checkGameState(keys, gameState);
 
@@ -910,7 +960,8 @@ public class App {
                                 Functions.delay(1500);
                                 returnQuestItems(user);
                                 Functions.rankUp(2, user);
-                                shopReset = 1;
+                                // Code to reset the Gherald's shop
+                                // shopReset = 1;
                             }
                             break;
                         // Leave

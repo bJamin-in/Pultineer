@@ -1,4 +1,4 @@
-Latest update: 0.1.11
+Latest update: 0.1.12
 TO DO'S:
 
 {
@@ -8,11 +8,11 @@ Integrate rankups in combative conflicts
     Work on the Trials location
 }
 
-Create second location in the south
+Create third location in the south
 
 Latest Changes:
 
-The player is now moved to the forest cottage after the goblin horde battle
+Implemeted second location going south
 
 Minor Changes:
     Bug Fixes:

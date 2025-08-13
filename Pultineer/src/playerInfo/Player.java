@@ -289,7 +289,7 @@ public class Player {
         if(inv.getEquippedShield().equals("None")){
             inv.setShield(shieldValue, shieldName);
             user.setDefense(user.getDefense() + inv.getShieldValue());
-            System.out.println("\nEquipping the sshield, you feel better defended. Defense raised by " + inv.getShieldValue() + ".");
+            System.out.println("\nEquipping the shield, you feel better defended. Defense raised by " + inv.getShieldValue() + ".");
         }
     }//End of equipShield
 
@@ -309,22 +309,22 @@ public class Player {
 
         //Squire
         if(user.getRank().equals("Squire")){
-            System.out.println("\nYou have become a Squire. You have shown great dedication and knowledge to the Church, and have been given the honor of serving the Church's conquerers.");
+            System.out.println("\nYou have become a Squire. You have shown great dedication and knowledge to the Church, and have been given the \nhonor of serving the Church's conquerers.");
         }
 
         //Knight
         if(user.getRank().equals("Knight")){
-            System.out.println("\nYou have become a Knight. You have shown your servitute to the Church of Eryndros, and have been given the privilge of serving as one of the Church's conquerers.");
+            System.out.println("\nYou have become a Knight. You have shown your servitute to the Church of Eryndros, and have been given the \nprivilge of serving as one of the Church's conquerers.");
         }
 
         //Paladin
         if(user.getRank().equals("Paladin")){
-            System.out.println("\nYou have become a Paladin. You have proven your skill in combat, and have been given command over a small squadron of Knights and Squires.");
+            System.out.println("\nYou have become a Paladin. You have proven your skill in combat, and have been given command over a small \nsquadron of Knights and Squires.");
         }
 
         //General
         if(user.getRank().equals("General")){
-            System.out.println("\nYou have become a General. You have been proven competent with your leadership capabilities, and have been given command over a battalion of Paladins and Knights.");
+            System.out.println("\nYou have become a General. You have been proven competent with your leadership capabilities, and have been \ngiven command over a battalion of Paladins and Knights.");
         }
 
         //Holy Knight
