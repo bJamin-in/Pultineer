@@ -5,6 +5,7 @@ import java.util.*;
 import playerInfo.*;
 import Funcs.*;
 
+@SuppressWarnings("unused")
 public class Town {
     // Variables
     private String message;

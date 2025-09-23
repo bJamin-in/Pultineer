@@ -323,7 +323,7 @@ public class App {
                 // & Testing
                 // ? Rank up Testing
                 if (playerInput.toLowerCase().equals("xoc")) {
-                    int rankNum = 2;
+                    int rankNum = 3;
                     if (rankNum >= 2) {
                         user.setBoardUnlocked(true);
                     }
@@ -332,7 +332,7 @@ public class App {
                 }
                 // ? Shop Testing
                 else if (playerInput.toLowerCase().equals("midas")) {
-                    user.setGold(100);
+                    user.setGold(user.getGold() + 100);
                     System.out.println("Cheat activate. You now have " + user.getGold() + " gold");
                 }
                 // ? Attack Buff
@@ -344,6 +344,11 @@ public class App {
                 else if (playerInput.toLowerCase().equals("hercules")) {
                     user.setAgility(1000);
                     System.out.println("Cheat activate. You now have " + user.getAgility() + " agility");
+                }
+                // ? Defense Buff
+                else if(playerInput.toLowerCase().equals("tank")) {
+                    user.setDefense(100);
+                    System.out.println("Cheat active. You now have " + user.getDefense() + " defense");
                 }
                 // ? Quest accepting
                 else if (playerInput.toLowerCase().equals("quest")) {
@@ -362,6 +367,19 @@ public class App {
                 else if (playerInput.toLowerCase().equals("wiseman")) {
                     user.setXp(311);
                     Battle.levelUp(user, playerInput, keys);
+                }
+                else if(playerInput.toLowerCase().equals("ultimate")){
+                    user.setDefense(100);
+                    user.setAgility(100);
+                    user.setAttack(100);
+                    int rankNum = 3;
+                    if (rankNum >= 2) {
+                        user.setBoardUnlocked(true);
+                    }
+                    Functions.rankUp(rankNum, user);
+                    System.out.println("Cheat activate. You are now a " + user.getRank());
+                    
+                    System.out.println("Cheat Active. You are now an ultimate being.");
                 }
 
                 // #endregion
@@ -794,6 +812,31 @@ public class App {
 
             //DistractionFight
             while(user.getPlayerX() == 0 && user.getPlayerY() == -3){
+                Distraction dFight = new Distraction();
+                System.out.println(dFight.getMessage());
+
+                System.out.println("\nSir Branric: \"We're too close to the Demon Beast! Three of you, split off and deal with those gecklins!\n");
+
+                //Team
+                Npc thanlin = new Npc(rnd.nextInt(5) + 25, rnd.nextInt(10) + 5, 8, 4, "Thanlin");
+                Npc ordeka = new Npc(rnd.nextInt(10) + 20, rnd.nextInt(5) + 10, 8, 4, "Ordeka");
+
+                Npc[] team = {thanlin, ordeka};
+
+                Enemy gecklin1 = new Enemy(45, 20, 12, 7, 25, 10, "Gecklin");
+                Enemy gecklin2 = new Enemy(45, 20, 12, 7, 25, 10, "Gecklin");
+                Enemy gecklin3 = new Enemy(45, 20, 12, 7, 25, 10, "Gecklin");
+
+                Enemy[] enemies = {gecklin1, gecklin2, gecklin3};
+
+                battleState = true;
+                gameState = Battle.teamBattle(playerInput, battleState, gameState, enemies, user, team, keys, rnd, 3, 2, "soldier");
+
+                if(user.getHealth() <= 0){
+                    System.out.println("Game Over.");
+                    System.exit(0);
+                }
+                break;
 
             }//End of distractionFight
             // #endregion South

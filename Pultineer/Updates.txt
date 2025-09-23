@@ -1,14 +1,13 @@
-Latest update: 0.1.12
+Latest update: 0.1.13
 TO DO'S:
 
 {
 Integrate rankups in combative conflicts
-    Badlands travel
     Badlands boss fight
     Work on the Trials location
 }
 
-Create third location in the south
+Continuing work on the team battle
 
 Latest Changes:
 
@@ -16,7 +15,7 @@ Implemeted second location going south
 
 Minor Changes:
     Bug Fixes:
-        None
+        Team battle infini-loop
 
 Known Bugs:
     None
