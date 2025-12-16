@@ -1,21 +1,19 @@
-Latest update: 0.1.13
+Latest update: 0.1.14
 TO DO'S:
 
-{
-Integrate rankups in combative conflicts
-    Badlands boss fight
-    Work on the Trials location
-}
+Badlands boss fight ending narritive
 
-Continuing work on the team battle
+Squire -> Knight rankup at the church
 
 Latest Changes:
 
-Implemeted second location going south
+Badlands boss fight
 
 Minor Changes:
+
+    Proper dialog at shops
     Bug Fixes:
-        Team battle infini-loop
+        N/A
 
 Known Bugs:
     None

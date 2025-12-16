@@ -286,7 +286,9 @@ public class App {
 
                 if (firstRun == false) {
                     if (user.isHasHeatCloak() == false && user.getRank().toLowerCase().contains("squire")) {
-                        Functions.delayText("As you take the usual path back to Krynn, you see a knight in the center of the village. as you approach, he ~\nbegins to speak to you.\n", 25);
+                        Functions.delayText(
+                                "\nAs you take the usual path back to Krynn, you see a gathering of knights in the center of the village. as you ~\napproach, one of them begins to speak to you.\n",
+                                25);
 
                         Functions.delayText(
                                 "\nKnight: \"Ah! So you must be my new squire, glad to have you! The name is Sir Branric Hollow.\"\n",
@@ -301,13 +303,17 @@ public class App {
                                 25);
                         user.setHasHeatCloak(true);
                     }
-                    System.out.println("\nYou are in the village of Krynn. You are able to go in these directions:" + 
-                    "\nTravel North, to the nearby town of Pultineer, a bustling town where trade is heavy." + "\n\nTravel East, to the Dark Forest, where monsters roam and mysterious people wander." + "\n\nTravel South, to the Badlands, with it's intense heat, it is not for the feint of heart." + "\n\nOr, travel West, to the Heralds Hills, where those who have been deemed worthy by the Church of Pultineer can \nprove themvselves in this challenge.\n");
+                    System.out.println("\nYou are in the village of Krynn. You are able to go in these directions:" +
+                            "\nTravel North, to the nearby town of Pultineer, a bustling town where trade is heavy."
+                            + "\n\nTravel East, to the Dark Forest, where monsters roam and mysterious people wander."
+                            + "\n\nTravel South, to the Badlands, with it's intense heat, it is not for the feint of heart."
+                            + "\n\nOr, travel West, to the Heralds Hills, where those who have been deemed worthy by the Church of Pultineer can \nprove themvselves in this challenge.\n");
 
                     playerInput = keys.nextLine();
                 }
                 while (firstRun) {
-                    System.out.println("\nYou are in the village of Krynn. You are able to go in these directions:\nTravel North, to the nearby town of Pultineer, a bustling town where trade is heavy."
+                    System.out.println(
+                            "\nYou are in the village of Krynn. You are able to go in these directions:\nTravel North, to the nearby town of Pultineer, a bustling town where trade is heavy."
                                     +
                                     "\n\nTravel East, to the Dark Forest, where monsters roam and mysterious people wander."
                                     +
@@ -346,7 +352,7 @@ public class App {
                     System.out.println("Cheat activate. You now have " + user.getAgility() + " agility");
                 }
                 // ? Defense Buff
-                else if(playerInput.toLowerCase().equals("tank")) {
+                else if (playerInput.toLowerCase().equals("tank")) {
                     user.setDefense(100);
                     System.out.println("Cheat active. You now have " + user.getDefense() + " defense");
                 }
@@ -367,8 +373,7 @@ public class App {
                 else if (playerInput.toLowerCase().equals("wiseman")) {
                     user.setXp(311);
                     Battle.levelUp(user, playerInput, keys);
-                }
-                else if(playerInput.toLowerCase().equals("ultimate")){
+                } else if (playerInput.toLowerCase().equals("ultimate")) {
                     user.setDefense(100);
                     user.setAgility(100);
                     user.setAttack(100);
@@ -378,7 +383,7 @@ public class App {
                     }
                     Functions.rankUp(rankNum, user);
                     System.out.println("Cheat activate. You are now a " + user.getRank());
-                    
+
                     System.out.println("Cheat Active. You are now an ultimate being.");
                 }
 
@@ -426,7 +431,8 @@ public class App {
                 try {
                     String battleSound = "C:\\Users\\benja\\OneDrive\\Documents\\GitHub\\Pultineer\\Pultineer\\src\\Audio\\battleMusic.wav";
 
-                    AudioInputStream battleMusic = AudioSystem.getAudioInputStream(new File(battleSound).getAbsoluteFile());
+                    AudioInputStream battleMusic = AudioSystem
+                            .getAudioInputStream(new File(battleSound).getAbsoluteFile());
 
                     Clip music = AudioSystem.getClip();
 
@@ -434,50 +440,50 @@ public class App {
                     music.loop(Clip.LOOP_CONTINUOUSLY);
                     if (goblinDead == false) {
 
-                    Enemy goblin = new Enemy(5, 2, 0, 2, 5, 2, "Hungry Goblin");
+                        Enemy goblin = new Enemy(5, 2, 0, 2, 5, 2, "Hungry Goblin");
 
-                    System.out.println(darkForest.getMessage());
+                        System.out.println(darkForest.getMessage());
 
-                    Functions.delay(2000);
-                    // Battle
-                    battleState = true;
-                    
-                    music.start();
-                    gameState = Battle.battle(playerInput, battleState, gameState, goblin, user, keys, rnd, 10, 3);
-                    music.stop();
-                    
-                    if (gameState == false) {
-                        break;
-                    }
-                    if (goblin.getHealth() <= 0) {
+                        Functions.delay(2000);
+                        // Battle
+                        battleState = true;
+
+                        music.start();
+                        gameState = Battle.battle(playerInput, battleState, gameState, goblin, user, keys, rnd, 10, 3);
                         music.stop();
-                        goblinDead = true;
-                        if (user.getSideQuestAccepted()) {
-                            if (wolfOrGoblinQuest) {
-                                questEnemiesKilled++;
-                                System.out.println("\nYou have killed " + questEnemiesKilled + " goblins. "
-                                        + (10 - questEnemiesKilled) + " left to kill.");
-                                if (questEnemiesKilled == 10) {
-                                    System.out.println(
-                                            "\nYou have completed the quest from the Church. Return to the board in the Church district of town to claim your\nreward. ");
-                                    user.setSideQuestItem(true);
+
+                        if (gameState == false) {
+                            break;
+                        }
+                        if (goblin.getHealth() <= 0) {
+                            music.stop();
+                            goblinDead = true;
+                            if (user.getSideQuestAccepted()) {
+                                if (wolfOrGoblinQuest) {
+                                    questEnemiesKilled++;
+                                    System.out.println("\nYou have killed " + questEnemiesKilled + " goblins. "
+                                            + (10 - questEnemiesKilled) + " left to kill.");
+                                    if (questEnemiesKilled == 10) {
+                                        System.out.println(
+                                                "\nYou have completed the quest from the Church. Return to the board in the Church district of town to claim your\nreward. ");
+                                        user.setSideQuestItem(true);
+                                    }
                                 }
                             }
+                        } else {
+                            music.stop();
+                            System.out.println("\nYou ran away from the goblin. You return to Krymn to rest.");
+                            Functions.movePlayer(-1, 0, user);
+                            break;
                         }
-                    } else {
-                        music.stop();
-                        System.out.println("\nYou ran away from the goblin. You return to Krymn to rest.");
-                        Functions.movePlayer(-1, 0, user);
-                        break;
+
                     }
-                    
-                }
-                music.close();
+                    music.close();
                 } catch (Exception e) {
                 }
 
                 // Create enemy and start battle
-                
+
                 System.out.println(
                         "\nYou defeated the goblin! You can continue going forward through the forest, or go back to the village and \nrest. But the monsters might come back.\n");
                 playerInput = keys.nextLine();
@@ -533,10 +539,10 @@ public class App {
                         break;
                     // Knock at the door
                     case 2:
-                    if(shopReset == 1){
-                        forestCottage.setShop(forestCottage.getOriginalShop());
-                        shopReset = 0;
-                    }
+                        if (shopReset == 1) {
+                            forestCottage.setShop(forestCottage.getOriginalShop());
+                            shopReset = 0;
+                        }
                         forestCottage.knockAtDoor(user);
                         forestCottage.wizardConversation(user);
                         break;
@@ -662,7 +668,7 @@ public class App {
 
                         System.out.println(
                                 "You turn back towards the cottage, having 5 goblin ears in hand as proof of completion of the quest.");
-                                Functions.movePlayer(-1, 0, user);
+                        Functions.movePlayer(-1, 0, user);
                     } else {
                         System.out.println(
                                 "To save yourself, you ran away from the goblins. Luckily, they don't give chase and you make it back to Gherald's cottage");
@@ -718,128 +724,185 @@ public class App {
             checkGameState(keys, gameState);
 
             // #region South
-            // Badlands
-            // ! While(player is at Badlands)
-            while (user.getPlayerX() == 0 && user.getPlayerY() == -1) {
-                Badlands badlands = new Badlands();
-                badlands.changeMessage(user);
-                System.out.println(badlands.getMessage());
+            // Beginning of Southern Region
+            while (user.getPlayerY() < 0) {
 
-                //Move the player back to town if they don't have the heat cloak
-                if(user.isHasHeatCloak() == false){
-                Functions.movePlayer(0, 1, user);
-                break;
-                }
+                Npc thanlin = new Npc(rnd.nextInt(5) + 35, rnd.nextInt(10) + 25, 8, 4, "Thanlin");
+                Npc ordeka = new Npc(rnd.nextInt(10) + 40, rnd.nextInt(5) + 30, 8, 4, "Ordeka");
 
-                System.out.println("\nSir Branric: \"Ah! Good to have you join us! From here on out, it's just us. We have with us a total of seven \nsoldiers, not quite up to my skill, but they're good people. Follow us through the Badlands and we'll make it \nto this demon beast as fast as lightning!\"\nBranric finishes speaking with a hearty chuckle of laughter and walks towards the rest of the soldiers.");
+                Npc[] team = { thanlin, ordeka };
 
-                System.out.println("\nYou're not quite sure what this \'Demon Beast\' is that Sir Branric is refering to, but if you adventure out \ninto the Badlands, you'll probably find out what he means. \nWill you follow Sir Branric, Or will you go back to the village?(Warning: You will not be able to return!)\n");
+                // Badlands
+                // ! While(player is at Badlands)
+                while (user.getPlayerX() == 0 && user.getPlayerY() == -1) {
+                    Badlands badlands = new Badlands();
+                    badlands.changeMessage(user);
+                    System.out.println(badlands.getMessage());
 
-                playerInput = keys.nextLine();
+                    // Move the player back to town if they don't have the heat cloak
+                    if (user.isHasHeatCloak() == false) {
+                        Functions.movePlayer(0, 1, user);
+                        break;
+                    }
 
-                while(true){
-                if(playerInput.toLowerCase().contains("follow")){
-                    System.out.println("\nYou follow Sir Branric and the soldiers deeper into the Badlands.");
+                    System.out.println(
+                            "\nSir Branric: \"Ah! Good to have you join us! From here on out, it's just us. We have with us a total of seven \nsoldiers, not quite up to my skill, but they're good people. Follow us through the Badlands and we'll make it \nto this demon beast as fast as lightning!\"\nBranric finishes speaking with a hearty chuckle of laughter and walks towards the rest of the soldiers.");
+
+                    System.out.println(
+                            "\nYou're not quite sure what this \'Demon Beast\' is that Sir Branric is refering to, but if you adventure out \ninto the Badlands, you'll probably find out what he means. \nWill you follow Sir Branric, Or will you go back to the village?(Warning: You will not be able to return!)\n");
+
+                    playerInput = keys.nextLine();
+
+                    while (true) {
+                        if (playerInput.toLowerCase().contains("follow") || playerInput.toLowerCase().contains("yes")) {
+                            System.out.println("\nYou follow Sir Branric and the soldiers deeper into the Badlands.");
+                            Functions.movePlayer(0, -1, user);
+                            break;
+                        } else if (playerInput.toLowerCase().contains("back")) {
+                            System.out.println(
+                                    "You follow the road back to the village. Returning to the familiar houses and farms you rest for a bit.");
+                            Functions.movePlayer(0, 1, user);
+                            break;
+                        } else {
+                            System.out.println("\nInavlid input. Please try again.(Follow/Back)");
+                            System.out.println(
+                                    "\nYou're not quite sure what this \'Demon Beast\' is that Sir Branric is refering to, but if you adventure out \ninto the Badlands, you'll probably find out what he means. \nWill you follow Sir Branric, Or will you go back to the village?(Warning: You will not be able to return!)\n");
+                            playerInput = keys.nextLine();
+                        }
+                    }
+
+                    break;
+                } // End of while(player is at Badlands)
+
+                checkGameState(keys, gameState);
+
+                // SandPit
+                while (user.getPlayerX() == 0 && user.getPlayerY() == -2) {
+                    SandPit sandPit = new SandPit();
+                    System.out.println(sandPit.getMessage());
+                    System.out.println(
+                            "\nSoldier: \"Help! Help me! Sir Branric!\"\nYou turn to see a soldier waist deep in quicksand. Knowing that you could possibly get there before Sir \nBranric, do you try to save the soldier, knowing you could possibly get stuck yourself?\n");
+
+                    playerInput = keys.nextLine();
+
+                    while (true) {
+                        // Saves the soldier
+                        if (playerInput.toLowerCase().contains("yes")) {
+                            int agi = user.getAgility();
+
+                            if (agi < 5) {
+                                System.out.println(
+                                        "\nAs you run the the solider, you pull him out before he is devoured by the quicksand. However, as the soldier\nis freed, you fall in yourself! With Sir Branric already on his way to you, you manage to get out faster than\nthe soldier did.(-10 health)");
+                                user.setHealth(user.getHealth() - 10);
+                            }
+
+                            if (agi >= 5) {
+                                System.out.println(
+                                        "\nYou rush towards the soldier and quickly pull him out of the quicksand.");
+                            }
+
+                            savedSoldier = true;
+                            break;
+                        }
+                        // Doesnt save the soldier
+                        else if (playerInput.toLowerCase().contains("no")) {
+
+                            System.out.println(
+                                    "\nJust like all the other soldiers, you standby and watch as Sir Branric sprints over towards the soldier and\npull him out of the quicksand.");
+
+                            savedSoldier = false;
+                            break;
+
+                        }
+                        // Invalid Input
+                        else {
+                            System.out.println("\nInvalid input. Please try again.(Yes/no)");
+                            System.out.println(
+                                    "Do you run to save the soldier from the quicksand, risking being caught in it yourself?\n");
+                            playerInput = keys.nextLine();
+                        }
+
+                    } // End of while(true)
+
+                    System.out.println(
+                            "After the soldier is rescued from the quicksand, the whole group takes a moment to rest. Afterwards everyone continues onward.");
+
                     Functions.movePlayer(0, -1, user);
                     break;
-                }
-                else if(playerInput.toLowerCase().contains("back")){
-                    System.out.println("You follow the road back to the village. Returning to the familiar houses and farms you rest for a bit.");
-                    Functions.movePlayer(0, 1, user);
+
+                } // End of SandPit
+
+                // DistractionFight
+                while (user.getPlayerX() == 0 && user.getPlayerY() == -3) {
+                    Distraction dFight = new Distraction();
+                    System.out.println(dFight.getMessage());
+
+                    System.out.println(
+                            "\nSir Branric: \"We're too close to the Demon Beast! Three of you, split off and deal with those gecklins!\n");
+
+                    Enemy gecklin1 = new Enemy(75, 40, 15, 7, 45, 10, "Gecklin");
+                    Enemy gecklin2 = new Enemy(75, 40, 15, 7, 45, 10, "Gecklin");
+                    Enemy gecklin3 = new Enemy(75, 40, 15, 7, 45, 10, "Gecklin");
+
+                    Enemy[] enemies = { gecklin1, gecklin2, gecklin3 };
+
+                    battleState = true;
+                    gameState = Battle.teamBattle(playerInput, battleState, gameState, enemies, user, team, keys, rnd,
+                            3, 2,
+                            "soldiers");
+
+                    if (user.getHealth() <= 0) {
+                        System.out.println("Game Over.");
+                        System.exit(0);
+                    }
+
+                    System.out.println(
+                            "\nAfter defeating the Gecklins, you rejoin Sir Branric and the rest of the soldiers. Upon catching up, you see a \nlarge fight has broken out between the soldiers, and a gigantic black bull with red eyes. You know instantly \nthat this must be the Demon Beast Sir Branric was talking about.\n");
+                    Functions.movePlayer(0, -1, user);
                     break;
+
+                } // End of distractionFight
+
+                checkGameState(keys, gameState);
+                //Update team to only living members
+                
+                Npc[] newTeam = new Npc[2];
+                if(team[0].getHealth() > 0){
+                    newTeam[0] = team[0];
                 }
                 else{
-                    System.out.println("\nInavlid input. Please try again.(Follow/Back)");
-                    System.out.println("\nYou're not quite sure what this \'Demon Beast\' is that Sir Branric is refering to, but if you adventure out \ninto the Badlands, you'll probably find out what he means. \nWill you follow Sir Branric, Or will you go back to the village?(Warning: You will not be able to return!)\n");
-                    playerInput = keys.nextLine();
+                    newTeam[0] = null;
                 }
-            }
-
-                break;
-            } // End of while(player is at Badlands)
-            
-            checkGameState(keys, gameState);
-
-            // SandPit
-            while(user.getPlayerX() == 0 && user.getPlayerY() == -2){
-                SandPit sandPit = new SandPit();
-                System.out.println(sandPit.getMessage());
-                System.out.println("\nSoldier: \"Help! Help me! Sir Branric!\"\nYou turn to see a soldier waist deep in quicksand. Knowing that you could possibly get there before Sir \nBranric, do you try to save the soldier, knowing you could possibly get stuck yourself?\n");
-
-                playerInput = keys.nextLine();
-
-                while(true){
-                    //Saves the soldier
-                    if(playerInput.toLowerCase().contains("yes")){
-                        int agi = user.getAgility();
-
-                        if(agi < 5){
-                            System.out.println("\nAs you run the the solider, you pull him out before he is devoured by the quicksand. However, as the soldier\nis freed, you fall in yourself! With Sir Branric already on his way to you, you manage to get out faster than\nthe soldier did.(-10 health)");
-                            user.setHealth(user.getHealth() - 10);
-                        }
-
-                        if(agi >= 5){
-                            System.out.println("\nYou rush towards the soldier and quickly pull him out of the quicksand.");
-                        }
-
-                        savedSoldier = true;
-                        break;
-                    }
-                    //Doesnt save the soldier
-                    else if(playerInput.toLowerCase().contains("no")){
-
-                        System.out.println("\nJust like all the other soldiers, you standby and watch as Sir Branric sprints over towards the soldier and\npull him out of the quicksand.");
-
-                        savedSoldier = false;
-                        break;
-
-                    }
-                    //Invalid Input
-                    else{
-                        System.out.println("\nInvalid input. Please try again.(Yes/no)");
-                        System.out.println("Do you run to save the soldier from the quicksand, risking being caught in it yourself?\n");
-                        playerInput = keys.nextLine();
-                    }
-                    
-                }//End of while(true)
-
-                System.out.println("After the soldier is rescued from the quicksand, the whole group takes a moment to rest. Afterwards everyone continues onward.");
-
-                Functions.movePlayer(0, -1, user);
-                break;
-
-            }//End of SandPit
-
-            //DistractionFight
-            while(user.getPlayerX() == 0 && user.getPlayerY() == -3){
-                Distraction dFight = new Distraction();
-                System.out.println(dFight.getMessage());
-
-                System.out.println("\nSir Branric: \"We're too close to the Demon Beast! Three of you, split off and deal with those gecklins!\n");
-
-                //Team
-                Npc thanlin = new Npc(rnd.nextInt(5) + 25, rnd.nextInt(10) + 5, 8, 4, "Thanlin");
-                Npc ordeka = new Npc(rnd.nextInt(10) + 20, rnd.nextInt(5) + 10, 8, 4, "Ordeka");
-
-                Npc[] team = {thanlin, ordeka};
-
-                Enemy gecklin1 = new Enemy(45, 20, 12, 7, 25, 10, "Gecklin");
-                Enemy gecklin2 = new Enemy(45, 20, 12, 7, 25, 10, "Gecklin");
-                Enemy gecklin3 = new Enemy(45, 20, 12, 7, 25, 10, "Gecklin");
-
-                Enemy[] enemies = {gecklin1, gecklin2, gecklin3};
-
-                battleState = true;
-                gameState = Battle.teamBattle(playerInput, battleState, gameState, enemies, user, team, keys, rnd, 3, 2, "soldier");
-
-                if(user.getHealth() <= 0){
-                    System.out.println("Game Over.");
-                    System.exit(0);
+                if(team[1].getHealth() > 0){
+                    newTeam[1] = team[1];
                 }
-                break;
+                else{
+                    newTeam[1] = null;
+                }
+                team = newTeam;
 
-            }//End of distractionFight
-            // #endregion South
+                // Demon Beast Encounter
+                while (user.getPlayerX() == 0 && user.getPlayerY() == -4) {
+                    DBEncounter demonBeastEncounter = new DBEncounter();
+
+                    System.out.println(demonBeastEncounter.getMessage());
+
+                    System.out.println("\nAs you stand closer to the Demon Beast, you notice that it is a lot more damaged than it appears. Seeing deep \ncuts around its hide, and a chunk of its horn missing, you realize that you and your team might have a chance \nat defeating this monster.\n");
+
+                    Enemy demonBeast = new Enemy(150, 50, 40, 30, 100, 30, "Demon Beast");
+
+                    gameState = Battle.bossBattle(playerInput, battleState, gameState, demonBeast, user, team, keys, rnd, team.length, "soldiers");
+
+                    if (gameState == false) {
+                        System.out.println("Game Over!");
+                        System.exit(0);
+                    }
+                    Functions.movePlayer(0, 4, user);
+                }//End of DBE
+
+                checkGameState(keys, gameState);
+            } // End of southern Region
+              // #endregion South
 
             checkGameState(keys, gameState);
 
@@ -1034,7 +1097,7 @@ public class App {
 
                             // Talk
                             case 1:
-                                //^ Disciple -> Squire rank up and quest reward
+                                // ^ Disciple -> Squire rank up and quest reward
                                 if (user.getRank().toLowerCase().contains("disciple") && (user.getHasQuestItem())) {
                                     churchDistrict.squireRankup(user);
                                     shopReset = 1;
@@ -1199,6 +1262,7 @@ public class App {
                                     // Reset quests
                                     user.setSideQuestAccepted(false);
                                     user.setSideQuestItem(false);
+                                    questEnemiesKilled = 0;
                                 } else {
                                     System.out.println("\nYou have already chosen a side quest.");
                                     Functions.delay(1000);

@@ -50,17 +50,17 @@ public class ChurchDistrict {
         System.out.println(
                 "\nThe Priest hands you the small paper scroll as he announces to not only you, but the nearby crowd as well:\n\nPriest: \"Due to this man's efforts, the Church of Eryndros is now commiting him to be a Squire! This man will\nrise through the ranks of the Church with the goal of becoming, our next Holy Knight Champion!\"");
         Functions.rankUp(3, user);
-        Functions.delay(13000);
+        Functions.delay(14000);
 
         // Squire Quest
         System.out.println(
                 "\nPriest: \"Now there is one more subject that is now pertinent for you to know, if you'll follow me inside.\"\n\nYou follow the Priest inside the church, and after a bit of walking you reach the Priest's office. The Priest\nwalks into the room and invites you in.");
-        Functions.delay(6500);
+        Functions.delay(7000);
         System.out.println(
                 "\nYou walk into a well decorated office space, with a large mahogany desk cluttered with papers and a few\npictures of who you assume is the Priest's family. You look up to see a wall lined with many different books,\nnone that stand out in particular. And finally, two simple chairs facing the desk.");
         Functions.delay(7500);
         System.out.println(
-                "\nThe Priest walks around and sits at his chair inviting you to sit in one of the chairs facing him. As you sit,\nthe Priest begins to explain.\n\nPriest: \"Because of your recent promotion, you will be tending to one of our knights. Polishing his armor,\nsharpening his sword, whatever he requires you to do, you must do. When you are ready, go South, to the\nBadlands. There will be your first assignment.\"");
+                "\nThe Priest walks around and sits at his chair inviting you to sit in one of the chairs facing him. As you sit,\nthe Priest begins to explain.\n\nPriest: \"Because of your recent promotion, you will be tending to one of our knights. Polishing his armor,\nsharpening his sword, whatever he requires you to do, you must do. When you are ready, go South, to the\nBadlands. There will be your first assignment.\"\n");
         Functions.delay(10000);
         System.out.println(
                 "Priest: \"Since you will be following a knight around, you will find yourself on the field of combat much more often. To\nassist in your survival chances, the Church is willing to help offer you better gear. We have items that might\ninterest you, some aquired from conquests and others from allying with national powers. Feel free to walk into\nthe church and inquire at the shop to the right of the entrance.\n");

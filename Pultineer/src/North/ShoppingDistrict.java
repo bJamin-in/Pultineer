@@ -37,7 +37,7 @@ public class ShoppingDistrict {
             // Leather Armor
             System.out.println(shopGoods[1][0] + " - " + shopGoods[1][1] + " gold - +" + shopGoods[1][2] + " DEF");
             // Exit message
-            System.out.println("\n You have " + user.getGold() + " gold.(EXIT to leave)");
+            System.out.println("\n You have " + user.getGold() + " gold.(EXIT to leave)\n");
         }
     }
 
@@ -153,7 +153,6 @@ public class ShoppingDistrict {
                         System.out.println("\n\nMerchant: Would you like to buy something else?");
                         printGoods(user);
 
-                        System.out.println("\n You have " + user.getGold() + " gold.");
                         playerInput = keys.nextLine();
                     } while (keepShopping);// End of do-while(keepShopping)
                     // End of Merchant sequence
