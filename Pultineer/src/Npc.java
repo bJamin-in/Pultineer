@@ -54,11 +54,21 @@ public void setHealth(int health) {
 
 //Constructors
 
+    //Combative NPC
     public Npc(int health, int attack, int defense, int agility, String name) {
         this.health = health;
         this.attack = attack;
         this.defense = defense;
         this.agility = agility;
+        this.name = name;
+    }
+
+    //Non-Combative NPC
+    public Npc(String name){
+        health = 0;
+        attack = 0;
+        defense = 0;
+        agility = 0;
         this.name = name;
     }
 

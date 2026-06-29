@@ -15,18 +15,23 @@ public class ShoppingDistrict {
             if (shopGoods.length == 2) {
                 // Wooden Sword
                 System.out.println(shopGoods[0][0] + " - " + shopGoods[0][1] + " gold - +" + shopGoods[0][2] + " ATK");
+                Functions.delay(750);
                 // Leather Armor
                 System.out.println(shopGoods[1][0] + " - " + shopGoods[1][1] + " gold - +" + shopGoods[1][2] + " DEF");
+                Functions.delay(750);
                 // Exit message
                 System.out.println("\n You have " + user.getGold() + " gold.(EXIT to leave)");
 
             } else {
                 // Wooden Sword
                 System.out.println(shopGoods[0][0] + " - " + shopGoods[0][1] + " gold - +" + shopGoods[0][2] + " ATK");
+                Functions.delay(750);
                 // Leather Armor
                 System.out.println(shopGoods[1][0] + " - " + shopGoods[1][1] + " gold - +" + shopGoods[1][2] + " DEF");
+                Functions.delay(750);
                 // Health Potion
                 System.out.println(shopGoods[2][0] + " - " + shopGoods[2][1] + " gold - +" + shopGoods[2][2] + " HP");
+                Functions.delay(750);
                 // Exit message
                 System.out.println("\n You have " + user.getGold() + " gold.(EXIT to leave)");
             }

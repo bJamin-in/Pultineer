@@ -230,7 +230,7 @@ public class Player {
         return name + " the " + rank + "\nHealth: " + health + "\nAttack: " + attack + "\nDefense: " + defense + "\nAgility: " + agility + "\nXP: " + xp + "\nLevel: " + level + "\nGold: " + gold;
     }
 
-    //Equipment funcs
+    //#region Equipment funcs
     //Armor
     public void donnArmor(PlayerInventory inv, Player user, String armorName, int armorValue){
         //Fuctionality: Equips armor and applies the defensive buff to the player
@@ -292,7 +292,7 @@ public class Player {
             System.out.println("\nEquipping the shield, you feel better defended. Defense raised by " + inv.getShieldValue() + ".");
         }
     }//End of equipShield
-
+    //#endregion
 
     //Ranks
     public void rankDescription(Player user){

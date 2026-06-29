@@ -55,6 +55,40 @@ public class Functions {
     // #region ArrayMethods
     // ^ getDirections: ARRAY METHODS
 
+    // ~ Five Directions
+    // Move player in one of five different directions: 1 Array
+    public static int get5Directions(String playerInput, String kw1, String kw2, String kw3, String kw4,
+            String[] kws) {
+        // Functionality: Recieve input from the player and send them in a specified
+        // direction
+        // 1
+        if (playerInput.toLowerCase().contains(kw1)) {
+            return 0;
+        }
+        // 2
+        else if (playerInput.toLowerCase().contains(kw2)) {
+            return 1;
+        }
+        // 3
+        else if (playerInput.toLowerCase().contains(kw3)) {
+            return 2;
+        }
+        else if (playerInput.toLowerCase().contains(kw4)) {
+            return 3;
+        }
+
+        for (int x = 0; x < kws.length; x++) {
+            // 4
+            if (playerInput.toLowerCase().contains(kws[x])) {
+                return 3;
+            }
+        }
+        // Invalid input
+        System.out.println("\nInvalid direction. Please try again.");
+        Functions.delay(1500);
+        return 0;
+    }// End of get4Direction
+
     // ~ Four Directions
     // Move player in one of four different directions: 1 array
     public static int get4Direction(String playerInput, String kw1, String kw2, String kw3,
@@ -337,8 +371,8 @@ public class Functions {
     //*     Overloaded function: This specific function has an additional variable that gives the option of how much
     //*     of a delay is wanted
         try {
-            String keyPath = "C:\\Users\\benja\\OneDrive\\Documents\\GitHub\\Pultineer\\Pultineer\\src\\Audio\\keyClick.wav";
-        String talkingPath = "C:\\Users\\benja\\OneDrive\\Documents\\GitHub\\Pultineer\\Pultineer\\src\\Audio\\talkingSound.wav";
+            String keyPath = "..\\Audio\\keyClick.wav";
+        String talkingPath = "..\\Audio\\talkingSound.wav";
 
         AudioInputStream keyClick = AudioSystem.getAudioInputStream(new File(keyPath).getAbsoluteFile());
         AudioInputStream talkingSounds = AudioSystem.getAudioInputStream(new File(talkingPath).getAbsoluteFile());
@@ -418,8 +452,8 @@ public class Functions {
     // Text Sound(No variable speed)
     public static void createSound(String input, int clipNum) {
         try {
-            String keyPath = "C:\\Users\\benja\\OneDrive\\Documents\\GitHub\\Pultineer\\Pultineer\\src\\Audio\\keyClick.wav";
-        String talkingPath = "C:\\Users\\benja\\OneDrive\\Documents\\GitHub\\Pultineer\\Pultineer\\src\\Audio\\talkingSound.wav";
+            String keyPath = "src\\Audio\\keyClick.wav";
+        String talkingPath = "src\\Audio\\talkingSound.wav";
 
         AudioInputStream keyClick = AudioSystem.getAudioInputStream(new File(keyPath).getAbsoluteFile());
         AudioInputStream talkingSounds = AudioSystem.getAudioInputStream(new File(talkingPath).getAbsoluteFile());
@@ -471,6 +505,7 @@ public class Functions {
         narration.close();
         talking.close();
         } catch (Exception e) {
+            System.out.println("Error: " + e);
             System.exit(404);
         }
         

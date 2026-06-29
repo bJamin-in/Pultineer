@@ -1,17 +1,22 @@
-Latest update: 0.1.14
+Latest update: 0.2
 TO DO'S:
 
-Badlands boss fight ending narritive
-
-Squire -> Knight rankup at the church
+Create travel from town to cult town 
 
 Latest Changes:
 
-Badlands boss fight
+Added Non-combative NPC constructor
+Started integration of Cult Town location
+
+Active changes:
+
+    Gherald shop exit text
+    Hole in the wall intro message
+    Church shop design
+    Fixed 5 directional church district input.
 
 Minor Changes:
 
-    Proper dialog at shops
     Bug Fixes:
         N/A
 

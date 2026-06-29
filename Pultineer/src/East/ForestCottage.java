@@ -52,12 +52,16 @@ public class ForestCottage {
         for (int i = 0; i < getShop().length; i++) {
             if (getShop()[i][0].equals("Health Potion")) {
                 System.out.println(shop[i][0] + " - " + shop[i][1] + " gold - +" + shop[i][2] + " HP");
+                Functions.delay(750);
             } else if (getShop()[i][0].equals("Strength Potion")) {
                 System.out.println(shop[i][0] + " - " + shop[i][1] + " gold - +" + shop[i][2] + " STR");
+                Functions.delay(750);
             } else if (getShop()[i][0].equals("Speed Potion")) {
                 System.out.println(shop[i][0] + " - " + shop[i][1] + " gold - +" + shop[i][2] + " AGI");
+                Functions.delay(750);
             } else if (getShop()[i][0].equals("Hardiness Potion")) {
                 System.out.println(shop[i][0] + " - " + shop[i][1] + " gold - +" + shop[i][2] + " DEF");
+                Functions.delay(750);
             }
         } // End of print shop
     }
@@ -67,6 +71,7 @@ public class ForestCottage {
         this.message = "\nAs you walk through the forest, you come upon a small cottage with smoke rising from the roof. Inside you \nhear someone talking. What do you do?(Sneak around, Knock at door, turn back, or continue through the forest)\n";
     }
 
+    //Methods
     public void sneakAround(Player user) {
         // Function: Print out the following lines of code to depict the player sneaking
         // around the side of the cottage
@@ -351,8 +356,9 @@ public class ForestCottage {
                         Functions.delay(3000);
                         System.out.println("\n\nGherald: Would you like to buy something else?\n");
                         printGoods();
+                        System.out.println("\n You have " + user.getGold() + " gold.\n");
                         System.out.println("(EXIT to leave)");
-                        System.out.println("\n You have " + user.getGold() + " gold.");
+                        
                         input = keys.nextLine();
                     } while (repeat); // End of do-while(repeat)
                 } while (keepShopping);// End of do-while(keepShopping)

@@ -774,7 +774,14 @@ public class Battle extends Player {
             Player user, Npc[] team, Scanner keys, Random rnd, int numberOfTeammates,
             String teamType) {
         boolean playerTurn = true, successfulDodge = false;
-        int thanlinBaseAtk = team[0].getAttack(), ordekaBaseAtk = team[1].getAttack();
+        int thanlinBaseAtk = 0, ordekaBaseAtk = 0;
+        //Set team attacks
+        if(team.length > 0) {
+        thanlinBaseAtk = team[0].getAttack();
+        if(team.length > 1){
+        ordekaBaseAtk = team[1].getAttack();
+        }
+        }
         if (enemy.getAgility() > user.getAgility()) {
             playerTurn = false;
         }

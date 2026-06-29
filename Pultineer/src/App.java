@@ -2,16 +2,17 @@
 //Imports
 import java.io.File;
 import java.util.*;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+
 
 //Different locations of the game
 import East.*;
 import North.*;
 import South.*;
 import West.*;
+import paladinRankupQuest.*;
 
 //All player information
 import playerInfo.*;
@@ -23,7 +24,7 @@ import Funcs.*;
  * This is a text based Java game created and developed by Benjamin James
  * This game was started in December of 2023, with the goal
  * of creating a fully working, challenging and fun, text based adventure game.
- * This game was last updated in August 3rd, 2025
+ * This game was last updated in February 2nd, 2026
  * 
  * NOTE:
  * All Pseudocode is written in different colored comments that follows the indications of VSC extension:   
@@ -232,10 +233,9 @@ public class App {
                 noAnswers = { "no", "nevermind", "deny" }, backAnswers = { "back", "return", "reverse", "leave" };
 
         // Battle and game state variables
-        boolean gameState = true, battleState = false, wolfDead = false, goblinDead = false, hordeGoblinsKilled = false,
-                firstRun = true, wolfOrGoblinQuest = false, comingFromTown = false, savedSoldier = true;
+        boolean gameState = true, battleState = false, wolfDead = false, goblinDead = false, hordeGoblinsKilled = false, firstRun = true, wolfOrGoblinQuest = false, comingFromTown = false, savedSoldier = true, deniedRankup = false, throughForest = false;
 
-        int storeCost = 0, questEnemiesKilled = 0, shopReset = 0;
+        int storeCost = 0, questEnemiesKilled = 0, shopReset = 0, townLevel = 0, townDescriptionLevel = 0;
 
         // Class Variables
 
@@ -256,6 +256,7 @@ public class App {
 
         // Introduction
         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start();
+        
         Functions.delay(1000);
         Functions.createSound(
                 "Welcome to Pultineer! The text based adventure game where your goal is to become the Holy Knight Champion of ~\nthe city. As you travel through the lands of Krynn, you will face monsters and meet new people. Each choice~\nyou make will affect your journey. Find your way through Krynn and become the Holy Knight Champion of~\nPultineer!",
@@ -371,7 +372,7 @@ public class App {
                 }
                 // ? LVL 8
                 else if (playerInput.toLowerCase().equals("wiseman")) {
-                    user.setXp(311);
+                    user.setXp(user.getXp() + 1000);
                     Battle.levelUp(user, playerInput, keys);
                 } else if (playerInput.toLowerCase().equals("ultimate")) {
                     user.setDefense(100);
@@ -510,6 +511,8 @@ public class App {
                 System.out.println(forestCottage.getMessage());
                 playerInput = keys.nextLine();
 
+                throughForest = true;
+
                 switch (get4Direction(playerInput, user, "sneak", "knock", backAnswers, contAnswers)) {
 
                     // Sneak around
@@ -580,7 +583,7 @@ public class App {
                 holeInTheWall.setMessages(messages[1], 1);
 
                 // Coming from the forest
-                if (user.getComingFromTown() == false) {
+                if (throughForest == true) {
                     System.out.println(holeInTheWall.getMessage(0));
                     playerInput = keys.nextLine();
                     // Squeeze through hole
@@ -604,7 +607,7 @@ public class App {
 
                 }
                 // Coming from town
-                else if (user.getComingFromTown()) {
+                else if (throughForest == false) {
                     System.out.println(holeInTheWall.getMessage(1));
                     playerInput = keys.nextLine();
 
@@ -864,19 +867,17 @@ public class App {
                 } // End of distractionFight
 
                 checkGameState(keys, gameState);
-                //Update team to only living members
-                
+                // Update team to only living members
+
                 Npc[] newTeam = new Npc[2];
-                if(team[0].getHealth() > 0){
+                if (team[0].getHealth() > 0) {
                     newTeam[0] = team[0];
-                }
-                else{
+                } else {
                     newTeam[0] = null;
                 }
-                if(team[1].getHealth() > 0){
+                if (team[1].getHealth() > 0) {
                     newTeam[1] = team[1];
-                }
-                else{
+                } else {
                     newTeam[1] = null;
                 }
                 team = newTeam;
@@ -887,18 +888,24 @@ public class App {
 
                     System.out.println(demonBeastEncounter.getMessage());
 
-                    System.out.println("\nAs you stand closer to the Demon Beast, you notice that it is a lot more damaged than it appears. Seeing deep \ncuts around its hide, and a chunk of its horn missing, you realize that you and your team might have a chance \nat defeating this monster.\n");
+                    System.out.println(
+                            "\nAs you stand closer to the Demon Beast, you notice that it is a lot more damaged than it appears. Seeing deep \ncuts around its hide, and a chunk of its horn missing, you realize that you and your team might have a chance \nat defeating this monster.\n");
 
                     Enemy demonBeast = new Enemy(150, 50, 40, 30, 100, 30, "Demon Beast");
 
-                    gameState = Battle.bossBattle(playerInput, battleState, gameState, demonBeast, user, team, keys, rnd, team.length, "soldiers");
+                    gameState = Battle.bossBattle(playerInput, battleState, gameState, demonBeast, user, team, keys,
+                            rnd, team.length, "soldiers");
 
                     if (gameState == false) {
                         System.out.println("Game Over!");
                         System.exit(0);
                     }
+                    System.out.println(
+                            "As you continue to strike at the Demon Beast finally, it drops to th4e ground with a thunderous \nslam. Your breaths are heavy with the heat stinging in your lungs. You look around at the carnage \nleft behind in it's wake. The soldiers who had fought alongside you lay motionless on the ground. Those who \nsurvived look at you in awe, as your muscles struggle to keep you upright. Soon after some much needed \nmoments of rest, you and the surviving soldiers bundle up those who have fallen, and make your way back \nto Pultineer");
+                    user.setHasQuestItem(true);
+
                     Functions.movePlayer(0, 4, user);
-                }//End of DBE
+                } // End of DBE
 
                 checkGameState(keys, gameState);
             } // End of southern Region
@@ -907,8 +914,8 @@ public class App {
             checkGameState(keys, gameState);
 
             // #region North
-            // Town
-            // ! While(player is at Town)
+            // Town entrance
+            // ! While(player is at Town entrance)
             while (user.getPlayerX() == 0 && user.getPlayerY() == 1) {
                 // Create Town object
                 Town town = new Town();
@@ -931,6 +938,18 @@ public class App {
             // ! While(player is at Shopping District)
             while (user.getPlayerX() == 0 && user.getPlayerY() == 2) {
 
+                throughForest = false;
+
+                if (townDescriptionLevel == 0 && townLevel == 1) {
+                    System.out.println(
+                            "As you walk through the shopping district, you see that there seems to be more merchants about than usual, then you notice that the people are more crowded as well. It seems as though the town is growing with the increased commerce from your adventuring.");
+                    townDescriptionLevel = 1;
+                } else if (townDescriptionLevel == 1 && townLevel == 2) {
+                    System.out.println(
+                            "Making your way through the shopping district, you notice a shop that wasn't there before. The shop seems to be bustling with customers, and the shopkeeper looks busy attending to them. It seems as though the town is continuing to grow with the increased commerce and is starting to become it's own stable economy.");
+                    townDescriptionLevel = 2;
+                }
+
                 shoppingDistrict.merchantConversation(playerInput, keys, user, inventory);
 
                 // Kicks player back to village
@@ -950,6 +969,49 @@ public class App {
             // ! While(player is at Church District)
             while (user.getPlayerX() == 0 && user.getPlayerY() == 3) {
                 ChurchDistrict churchDistrict = new ChurchDistrict();
+
+                // Post Demon Beast address
+                if (user.getRank().equals("Squire") && user.getHasQuestItem() == true && deniedRankup == false) {
+
+                    System.out.println(
+                            "As you and the surviving soldiers solemnly march into the town,carrying those who have fallen in the fight, \nthe group stops at the front of the church. As you look around to the citizens gathered around, you see the \nheavy looks on their faces as you realize, these aren't just soldiers you are carrying home, not heroes, or \nsaviors. You helped carry home friends, people with dreams, families, and loved ones; and your heart hangs \nheavy with each of the lives you have carried. This is not why you joined the church of Eryndos. He is a god \nof craftsmanship, not war. He is a god of engineering, not destruction. Then out of the corner of your eye, \nyou see the soldier who carried Sir Branric. As he sets Sir Branric's body down, the priest approches him. \nAs they silently trade words, you see the soldier point in your direction. The priest taps the soldiers \nshoulder and walks to the center of the courtyard. As he addresses the crowd, you listen intently.");
+                    Functions.delay(8000);
+                    System.out.println(
+                            "\nPriest: \"Today we achieved a great victory, at a devastating cost. Today, we lost many soldiers; Many \nbright lights snuffed out as a flame in the wind. Friends, loved ones, sons and daughters, husbands and \nwives. Today, we celebrate the death of the Demon Beast of the Badlands, and we mourn the loss of those \nclosest to us. In the coming hours we will be tested, these next days will be insufferable, and they will \nbe agonizing. Mourning the loss of a single loved one is hard, and we must bear the loss of several. We must \ncome together as a community, help lift those who have fallen down, and support our neighbors, our friends, \nand appreciate those we still have.\"");
+                    Functions.delay(6000);
+
+                    // Rank up to knight monologue
+                    System.out.println(
+                            "\nAs the priest finishes his speach and the crowd starts to disperse, you hear that the priest has summoned you to his office. As you solemnly walk through the halls of the church, you approach the priest's office. You knock on the door as the priest calls you in.\n");
+
+                    System.out.println("\nPriest: \"Ah, " + user.getName()
+                            + ", please come in. I wanted to personally thank you for your efforts in slaying the Demon Beast. \nYour bravery and skill are a testament to your devotion to Eryndos. Now because of the devastating losses that the church has suffered, We would like to offer you a position as a Knight in the ranks of our holy conquerers.\"\n");
+
+                    System.out.println("Do you accept the position as a Knight of Eryndos?(Yes/No): \n");
+
+                    playerInput = keys.nextLine();
+
+                    switch (Functions.yesOrNo(playerInput)) {
+                        // Yes
+                        case 0:
+                            System.out.println(
+                                    "\nPriest: \"Excellent! Now I understand that of recent, we have been sending you on quests the second that you take on some responsibilities. When you are ready for your next mission, come see me here in the church.\"\n");
+                            user.setHasQuestItem(false);
+                            user.setQuestAccepted(false);
+                            
+                            Functions.rankUp(4, user);
+                            break;
+
+                        case 1:
+                            System.out.println(
+                                    "\nPriest: \"I see. Well, if you change your mind, my door is always open to you.\"\n");
+                            deniedRankup = true;
+                        default:
+                            break;
+                    }
+
+                    break;
+                } // End of post DB address
                 churchDistrict.changeMessage(user);
                 System.out.println("\n" + churchDistrict.getMessage());
 
@@ -989,7 +1051,7 @@ public class App {
                                         // No
                                         case 1:
                                             System.out.println(
-                                                    "\nPriest: \"I understand. You have your own path to follow.\"");
+                                                    "\nPriest: \"I understand. You have your own path to follow.Please return if you ever change your mind.\"");
                                             break;
                                         // Invalid
                                         default:
@@ -1066,6 +1128,7 @@ public class App {
                                 Functions.delay(1500);
                                 returnQuestItems(user);
                                 Functions.rankUp(2, user);
+                                townLevel++;
                                 // Code to reset the Gherald's shop
                                 // shopReset = 1;
                             }
@@ -1100,6 +1163,7 @@ public class App {
                                 // ^ Disciple -> Squire rank up and quest reward
                                 if (user.getRank().toLowerCase().contains("disciple") && (user.getHasQuestItem())) {
                                     churchDistrict.squireRankup(user);
+                                    user.setHasQuestItem(false);
                                     shopReset = 1;
                                 } // End of if(userRank equals disciple && user has quest item)
                                 else {
@@ -1163,7 +1227,7 @@ public class App {
                     }
                     // ! If player isn't Disciple
                     else if (!user.getRank().equals("Disciple")) {
-                        switch (Functions.get5directions(playerInput, "pray", "talk", "board", "shop", "leave")) {
+                        switch (Functions.get5Directions(playerInput, "pray", "talk", "board", "shop", backAnswers)) {
                             // Invalid
                             case 0:
                                 System.out.println("Invalid answer, try again. (pray/talk/board/church/leave)");
@@ -1296,13 +1360,7 @@ public class App {
                 Functions.delay(2500);
                 exit: while (true) {
                     System.out.println("Armorer: \"Ah what can I do ye for?\"\n");
-                    playerInput = keys.nextLine();
 
-                    switch (Functions.get3Direction(playerInput, "shop", "talk", backAnswers)) {
-                        // Shop Sequence
-                        case 1:
-                            System.out.println(
-                                    "\nArmorer: \"Ah! So yer interested in the Church's undesireables! Well, lemme show ya our stock.");
                             do {
                                 cs.printGoods(user);
                                 System.out.println("");
@@ -1368,22 +1426,6 @@ public class App {
                                 System.out.println("\nArmorer: \"Would ye like to buy somethin else?\"\n");
                             } while (true);
                             break;
-
-                        // Talk
-                        case 2:
-                            System.out.println("Armorer: \"Sorry lad, too busy to talk right now.\n");
-                            break;
-
-                        // Back
-                        case 3:
-                            System.out.println("Armorer: \"Thanks fer comin in! See yeh again!\n");
-                            Functions.movePlayer(-1, 0, user);
-                            break exit;
-
-                        // Invalid Input
-                        case 4:
-                            System.out.println("Armorer: \"Hwat was that ye said?\"(Talk/Shop/Back)\n");
-                    }// End of switch(playerInput)
                 }
             } // End of Church Shop
 
@@ -1433,6 +1475,13 @@ public class App {
               // #endregion West
 
             checkGameState(keys, gameState);
+
+            // #region PaladinRankup
+                if(user.getPlayerX() == 1000 && user.getPlayerY() == 1000){
+                    CultTown CT = new CultTown();
+                    System.out.println(CT.getMessage());
+                }
+            //endregion
 
         } // End of while(gameState)
 

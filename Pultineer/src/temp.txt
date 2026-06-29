@@ -1,0 +1,15 @@
+Ideas for level update
+Town upgrades
+As you level up the town slowly improves with size and scale proportionate to the player
+Rank ups take time, the map evolves with the player, new locations are found
+
+Knight -> Paladin:
+    Cult assignment(Individual religion)
+        Infiltration into the religion, increasing chance to be found the higher you go, easier it is to destroy the Cult
+
+Paladin -> General
+    Overtake a failed "religious" campaign after another general dies
+        Stratigically choose options on how to overtake land
+
+General -> Holy Knight  
+    The Trials
